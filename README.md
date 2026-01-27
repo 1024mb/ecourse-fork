@@ -35,7 +35,8 @@ Get started by running the project locally, simply follow these steps:
 
 1. Clone/download the repo
 
-2. Grab the PocketBase executable for your OS from: https://pocketbase.io/docs/ and drop it at the root of the `pb` folder.
+2. Grab the PocketBase executable for your OS from: https://pocketbase.io/docs/ and drop it at the root of the `pb`
+   folder.
 
 3. Start the PocketBase server
 
@@ -57,7 +58,8 @@ App name, logo, and colors can be customized using the `customize.json` file.
 
 ## Deployment
 
-One neat thing about PocketBase is that it can also serve our static frontend assets. to do that simply follow these steps:
+One neat thing about PocketBase is that it can also serve our static frontend assets. to do that simply follow these
+steps:
 
 1. Add the server URL where your PocketBase instance is hosted to `VITE_PROD_PB_URL` in the `.env` file
 

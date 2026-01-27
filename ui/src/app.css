@@ -3,35 +3,34 @@
 @tailwind utilities;
 
 .base-styles {
-  @apply mx-auto max-w-[2560px] bg-dark font-circular text-sm text-white antialiased;
+    @apply mx-auto max-w-[2560px] bg-dark font-circular text-sm text-white antialiased;
 }
 
 @font-face {
-  font-family: "circular";
-  src:
-    url("/CircularStd-Book.woff2") format("woff2"),
+    font-family: "circular";
+    src: url("/CircularStd-Book.woff2") format("woff2"),
     url("/CircularStd-Book.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-weight: normal;
+    font-style: normal;
 }
 
 :root {
-  --plyr-color-main: theme("colors.main");
-  --plyr-badge-background: theme("colors.dark");
+    --plyr-color-main: theme("colors.main");
+    --plyr-badge-background: theme("colors.dark");
 }
 
 .plyr {
-  border-radius: 8px;
+    border-radius: 8px;
 }
 
 .plyr--video.plyr--stopped .plyr__controls {
-  display: none;
+    display: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .hide-scrollbar {
-  scrollbar-width: none;
+    scrollbar-width: none;
 }

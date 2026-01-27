@@ -1,19 +1,20 @@
 <script>
-  import customize from "../../customize.json";
-  const { name } = customize;
+    import customize from "../../customize.json";
 
-  export let title = name;
-  export let suffix = "";
+    const {name} = customize;
 
-  let documentTitle;
+    export let title = name;
+    export let suffix = "";
 
-  $: if (suffix === "") {
-    documentTitle = title;
-  } else {
-    documentTitle = `${title} - ${suffix}`;
-  }
+    let documentTitle;
+
+    $: if (suffix === "") {
+        documentTitle = title;
+    } else {
+        documentTitle = `${ title } - ${ suffix }`;
+    }
 </script>
 
 <svelte:head>
-  <title>{documentTitle}</title>
+    <title>{documentTitle}</title>
 </svelte:head>
