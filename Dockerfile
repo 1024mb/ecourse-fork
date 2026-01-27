@@ -1,22 +1,23 @@
-FROM node:20.11.1-buster
+FROM node:lts-alpine AS builder
 
-WORKDIR /
+WORKDIR /app
 
-ARG ECOURSE_REPO=https://github.com/Ilyas-Codes/eCourse.git
-RUN rm -rf eCourse
-RUN git clone ${ECOURSE_REPO} eCourse
+COPY ui/package*.json ./
+RUN npm ci
 
-ARG PB_VERSION=0.21.3
-ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip /tmp/pb.zip
-RUN unzip /tmp/pb.zip -d /eCourse/pb
-
-WORKDIR /eCourse/ui
-
-RUN sed -i 's/^VITE_PROD_PB_URL=.*/VITE_PROD_PB_URL=http:\/\/192.168.68.51:8090/' .env
-RUN npm install
+COPY ui/ ./
 RUN npm run build
-RUN mv dist/* /eCourse/pb/pb_public
 
-EXPOSE 8090
+ARG PB_VERSION=latest
 
-CMD ["/eCourse/pb/pocketbase", "serve", "--http=0.0.0.0:8090"] 
+FROM ghcr.io/1024mb/pocketbase:${PB_VERSION}
+
+WORKDIR /app
+
+COPY --from=builder /app/dist/ /app/pb_public/
+COPY pb/pb_hooks /app/
+COPY pb/pb_migrations /app/pb_migrations_app
+
+COPY --chmod=755 entrypoint.sh /usr/local/bin/entrypoint-wrapper.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint-wrapper.sh"]
