@@ -1,3 +1,5 @@
+ARG PB_VERSION=latest
+
 FROM node:lts-alpine AS builder
 
 WORKDIR /app
@@ -7,8 +9,6 @@ RUN npm ci
 
 COPY ui/ ./
 RUN npm run build
-
-ARG PB_VERSION=latest
 
 FROM ghcr.io/1024mb/pocketbase:${PB_VERSION}
 
