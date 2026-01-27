@@ -350,13 +350,13 @@
                   crossorigin
                   playsinline
                   id="lessonVideo"
-                  data-poster={pb.files.getUrl(lesson, lesson.thumbnail)}
+                  data-poster={pb.files.getURL(lesson, lesson.thumbnail)}
                 >
-                  <source src={pb.files.getUrl(lesson, lesson.video)} />
+                  <source src={pb.files.getURL(lesson, lesson.video)} />
                   <track
                     kind="captions"
                     label="English captions"
-                    src={pb.files.getUrl(lesson, lesson.captions)}
+                    src={pb.files.getURL(lesson, lesson.captions)}
                     srclang="en"
                     default
                   />
@@ -369,13 +369,13 @@
                    crossorigin
                    playsinline
                    id="lessonVideo"
-                   data-poster={pb.files.getUrl(lesson, lesson.thumbnail)}
+                   data-poster={pb.files.getURL(lesson, lesson.thumbnail)}
                  >
                    <source src={`${window.location.origin}${lesson.videoLocal}`} />
                    <track
                      kind="captions"
                      label="English captions"
-                     src={pb.files.getUrl(lesson, lesson.captions)}
+                     src={pb.files.getURL(lesson, lesson.captions)}
                      srclang="en"
                      default
                    />
@@ -522,7 +522,7 @@
                   </h2>
                   {#each lesson.downloads as download}
                     <a
-                      href={pb.files.getUrl(lesson, download)}
+                      href={pb.files.getURL(lesson, download)}
                       download
                       class="block w-full rounded-md bg-white/10 p-2 outline outline-[1.5px] outline-white/20 transition hover:bg-white/20"
                     >

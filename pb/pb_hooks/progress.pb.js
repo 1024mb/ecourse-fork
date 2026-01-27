@@ -1,16 +1,17 @@
 // create progress records for every assignee added when a course record is created
-onRecordAfterCreateRequest((e) => {
+onRecordCreateRequest((e) => {
+  e.next()
   const record = e.record;
-  const progressCollection = $app.dao().findCollectionByNameOrId("progress");
-  const usersCollection = $app.dao().findCollectionByNameOrId("users");
+  const progressCollection = $app.findCollectionByNameOrId("progress");
+  const usersCollection = $app.findCollectionByNameOrId("users");
   const assign_to_everyone = record.getBool("assign_to_everyone");
   let assignees = record.getStringSlice("assignees");
 
   if (assign_to_everyone) {
-    const allUsers = $app.dao().findRecordsByExpr(usersCollection.name);
+    const allUsers = $app.findAllRecords(usersCollection.name);
     assignees = allUsers.map((user) => user.id);
     record.set("assignees", assignees);
-    $app.dao().saveRecord(record);
+    $app.save(record);
   }
 
   assignees.forEach((assignee) => {
@@ -19,25 +20,26 @@ onRecordAfterCreateRequest((e) => {
       assignee: assignee,
       status: "Not Started",
     });
-    $app.dao().saveRecord(progressRecord);
+    $app.save(progressRecord);
   });
 }, "courses");
 
 // create/delete progress records for every assignee added/removed when a course record is updated
-onRecordAfterUpdateRequest((e) => {
+onRecordUpdateRequest((e) => {
+  e.next()
   const updatedRecord = e.record;
-  const originalRecord = updatedRecord.originalCopy();
+  const originalRecord = updatedRecord.original();
   const originalAssignees = originalRecord.getStringSlice("assignees");
   let updatedAssignees = updatedRecord.getStringSlice("assignees");
-  const progressCollection = $app.dao().findCollectionByNameOrId("progress");
-  const usersCollection = $app.dao().findCollectionByNameOrId("users");
+  const progressCollection = $app.findCollectionByNameOrId("progress");
+  const usersCollection = $app.findCollectionByNameOrId("users");
   const assign_to_everyone = updatedRecord.getBool("assign_to_everyone");
 
   if (assign_to_everyone) {
-    const allUsers = $app.dao().findRecordsByExpr(usersCollection.name);
+    const allUsers = $app.findAllRecords(usersCollection.name);
     updatedAssignees = allUsers.map((user) => user.id);
     updatedRecord.set("assignees", updatedAssignees);
-    $app.dao().saveRecord(updatedRecord);
+    $app.save(updatedRecord);
   }
 
   const newAssignees = updatedAssignees.filter(
@@ -54,31 +56,31 @@ onRecordAfterUpdateRequest((e) => {
       status: "Not Started",
     });
 
-    $app.dao().saveRecord(progressRecord);
+    $app.save(progressRecord);
   });
 
   removedAssignees.forEach((assignee) => {
     const progressRecords = $app
-      .dao()
-      .findRecordsByExpr(
+      .findAllRecords(
         progressCollection.name,
         $dbx.hashExp({ assignee: `${assignee}`, course: `${updatedRecord.id}` })
       );
 
     progressRecords.forEach((progressRecord) => {
-      $app.dao().deleteRecord(progressRecord);
+      $app.delete(progressRecord);
     });
   });
 }, "courses");
 
 // remove assignees from course records when their corresponding progress records are deleted
-onRecordAfterDeleteRequest((e) => {
+onRecordDeleteRequest((e) => {
+  e.next()
   const deletedProgressRecord = e.record;
   const courseId = deletedProgressRecord.getString("course");
 
   if (courseId) {
-    $app.dao().runInTransaction((txDao) => {
-      const courseRecord = txDao.findRecordById("courses", courseId);
+      $app.runInTransaction((txApp) => {
+      const courseRecord = txApp.findRecordById("courses", courseId);
 
       if (courseRecord) {
         const assignees = courseRecord.getStringSlice("assignees");
@@ -88,16 +90,17 @@ onRecordAfterDeleteRequest((e) => {
         );
 
         courseRecord.set("assignees", updatedAssignees);
-        txDao.saveRecord(courseRecord);
+        txApp.save(courseRecord);
       }
     });
   }
 }, "progress");
 
 // reset the course and assignee fields to their original values when they get updated
-onRecordAfterUpdateRequest((e) => {
+onRecordUpdateRequest((e) => {
+  e.next()
   const updatedRecord = e.record;
-  const originalRecord = updatedRecord.originalCopy();
+  const originalRecord = updatedRecord.original();
 
   if (
     updatedRecord.getString("course") !== originalRecord.getString("course") ||
@@ -106,18 +109,19 @@ onRecordAfterUpdateRequest((e) => {
     updatedRecord.set("course", originalRecord.getString("course"));
     updatedRecord.set("assignee", originalRecord.getString("assignee"));
 
-    $app.dao().saveRecord(updatedRecord);
+    $app.save(updatedRecord);
   }
 }, "progress");
 
 // add assignee to the corresponding course record when a progress record is created
-onRecordAfterCreateRequest((e) => {
+onRecordCreateRequest((e) => {
+  e.next()
   const progressRecord = e.record;
   const assignee = progressRecord.getString("assignee");
   const courseId = progressRecord.getString("course");
 
   if (courseId) {
-    const courseRecord = $app.dao().findRecordById("courses", courseId);
+    const courseRecord = $app.findRecordById("courses", courseId);
 
     if (courseRecord) {
       const assignees = courseRecord.getStringSlice("assignees");
@@ -125,21 +129,21 @@ onRecordAfterCreateRequest((e) => {
         assignees.push(assignee);
 
         courseRecord.set("assignees", assignees);
-        $app.dao().saveRecord(courseRecord);
+        $app.save(courseRecord);
       }
     }
   }
 }, "progress");
 
 // add new users to courses that are assigned to everyone and create progress records for them
-onRecordAfterCreateRequest((e) => {
+onRecordCreateRequest((e) => {
+  e.next()
   const newUser = e.record;
-  const progressCollection = $app.dao().findCollectionByNameOrId("progress");
-  const coursesCollection = $app.dao().findCollectionByNameOrId("courses");
+  const progressCollection = $app.findCollectionByNameOrId("progress");
+  const coursesCollection = $app.findCollectionByNameOrId("courses");
 
   const assignedToEveryoneCourses = $app
-    .dao()
-    .findRecordsByExpr(
+    .findAllRecords(
       coursesCollection.name,
       $dbx.hashExp({ assign_to_everyone: true })
     );
@@ -149,7 +153,7 @@ onRecordAfterCreateRequest((e) => {
     if (!assignees.includes(newUser.id)) {
       assignees.push(newUser.id);
       course.set("assignees", assignees);
-      $app.dao().saveRecord(course);
+      $app.save(course);
 
       const progressRecord = new Record(progressCollection, {
         course: course.id,
@@ -157,7 +161,7 @@ onRecordAfterCreateRequest((e) => {
         status: "Not Started",
       });
 
-      $app.dao().saveRecord(progressRecord);
+      $app.save(progressRecord);
     }
   });
 }, "users");
