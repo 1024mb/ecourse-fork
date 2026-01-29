@@ -158,23 +158,3 @@ onUnmounted(() => {
         </div>
     </Transition>
 </template>
-
-<style scoped>
-.scale-fade-enter-active,
-.scale-fade-leave-active {
-    transition: transform 250ms ease,
-    opacity 250ms ease;
-}
-
-.scale-fade-enter-from,
-.scale-fade-leave-to {
-    transform: scale(0.98);
-    opacity: 0.001;
-}
-
-.scale-fade-enter-to,
-.scale-fade-leave-from {
-    transform: scale(1);
-    opacity: 1;
-}
-</style>
