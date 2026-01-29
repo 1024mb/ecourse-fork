@@ -65,6 +65,21 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Parse version from tag
+        id: version
+        if: ${{ github.event_name != 'workflow_dispatch' && startsWith(github.ref, 'refs/tags/') }}
+        run: |
+          RAW="${GITHUB_REF#refs/tags/}"
+          VERSION="${RAW#v}"
+          
+          MAJOR="${VERSION%%.*}"
+          MINOR="${VERSION%.*}"
+          PATCH="$VERSION"
+          
+          echo "major=$MAJOR" >> "$GITHUB_OUTPUT"
+          echo "minor=$MINOR" >> "$GITHUB_OUTPUT"
+          echo "patch=$PATCH" >> "$GITHUB_OUTPUT"
+
       # ---- TAG PUSH ----
       - name: Build and push image
         if: ${{ github.event_name == 'push' }}
@@ -72,16 +87,20 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
           build-args: |
             PB_VERSION=${{ steps.extract_pb_version.outputs.pb_version }}
           tags: |
             ${{ github.repository }}:latest
             ${{ github.repository }}:${{ github.sha }}
-            ${{ github.repository }}:${{ github.ref_name }}
+            ${{ github.repository }}:${{ steps.version.outputs.major }}
+            ${{ github.repository }}:${{ steps.version.outputs.minor }}
+            ${{ github.repository }}:${{ steps.version.outputs.patch }}
             ghcr.io/${{ github.repository }}:latest
             ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.major }}
+            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.minor }}
+            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.patch }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
