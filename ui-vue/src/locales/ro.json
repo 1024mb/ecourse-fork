@@ -1,0 +1,53 @@
+{
+  "COURSES": "CURSURI",
+  "RESOURCES": "RESURSE",
+  "button": {
+    "alreadyLoggedIn": "Deja conectat?",
+    "login": "Conectare",
+    "myCourses": "Cursurile mele"
+  },
+  "completeCourse": "Finalizează cursul",
+  "completed": "Completat",
+  "continueCourse": "Continuă cursul",
+  "courseAssigned": "Curs asignat ție",
+  "courseAssignedCheck": "Cursurile asignate ție vor fi afișate aici, verifică această pagină din când în când pentru a te asigura că nu pierzi niciun curs.",
+  "courseCompleted": "Curs finalizat",
+  "coursesAssigned": "Cursuri asignate ție",
+  "downloads": "Descărcări",
+  "errorMsg": {
+    "login": {
+      "loginFailed": "Conectare eșuată. Verifică-ți credențialele și încearcă din nou"
+    }
+  },
+  "findLesson": "Găsește lecție...",
+  "form": {
+    "fields": {
+      "password": "Parolă",
+      "passwordNotValid": "Parola trebuie să aibă cel puțin 8 caractere",
+      "username": "Nume de utilizator / email",
+      "usernameNotValid": "Numele de utilizator trebuie să aibă cel puțin 3 caractere și nu poate conține spații"
+    }
+  },
+  "inProgress": "În curs",
+  "lessonInThisCourse": "Lecție în acest curs",
+  "lessonsInThisCourse": "Lecții în acest curs",
+  "msg": {
+    "loggingIn": "Conectare în curs...",
+    "login": {
+      "pleaseLogin": "Conectează-te la contul tău",
+      "welcomeTo": "Bine ai venit la"
+    },
+    "noLessonsFound": "Nicio lecție găsită"
+  },
+  "nextLesson": "Următoarea lecție",
+  "noCourseAssigned": "Niciun curs nu ți-a fost asignat!",
+  "notStarted": "Neînceput",
+  "openCourse": "Deschide cursul",
+  "previousLesson": "Lecția anterioară",
+  "resetProgress": "Resetează progresul",
+  "resources": "Resurse",
+  "search": "Caută",
+  "startCourse": "Începe cursul",
+  "summary": "Rezumat",
+  "view": "Vezi"
+}

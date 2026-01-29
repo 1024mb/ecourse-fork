@@ -1,0 +1,36 @@
+{
+  "appName": "eCourse",
+  "button": {
+    "alreadyLoggedIn": "¿Ya iniciaste sesión?",
+    "login": "Iniciar sesión",
+    "myCourses": "Mis cursos",
+    "view": "Ver"
+  },
+  "copyright": "Derechos reservados ©",
+  "errorMsg": {
+    "failedToUpdateCourseStatus": "Error al actualizar el estado del curso. Por favor, inténtalo otra vez.",
+    "loadDataFailed": "Error al cargar los datos. Por favor, inténtalo otra vez.",
+    "login": {
+      "loginFailed": "Falló iniciar sesión. Por favor, revisa tus credenciales y vuelve a intentarlo."
+    }
+  },
+  "form": {
+    "fields": {
+      "password": "Contraseña",
+      "passwordNotValid": "La contraseña debe ser mayor o igual a 8 carácteres.",
+      "username": "Nombre de usuario / correo",
+      "usernameNotValid": "El nombre de usuario debe ser mayor o igual a 3 caracteres y no puede contener espacios"
+    }
+  },
+  "msg": {
+    "lessonsFiltered": "clases | clase | clases",
+    "loggingIn": "Iniciando sesión...",
+    "login": {
+      "pleaseLogin": "Por favor, inicia sesión con tu cuenta",
+      "welcomeTo": "Bienvenido a"
+    }
+  },
+  "pageTitle": {
+    "login": "Iniciar sesión"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "COURSES": "COURSES",
+  "RESOURCES": "RESOURCES",
+  "appName": "eCourse",
+  "button": {
+    "alreadyLoggedIn": "Logged in already?",
+    "login": "Login",
+    "myCourses": "My Courses",
+    "view": "View"
+  },
+  "completeCourse": "Complete Course",
+  "completed": "Completed",
+  "continueCourse": "Continue Course",
+  "copyright": "Copyright ©",
+  "courseAssigned": "Course assigned to you",
+  "courseAssignedCheck": "Courses assigned to you will show up here, please check on this page from time to time to ensure you never miss a course.",
+  "courseCompleted": "Course Completed",
+  "coursesAssigned": "Course assigned to you",
+  "downloads": "Downloads",
+  "errorMsg": {
+    "failedToUpdateCourseStatus": "Failed to update course status. Please try again.",
+    "loadDataFailed": "Failed to load data. Please try again.",
+    "login": {
+      "loginFailed": "Login failed. Please check your credentials and try again."
+    }
+  },
+  "findLesson": "Find Lesson...",
+  "form": {
+    "fields": {
+      "password": "Password",
+      "passwordNotValid": "Password must be 8+ characters",
+      "username": "Username / email",
+      "usernameNotValid": "Username must be 3+ characters and cannot contain spaces"
+    }
+  },
+  "inProgress": "In Progress",
+  "lessonInThisCourse": "Lesson in this Course",
+  "lessonsInThisCourse": "Lessons in this Course",
+  "msg": {
+    "lessonsFiltered": "lessons | lesson | lessons",
+    "loggingIn": "Logging in...",
+    "login": {
+      "pleaseLogin": "Please login to your account",
+      "welcomeTo": "Welcome to"
+    },
+    "noLessonsFound": "No Lesson found"
+  },
+  "nextLesson": "Next Lesson",
+  "noCourseAssigned": "No courses assigned to you!",
+  "notStarted": "Not Started",
+  "openCourse": "Open Course",
+  "pageTitle": {
+    "login": "Login"
+  },
+  "previousLesson": "Previous Lesson",
+  "resetProgress": "Reset Progress",
+  "resources": "Resources",
+  "search": "Search",
+  "startCourse": "Start Course",
+  "summary": "Summary",
+  "view": "View"
+}

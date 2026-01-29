@@ -1,0 +1,198 @@
+<script lang="ts" setup>
+import { pb } from "@/lib/pocketbase";
+import { Icon } from "@iconify/vue";
+import customize from "_/customize.json" with { type: "json" };
+import { useRouter } from "vue-router";
+
+const { t } = useI18n();
+
+const title = computed(() => {
+    return `${ t("pageTitle.login") } - ${ t("appName") }`;
+});
+
+useHead({
+    title: title,
+});
+
+const customizedData = customize;
+const logo = customizedData.logo ?? "/logo.svg";
+const name = computed(() => {
+    return customizedData.name ?? t("appName");
+});
+
+const isMounted = ref(false);
+const username = ref("");
+const password = ref("");
+
+const isLoading = ref(false);
+
+const router = useRouter();
+
+const isUsernameValid = computed(() => {
+    return username.value.length >= 3 && !/\s/.test(username.value);
+});
+const isPasswordValid = computed(() => {
+    return password.value.length >= 8;
+});
+
+const isFormSubmitted = ref(false);
+const loginError = ref(false);
+
+function getClassForInputField(booleanToCheck: boolean): string {
+    if (!booleanToCheck && isFormSubmitted.value) {
+        return "rounded-md bg-red-400/5 p-2 text-red-400 outline outline-[1.5px] outline-red-400/10 transition-all placeholder:text-red-400/50 focus:outline-red-400/20";
+    } else {
+        return "rounded-md bg-white/5 p-2 outline outline-[1.5px] outline-white/10 transition-all placeholder:text-white/50 focus:outline-white/20";
+    }
+}
+
+const usernameInputClass = computed(() => {
+    return getClassForInputField(isUsernameValid.value);
+});
+
+const passwordInputClass = computed(() => {
+    return getClassForInputField(isPasswordValid.value);
+});
+
+const loginButtonClass = computed(() => {
+    if (isLoading.value) {
+        return "pointer-events-none flex items-center justify-center gap-2 rounded-md bg-main p-2 opacity-50";
+    } else {
+        return "flex items-center justify-center gap-2 rounded-md bg-main p-2 transition hover:bg-main/80";
+    }
+});
+
+onMounted(() => {
+    isMounted.value = true;
+});
+
+async function login() {
+    isFormSubmitted.value = true;
+
+    if (isUsernameValid && isPasswordValid) {
+        isLoading.value = true;
+        try {
+            await pb.collection("users").authWithPassword(username.value, password.value);
+            return router.push("/");
+        } catch (err) {
+            console.log(err);
+            loginError.value = true;
+        } finally {
+            isLoading.value = false;
+        }
+    }
+}
+</script>
+
+<template>
+    <div class="flex h-dvh flex-col items-center justify-between px-5 py-10">
+        <img
+            :alt="name"
+            :src="logo"
+            aria-hidden="true"
+            class="
+                max-w-[60vw] cursor-pointer transition
+                hover:opacity-80
+            "
+            @click="() => router.push('/')"
+        >
+
+        <Transition name="scale-up">
+            <div
+                v-if="isMounted"
+                class="
+                    flex w-full flex-col items-center gap-5 text-center
+                    sm:w-full
+                "
+            >
+                <div class="w-full space-y-1">
+                    <h2 class="text-xl text-balance">
+                        {{ t("msg.login.welcomeTo") }} {{ name }}
+                    </h2>
+                    <h3 class="text-base text-balance text-white/50">
+                        {{ t("msg.login.pleaseLogin") }}
+                    </h3>
+                </div>
+
+                <Transition name="slide-in">
+                    <h3
+                        v-if="loginError"
+                        class="text-balance text-red-400"
+                    >
+                        {{ t("errorMsg.login.loginFailed") }}
+                    </h3>
+                </Transition>
+
+                <form
+                    class="flex min-w-[15vw] flex-col gap-4 text-center"
+                    @submit.prevent="login"
+                >
+                    <input
+                        v-model="username"
+                        :class="usernameInputClass"
+                        :placeholder="$t('form.fields.username')"
+                        type="text"
+                    >
+
+                    <Transition name="slide-in">
+                        <h3
+                            v-if="!isUsernameValid && isFormSubmitted"
+                            class="text-balance text-red-400"
+                        >
+                            {{ t("form.fields.usernameNotValid") }}
+                        </h3>
+                    </Transition>
+
+                    <input
+                        v-model="password"
+                        :class="passwordInputClass"
+                        :placeholder="$t('form.fields.password')"
+                        type="password"
+                    >
+
+                    <Transition name="slide-in">
+                        <h3
+                            v-if="!isPasswordValid && isFormSubmitted"
+                            class="text-balance text-red-400"
+                        >
+                            {{ t("form.fields.passwordNotValid") }}
+                        </h3>
+                    </Transition>
+
+                    <button
+                        :class="loginButtonClass"
+                        type="submit"
+                    >
+                        <template v-if="isLoading">
+                            {{ t("msg.loggingIn") }}
+                            <Icon
+                                class="shrink-0 animate-spin text-base"
+                                icon="fluent:spinner-ios-16-regular"
+                            />
+                        </template>
+                        <template v-else>
+                            {{ t("button.login") }}
+                            <Icon class="shrink-0 text-base" icon="ph:arrow-right" />
+                        </template>
+                    </button>
+                </form>
+
+                <button>
+                    {{ t("button.alreadyLoggedIn") }}
+                    <span
+                        class="
+                            text-white underline transition
+                            hover:text-white/80
+                        "
+                    >
+                        {{ t("button.myCourses") }}
+                    </span>
+                </button>
+            </div>
+        </Transition>
+
+        <p class="text-center text-balance text-white/50">
+            {{ t("copyright") }} {{ new Date().getFullYear() }} - {{ name }}
+        </p>
+    </div>
+</template>

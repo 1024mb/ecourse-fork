@@ -1,0 +1,32 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "./typed-router.d.ts",
+    "auto-imports.d.ts"
+  ],
+  "exclude": [
+    "src/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "_/*": [
+        "./*"
+      ]
+    },
+    "moduleResolution": "Bundler",
+    "plugins": [
+      {
+        "name": "@dxup/unimport"
+      }
+    ]
+  }
+}

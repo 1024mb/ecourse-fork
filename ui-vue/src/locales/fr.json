@@ -1,0 +1,53 @@
+{
+  "COURSES": "COURS",
+  "RESOURCES": "RESOURCES",
+  "button": {
+    "alreadyLoggedIn": "Déjà connecté ?",
+    "login": "Connexion",
+    "myCourses": "Mes Cours"
+  },
+  "completeCourse": "Terminer le cours",
+  "completed": "Terminé",
+  "continueCourse": "Continuer le cours",
+  "courseAssigned": "Cours assigné",
+  "courseAssignedCheck": "Les cours qui vous sont attribués apparaîtront ici, veuillez consulter cette page de temps en temps pour vous assurer de ne jamais manquer un cours.",
+  "courseCompleted": "Cours Terminé",
+  "coursesAssigned": "Cours assignés",
+  "downloads": "Téléchargements",
+  "errorMsg": {
+    "login": {
+      "loginFailed": "Échec de la connexion. Veuillez vérifier vos identifiants et réessayer."
+    }
+  },
+  "findLesson": "Chercher une leçon...",
+  "form": {
+    "fields": {
+      "password": "Mot de passe",
+      "passwordNotValid": "Le mot de passe doit contenir au moins 8 caractères",
+      "username": "Nom d'utilisateur / email",
+      "usernameNotValid": "Votre nom d'utilisateur doit contenir plus de 3 caractères et aucun espace"
+    }
+  },
+  "inProgress": "En cours",
+  "lessonInThisCourse": "Leçon dans ce cours",
+  "lessonsInThisCourse": "Leçons dans ce cours",
+  "msg": {
+    "loggingIn": "Connexion en cours...",
+    "login": {
+      "pleaseLogin": "Veuillez vous connecter à votre compte",
+      "welcomeTo": "Bienvenue à"
+    },
+    "noLessonsFound": "Pas de leçon trouvé"
+  },
+  "nextLesson": "Leçon suivante",
+  "noCourseAssigned": "Aucun cours ne vous a été attribué !",
+  "notStarted": "Non commencé",
+  "openCourse": "Cours commencé",
+  "previousLesson": "Leçon précédente",
+  "resetProgress": "Réinitialiser l'avancement",
+  "resources": "Ressources",
+  "search": "Chercher",
+  "startCourse": "Commencer le cours",
+  "summary": "Résumé",
+  "view": "Voir"
+}
