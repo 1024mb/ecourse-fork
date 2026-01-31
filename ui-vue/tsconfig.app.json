@@ -6,7 +6,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "./typed-router.d.ts",
+    "src/route-map.d.ts",
     "auto-imports.d.ts"
   ],
   "exclude": [

@@ -1,11 +1,11 @@
 import vue from "@vitejs/plugin-vue";
 import { fileURLToPath, URL } from "node:url";
 import AutoImport from "unplugin-auto-import/vite";
-import { VueRouterAutoImports } from "unplugin-vue-router";
-import VueRouter from "unplugin-vue-router/vite";
 
 import { defineConfig } from "vite";
 import vueDevTools from "vite-plugin-vue-devtools";
+import { VueRouterAutoImports } from "vue-router/unplugin";
+import VueRouter from "vue-router/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -48,7 +48,7 @@ export default defineConfig({
             },
         }),
         VueRouter({
-            /* options */
+            dts: "src/route-map.d.ts",
         }),
         vue(),
         vueDevTools(),

@@ -14,6 +14,7 @@ declare global {
     const customRef: typeof import("vue").customRef;
     const defineAsyncComponent: typeof import("vue").defineAsyncComponent;
     const defineComponent: typeof import("vue").defineComponent;
+    const definePage: typeof import("vue-router/experimental").definePage;
     const defineStore: typeof import("pinia").defineStore;
     const detectLocale: typeof import("./src/lib/locale").detectLocale;
     const effectScope: typeof import("vue").effectScope;
@@ -83,12 +84,15 @@ declare global {
     const useCoursesStore: typeof import("./src/stores/useCoursesStore").useCoursesStore;
     const useCssModule: typeof import("vue").useCssModule;
     const useCssVars: typeof import("vue").useCssVars;
+    const useCustomSettingsStore: typeof import("./src/stores/useCustomSettingsStore").useCustomSettingsStore;
+    const useCustomizeJson: typeof import("./src/lib/useCustomizeJson").default;
     const useFetchRecords: typeof import("./src/lib/useFetchRecords").useFetchRecords;
     const useHead: typeof import("@vueuse/head").useHead;
     const useI18n: typeof import("vue-i18n").useI18n;
     const useId: typeof import("vue").useId;
     const useLessonFaqsStore: typeof import("./src/stores/useLessonFaqsStore").useLessonFaqsStore;
     const useLessonResourcesStore: typeof import("./src/stores/useLessonResourcesStore").useLessonResourcesStore;
+    const useLessonsByCourseStore: typeof import("./src/stores/useLessonsByCourseStore").useLessonsByCourseStore;
     const useLessonsStore: typeof import("./src/stores/useLessonsStore").useLessonsStore;
     const useLocaleStore: typeof import("./src/stores/useLocaleStore").useLocaleStore;
     const useModel: typeof import("vue").useModel;
@@ -167,6 +171,7 @@ declare module "vue" {
         readonly customRef: UnwrapRef<typeof import("vue")["customRef"]>;
         readonly defineAsyncComponent: UnwrapRef<typeof import("vue")["defineAsyncComponent"]>;
         readonly defineComponent: UnwrapRef<typeof import("vue")["defineComponent"]>;
+        readonly definePage: UnwrapRef<typeof import("vue-router/experimental")["definePage"]>;
         readonly defineStore: UnwrapRef<typeof import("pinia")["defineStore"]>;
         readonly detectLocale: UnwrapRef<typeof import("./src/lib/locale")["detectLocale"]>;
         readonly effectScope: UnwrapRef<typeof import("vue")["effectScope"]>;
@@ -236,12 +241,15 @@ declare module "vue" {
         readonly useCoursesStore: UnwrapRef<typeof import("./src/stores/useCoursesStore")["useCoursesStore"]>;
         readonly useCssModule: UnwrapRef<typeof import("vue")["useCssModule"]>;
         readonly useCssVars: UnwrapRef<typeof import("vue")["useCssVars"]>;
+        readonly useCustomSettingsStore: UnwrapRef<typeof import("./src/stores/useCustomSettingsStore")["useCustomSettingsStore"]>;
+        readonly useCustomizeJson: UnwrapRef<typeof import("./src/lib/useCustomizeJson")["default"]>;
         readonly useFetchRecords: UnwrapRef<typeof import("./src/lib/useFetchRecords")["useFetchRecords"]>;
         readonly useHead: UnwrapRef<typeof import("@vueuse/head")["useHead"]>;
         readonly useI18n: UnwrapRef<typeof import("vue-i18n")["useI18n"]>;
         readonly useId: UnwrapRef<typeof import("vue")["useId"]>;
         readonly useLessonFaqsStore: UnwrapRef<typeof import("./src/stores/useLessonFaqsStore")["useLessonFaqsStore"]>;
         readonly useLessonResourcesStore: UnwrapRef<typeof import("./src/stores/useLessonResourcesStore")["useLessonResourcesStore"]>;
+        readonly useLessonsByCourseStore: UnwrapRef<typeof import("./src/stores/useLessonsByCourseStore")["useLessonsByCourseStore"]>;
         readonly useLessonsStore: UnwrapRef<typeof import("./src/stores/useLessonsStore")["useLessonsStore"]>;
         readonly useLocaleStore: UnwrapRef<typeof import("./src/stores/useLocaleStore")["useLocaleStore"]>;
         readonly useModel: UnwrapRef<typeof import("vue")["useModel"]>;
