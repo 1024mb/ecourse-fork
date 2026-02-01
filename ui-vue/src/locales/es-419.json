@@ -3,10 +3,10 @@
   "button": {
     "alreadyLoggedIn": "¿Ya iniciaste sesión?",
     "login": "Iniciar sesión",
-    "myCourses": "Mis cursos",
     "view": "Ver"
   },
   "copyright": "Derechos reservados ©",
+  "coursesAssigned": "¡Sin cursos asignados a ti! | {count} curso asignado a ti | {count} cursos asignados a ti",
   "errorMsg": {
     "failedToUpdateCourseStatus": "Error al actualizar el estado del curso. Por favor, inténtalo otra vez.",
     "loadDataFailed": "Error al cargar los datos. Por favor, inténtalo otra vez.",
@@ -30,7 +30,9 @@
       "welcomeTo": "Bienvenido a"
     }
   },
+  "myCourses": "Mis cursos",
   "pageTitle": {
     "login": "Iniciar sesión"
-  }
+  },
+  "search": "Buscar"
 }

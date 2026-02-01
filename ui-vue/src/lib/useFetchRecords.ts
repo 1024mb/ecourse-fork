@@ -1,13 +1,5 @@
 import { getI18n } from "@/i18n";
-import { pb } from "@/lib/pocketbase.ts";
-import { useAlertStore } from "@/stores/useAlertStore";
-import { useCoursesStore } from "@/stores/useCoursesStore.ts";
-import { useLessonFaqsStore } from "@/stores/useLessonFaqsStore.ts";
-import { useLessonResourcesStore } from "@/stores/useLessonResourcesStore.ts";
-import { useLessonsStore } from "@/stores/useLessonsStore.ts";
-import { useProgressStore } from "@/stores/useProgressStore.ts";
-import { useResourcesStore } from "@/stores/useResourcesStore.ts";
-import type { Course, Lesson, LessonFaq, LessonResource, Progress, Resource } from "@/types/collections";
+import { toast } from "vue-sonner";
 
 export async function fetchCourses() {
     return await pb.collection("courses").getFullList<Course>({
@@ -64,6 +56,6 @@ export async function useFetchRecords() {
         useLessonResourcesStore().set(lessonResourcesRecords);
     } catch (error) {
         console.error(error);
-        useAlertStore().showAlert(i18n.global.t("errorMsg.loadDataFailed"), "fail");
+        toast.error(i18n.global.t("errorMsg.loadDataFailed"));
     }
 }

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { pb } from "@/lib/pocketbase";
+import useCustomizeJson from "@/lib/useCustomizeJson";
 import { Icon } from "@iconify/vue";
-import customize from "_/customize.json" with { type: "json" };
 import { useRouter } from "vue-router";
 
 const { t } = useI18n();
@@ -14,8 +14,8 @@ useHead({
     title: title,
 });
 
-const customizedData = customize;
-const logo = customizedData.logo ?? "/logo.svg";
+const customizedData = useCustomizeJson();
+const logo = customizedData.logo;
 const name = computed(() => {
     return customizedData.name ?? t("appName");
 });
@@ -185,7 +185,7 @@ async function login() {
                             hover:text-white/80
                         "
                     >
-                        {{ t("button.myCourses") }}
+                        {{ t("myCourses") }}
                     </span>
                 </button>
             </div>

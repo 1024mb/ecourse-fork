@@ -235,7 +235,6 @@ declare module "vue" {
         readonly triggerRef: UnwrapRef<typeof import("vue")["triggerRef"]>;
         readonly unref: UnwrapRef<typeof import("vue")["unref"]>;
         readonly updateProgressStatus: UnwrapRef<typeof import("./src/lib/utils")["updateProgressStatus"]>;
-        readonly useAlertStore: UnwrapRef<typeof import("./src/stores/useAlertStore")["useAlertStore"]>;
         readonly useAttrs: UnwrapRef<typeof import("vue")["useAttrs"]>;
         readonly useAuthStore: UnwrapRef<typeof import("./src/stores/useAuthStore")["useAuthStore"]>;
         readonly useCoursesStore: UnwrapRef<typeof import("./src/stores/useCoursesStore")["useCoursesStore"]>;

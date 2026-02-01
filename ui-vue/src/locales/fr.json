@@ -3,8 +3,7 @@
   "RESOURCES": "RESOURCES",
   "button": {
     "alreadyLoggedIn": "Déjà connecté ?",
-    "login": "Connexion",
-    "myCourses": "Mes Cours"
+    "login": "Connexion"
   },
   "completeCourse": "Terminer le cours",
   "completed": "Terminé",
@@ -12,7 +11,6 @@
   "courseAssigned": "Cours assigné",
   "courseAssignedCheck": "Les cours qui vous sont attribués apparaîtront ici, veuillez consulter cette page de temps en temps pour vous assurer de ne jamais manquer un cours.",
   "courseCompleted": "Cours Terminé",
-  "coursesAssigned": "Cours assignés",
   "downloads": "Téléchargements",
   "errorMsg": {
     "login": {
@@ -39,6 +37,7 @@
     },
     "noLessonsFound": "Pas de leçon trouvé"
   },
+  "myCourses": "Mes Cours",
   "nextLesson": "Leçon suivante",
   "noCourseAssigned": "Aucun cours ne vous a été attribué !",
   "notStarted": "Non commencé",

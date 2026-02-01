@@ -7,8 +7,12 @@
     --font-circular: Circular, sans-serif, serif;
 }
 
-.base-styles {
-    @apply mx-auto max-w-[2560px] bg-dark font-circular text-sm text-white antialiased;
+@utility base-styles {
+    @apply mx-auto max-w-640 bg-dark font-circular text-sm text-white antialiased;
+}
+
+@utility show-center {
+    @apply z-9999 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
 }
 
 @font-face {
@@ -17,6 +21,10 @@
     url("/CircularStd-Book.woff") format("woff");
     font-weight: normal;
     font-style: normal;
+}
+
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
 }
 
 :root {
@@ -110,4 +118,14 @@
 .scale-fade-leave-from {
     transform: scale(1);
     opacity: 1;
+}
+
+.slide-x-enter-active,
+.slide-x-leave-active {
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.slide-x-enter-from,
+.slide-x-leave-to {
+    width: 0;
 }

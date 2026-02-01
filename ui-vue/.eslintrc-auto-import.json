@@ -104,7 +104,6 @@
     "triggerRef": true,
     "unref": true,
     "updateProgressStatus": true,
-    "useAlertStore": true,
     "useAttrs": true,
     "useAuthStore": true,
     "useCoursesStore": true,

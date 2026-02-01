@@ -7,6 +7,7 @@ import { createPinia } from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 import "plyr/dist/plyr.css";
 import { createApp } from "vue";
+import "vue-sonner/style.css";
 
 const i18n = await setupI18n();
 
