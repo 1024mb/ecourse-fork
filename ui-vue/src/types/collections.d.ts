@@ -1,7 +1,6 @@
 import type { RecordModel } from "pocketbase";
 
 interface BaseDetails extends RecordModel {
-    id: string;
     created: string;
     updated: string;
 }
