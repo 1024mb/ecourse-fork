@@ -75,7 +75,7 @@ onUnmounted(() => {
                         group hidden cursor-pointer items-center justify-center rounded-full bg-transparent p-2
                         transition
                         hover:bg-white/10
-                        lg:flex
+                        max-lg:flex
                     "
                     @click="() => (uiStore.isSidebarVisible = !uiStore.isSidebarVisible)"
                 >
@@ -93,14 +93,14 @@ onUnmounted(() => {
                 v-if="uiStore.isLoading"
                 class="
                     hidden w-full max-w-56 animate-pulse rounded-full bg-white/10 p-1
-                    sm:block
+                    max-sm:block
                 "
             />
             <h2
                 v-else-if="coursesStore.courses.length > 0"
                 class="
                     hidden items-center gap-2 rounded-md bg-white/5 px-3 py-2 text-white/50
-                    sm:flex
+                    max-sm:flex
                 "
             >
                 <Icon
@@ -132,25 +132,25 @@ onUnmounted(() => {
                     <div
                         class="
                             w-1/3 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-1/2 lg:max-w-28
+                            max-lg:w-1/2 max-lg:max-w-28
                         "
                     />
                     <div
                         class="
                             w-1/2 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-full lg:max-w-44
+                            max-lg:w-full max-lg:max-w-44
                         "
                     />
                     <div
                         class="
                             w-1/3 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-1/2 lg:max-w-28
+                            max-lg:w-1/2 max-lg:max-w-28
                         "
                     />
                     <div
                         class="
                             w-1/2 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-full lg:max-w-44
+                            max-lg:w-full max-lg:max-w-44
                         "
                     />
                 </div>
@@ -158,7 +158,7 @@ onUnmounted(() => {
                     v-else-if="isCoursesVisible && coursesStore.courses.length > 0"
                     class="
                         flex flex-col gap-2
-                        lg:hidden
+                        max-lg:hidden
                     "
                 >
                     <h3
@@ -174,8 +174,8 @@ onUnmounted(() => {
                         <button
                             aria-hidden="true"
                             class="
-                                line-clamp-1 w-full truncate rounded-md bg-transparent p-2 text-start text-white/50
-                                transition
+                                line-clamp-1 w-full cursor-pointer truncate rounded-md bg-transparent p-2 text-start
+                                text-white/50 transition
                                 hover:bg-white/10 hover:text-white
                             "
                             @click="() => scrollToCourse(course.id)"
@@ -192,19 +192,19 @@ onUnmounted(() => {
                     <div
                         class="
                             w-1/3 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-1/2 lg:max-w-28
+                            max-lg:w-1/2 max-lg:max-w-28
                         "
                     />
                     <div
                         class="
                             w-1/2 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-full lg:max-w-44
+                            max-lg:w-full max-lg:max-w-44
                         "
                     />
                     <div
                         class="
                             w-1/3 animate-pulse rounded-full bg-white/10 p-1
-                            lg:w-1/2 lg:max-w-28
+                            max-lg:w-1/2 max-lg:max-w-28
                         "
                     />
                     <div
@@ -248,13 +248,13 @@ onUnmounted(() => {
                     <div
                         class="
                             w-1/2 animate-pulse rounded-full bg-white/10 p-1
-                            lg:max-w-28
+                            max-lg:max-w-28
                         "
                     />
                     <div
                         class="
                             w-full animate-pulse rounded-full bg-white/10 p-1
-                            lg:max-w-44
+                            max-lg:max-w-44
                         "
                     />
                 </div>
@@ -280,8 +280,8 @@ onUnmounted(() => {
                 </div>
                 <button
                     class="
-                        flex items-center justify-center rounded-md bg-transparent p-2 text-red-400 outline
-                        outline-red-400/20 transition
+                        flex cursor-pointer items-center justify-center rounded-md bg-transparent p-2 text-red-400
+                        outline outline-red-400/20 transition
                         hover:bg-red-400/20
                     "
                     @click="logout"

@@ -54,14 +54,6 @@ const passwordInputClass = computed(() => {
     return getClassForInputField(isPasswordValid.value);
 });
 
-const loginButtonClass = computed(() => {
-    if (isLoading.value) {
-        return "pointer-events-none flex items-center justify-center gap-2 rounded-md bg-main p-2 opacity-50";
-    } else {
-        return "flex items-center justify-center gap-2 rounded-md bg-main p-2 transition hover:bg-main/80";
-    }
-});
-
 onMounted(() => {
     isMounted.value = true;
 });
@@ -160,7 +152,13 @@ async function login() {
                     </Transition>
 
                     <button
-                        :class="loginButtonClass"
+                        :class="isLoading ? `
+                            pointer-events-none flex cursor-pointer items-center justify-center gap-2 rounded-md bg-main
+                            p-2 opacity-50
+                        ` : `
+                            flex cursor-pointer items-center justify-center gap-2 rounded-md bg-main p-2 transition
+                            hover:bg-main/80
+                        `"
                         type="submit"
                     >
                         <template v-if="isLoading">
@@ -181,7 +179,7 @@ async function login() {
                     {{ t("button.alreadyLoggedIn") }}
                     <span
                         class="
-                            text-white underline transition
+                            cursor-pointer text-white underline transition
                             hover:text-white/80
                         "
                     >

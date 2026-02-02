@@ -592,7 +592,7 @@ onUnmounted(() => {
                         v-if="lesson.downloads.length > 0"
                         class="
                             flex-1 space-y-4
-                            md:w-full
+                            max-md:w-full
                         "
                     >
                         <h2 class="flex items-center gap-2 text-base">
