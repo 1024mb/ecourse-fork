@@ -124,7 +124,7 @@ onUnmounted(() => {
                             transition
                             hover:bg-white/5
                         "
-                        @click="$router.push(`/${lesson.title.toLowerCase()}}`)"
+                        @click="$router.push(`/courses/${course.id}/lessons/${lesson.id}`)"
                     >
                         <div class="space-y-1">
                             <h3 class="line-clamp-1 text-start">
