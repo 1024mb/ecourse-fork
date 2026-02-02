@@ -20,8 +20,6 @@ const loading = ref<Record<string, boolean>>({});
 const openCourseId = ref<string>("");
 const enableReactivity = ref(true);
 
-console.log("Loading Course...");
-
 if (authStore.currentUser == null) {
     console.log("User not found");
     useRouter().push("/login");
