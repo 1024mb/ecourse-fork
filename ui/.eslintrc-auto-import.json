@@ -94,6 +94,7 @@
     "readonly": true,
     "ref": true,
     "resolveComponent": true,
+    "sanitizeHTML": true,
     "scrollToCourse": true,
     "setActivePinia": true,
     "setMapStoreSuffix": true,

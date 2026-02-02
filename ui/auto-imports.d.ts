@@ -68,6 +68,7 @@ declare global {
     const readonly: typeof import("vue").readonly;
     const ref: typeof import("vue").ref;
     const resolveComponent: typeof import("vue").resolveComponent;
+    const sanitizeHTML: typeof import("./src/lib/utils").sanitizeHTML;
     const scrollToCourse: typeof import("./src/lib/utils").scrollToCourse;
     const setActivePinia: typeof import("pinia").setActivePinia;
     const setMapStoreSuffix: typeof import("pinia").setMapStoreSuffix;
@@ -230,6 +231,7 @@ declare module "vue" {
         readonly readonly: UnwrapRef<typeof import("vue")["readonly"]>;
         readonly ref: UnwrapRef<typeof import("vue")["ref"]>;
         readonly resolveComponent: UnwrapRef<typeof import("vue")["resolveComponent"]>;
+        readonly sanitizeHTML: UnwrapRef<typeof import("./src/lib/utils")["sanitizeHTML"]>;
         readonly scrollToCourse: UnwrapRef<typeof import("./src/lib/utils")["scrollToCourse"]>;
         readonly setActivePinia: UnwrapRef<typeof import("pinia")["setActivePinia"]>;
         readonly setMapStoreSuffix: UnwrapRef<typeof import("pinia")["setMapStoreSuffix"]>;

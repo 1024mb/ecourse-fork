@@ -8,11 +8,11 @@
 // Make sure to add this file to your tsconfig.json file as an "includes" or "files" entry.
 
 import type {
-    ParamValue,
-    ParamValueOneOrMore,
-    ParamValueZeroOrMore,
-    ParamValueZeroOrOne,
-    RouteRecordInfo,
+  ParamValue,
+  ParamValueOneOrMore,
+  ParamValueZeroOrMore,
+  ParamValueZeroOrOne,
+  RouteRecordInfo,
 } from "vue-router";
 
 declare module "vue-router" {

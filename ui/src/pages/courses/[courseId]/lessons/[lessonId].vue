@@ -2,6 +2,7 @@
 import NotFound from "@/components/NotFound.vue";
 import SidebarPanel from "@/components/SidebarPanel.vue";
 import useCustomizeJson from "@/lib/useCustomizeJson";
+import { sanitizeHTML } from "@/lib/utils";
 import { useLessonsByCourseStore } from "@/stores/useLessonsByCourseStore";
 import { Icon } from "@iconify/vue";
 import Plyr from "plyr";
@@ -482,7 +483,7 @@ onUnmounted(() => {
                                 prose-ul:list-inside prose-ul:list-disc prose-ul:space-y-2 prose-ul:text-base
                                 prose-img:w-full prose-img:rounded-md
                             "
-                            v-html="lesson.content"
+                            v-html="sanitizeHTML(lesson.content)"
                         />
                     </div>
 

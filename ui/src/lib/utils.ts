@@ -1,4 +1,5 @@
 import { getI18n } from "@/i18n";
+import DOMPurify from "dompurify";
 import slugify from "slugify";
 import { toast } from "vue-sonner";
 
@@ -120,4 +121,10 @@ function findCoursesContainer(element: HTMLElement) {
     }
 
     return null;
+}
+
+export function sanitizeHTML(html: string) {
+    return DOMPurify.sanitize(html, {
+        USE_PROFILES: { html: true },
+    });
 }
