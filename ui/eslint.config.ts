@@ -21,6 +21,9 @@ globalIgnores([
     "**/dist/**",
     "**/dist-ssr/**",
     "**/coverage/**",
+    "auto-imports.d.ts",
+    "typed-router.d.ts",
+    "src/route-map.d.ts",
 ]),
 
 ...pluginVue.configs["flat/recommended"],
