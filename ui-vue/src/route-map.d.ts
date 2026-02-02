@@ -33,6 +33,37 @@ declare module "vue-router/auto-routes" {
         Record<never, never>,
         | never
         >,
+        "/[...param]": RouteRecordInfo<
+        "/[...param]",
+        "/:param(.*)",
+        {
+            param: ParamValue<true>
+        },
+        {
+            param: ParamValue<false>
+        },
+        | never
+        >,
+        "/courses/": RouteRecordInfo<
+        "/courses/",
+        "/courses",
+        Record<never, never>,
+        Record<never, never>,
+        | never
+        >,
+        "/courses/[courseId]/lessons/[lessonId]": RouteRecordInfo<
+        "/courses/[courseId]/lessons/[lessonId]",
+        "/courses/:courseId/lessons/:lessonId",
+        {
+            courseId: ParamValue<true>,
+            lessonId: ParamValue<true>
+        },
+        {
+            courseId: ParamValue<false>,
+            lessonId: ParamValue<false>
+        },
+        | never
+        >,
         "/login/": RouteRecordInfo<
         "/login/",
         "/login",
@@ -56,6 +87,24 @@ declare module "vue-router/auto-routes" {
         "src/pages/index.vue": {
             routes:
             | "/"
+            views:
+            | never
+        };
+        "src/pages/[...param].vue": {
+            routes:
+            | "/[...param]"
+            views:
+            | never
+        };
+        "src/pages/courses/index.vue": {
+            routes:
+            | "/courses/"
+            views:
+            | never
+        };
+        "src/pages/courses/[courseId]/lessons/[lessonId].vue": {
+            routes:
+            | "/courses/[courseId]/lessons/[lessonId]"
             views:
             | never
         };

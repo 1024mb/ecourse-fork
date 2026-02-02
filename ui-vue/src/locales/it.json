@@ -1,6 +1,4 @@
 {
-  "COURSES": "CORSI",
-  "RESOURCES": "RISORSE",
   "button": {
     "alreadyLoggedIn": "Già loggato?",
     "login": "Accedi"
@@ -8,9 +6,9 @@
   "completeCourse": "Completa corso",
   "completed": "Completato",
   "continueCourse": "Continua corso",
-  "courseAssigned": "Corso assegnato a te",
   "courseAssignedCheck": "I corsi assegnati a te verranno visualizzati qui, controlla questa pagina di tanto in tanto per assicurarti di non perdere mai un corso.",
   "courseCompleted": "Corso completato",
+  "courses": "Corsi",
   "downloads": "Download",
   "errorMsg": {
     "login": {
@@ -27,8 +25,6 @@
     }
   },
   "inProgress": "In corso",
-  "lessonInThisCourse": "Lezione in questo corso",
-  "lessonsInThisCourse": "Lezioni in questo corso",
   "msg": {
     "loggingIn": "Accesso in corso...",
     "login": {

@@ -1,6 +1,4 @@
 {
-  "COURSES": "CURSURI",
-  "RESOURCES": "RESURSE",
   "button": {
     "alreadyLoggedIn": "Deja conectat?",
     "login": "Conectare"
@@ -8,9 +6,9 @@
   "completeCourse": "Finalizează cursul",
   "completed": "Completat",
   "continueCourse": "Continuă cursul",
-  "courseAssigned": "Curs asignat ție",
   "courseAssignedCheck": "Cursurile asignate ție vor fi afișate aici, verifică această pagină din când în când pentru a te asigura că nu pierzi niciun curs.",
   "courseCompleted": "Curs finalizat",
+  "courses": "Cursuri",
   "downloads": "Descărcări",
   "errorMsg": {
     "login": {
@@ -27,8 +25,6 @@
     }
   },
   "inProgress": "În curs",
-  "lessonInThisCourse": "Lecție în acest curs",
-  "lessonsInThisCourse": "Lecții în acest curs",
   "msg": {
     "loggingIn": "Conectare în curs...",
     "login": {

@@ -7,4 +7,5 @@ export const useAuthStore = defineStore("auth", {
         // @ts-expect-error original type is missing the actual user fields
         currentUser: pb.authStore.record,
     }),
+    persist: true,
 });

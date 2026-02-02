@@ -8,6 +8,7 @@ export {};
 declare global {
     const EffectScope: typeof import("vue").EffectScope;
     const acceptHMRUpdate: typeof import("pinia").acceptHMRUpdate;
+    const cleanFileName: typeof import("./src/lib/utils").cleanFileName;
     const computed: typeof import("vue").computed;
     const createApp: typeof import("vue").createApp;
     const createPinia: typeof import("pinia").createPinia;
@@ -28,8 +29,11 @@ declare global {
     const getCurrentInstance: typeof import("vue").getCurrentInstance;
     const getCurrentScope: typeof import("vue").getCurrentScope;
     const getCurrentWatcher: typeof import("vue").getCurrentWatcher;
+    const getGoogleDriveFileId: typeof import("./src/lib/utils").getGoogleDriveFileId;
+    const getYouTubeVideoId: typeof import("./src/lib/utils").getYouTubeVideoId;
     const h: typeof import("vue").h;
     const inject: typeof import("vue").inject;
+    const isGoogleDriveUrl: typeof import("./src/lib/utils").isGoogleDriveUrl;
     const isProxy: typeof import("vue").isProxy;
     const isReactive: typeof import("vue").isReactive;
     const isReadonly: typeof import("vue").isReadonly;
@@ -64,12 +68,13 @@ declare global {
     const readonly: typeof import("vue").readonly;
     const ref: typeof import("vue").ref;
     const resolveComponent: typeof import("vue").resolveComponent;
-    const scrollToCourse: typeof import("./src/lib/scroll").scrollToCourse;
+    const scrollToCourse: typeof import("./src/lib/utils").scrollToCourse;
     const setActivePinia: typeof import("pinia").setActivePinia;
     const setMapStoreSuffix: typeof import("pinia").setMapStoreSuffix;
     const shallowReactive: typeof import("vue").shallowReactive;
     const shallowReadonly: typeof import("vue").shallowReadonly;
     const shallowRef: typeof import("vue").shallowRef;
+    const slugifyId: typeof import("./src/lib/utils").slugifyId;
     const storeToRefs: typeof import("pinia").storeToRefs;
     const toRaw: typeof import("vue").toRaw;
     const toRef: typeof import("vue").toRef;
@@ -165,6 +170,7 @@ declare module "vue" {
     interface ComponentCustomProperties {
         readonly EffectScope: UnwrapRef<typeof import("vue")["EffectScope"]>;
         readonly acceptHMRUpdate: UnwrapRef<typeof import("pinia")["acceptHMRUpdate"]>;
+        readonly cleanFileName: UnwrapRef<typeof import("./src/lib/utils")["cleanFileName"]>;
         readonly computed: UnwrapRef<typeof import("vue")["computed"]>;
         readonly createApp: UnwrapRef<typeof import("vue")["createApp"]>;
         readonly createPinia: UnwrapRef<typeof import("pinia")["createPinia"]>;
@@ -185,8 +191,11 @@ declare module "vue" {
         readonly getCurrentInstance: UnwrapRef<typeof import("vue")["getCurrentInstance"]>;
         readonly getCurrentScope: UnwrapRef<typeof import("vue")["getCurrentScope"]>;
         readonly getCurrentWatcher: UnwrapRef<typeof import("vue")["getCurrentWatcher"]>;
+        readonly getGoogleDriveFileId: UnwrapRef<typeof import("./src/lib/utils")["getGoogleDriveFileId"]>;
+        readonly getYouTubeVideoId: UnwrapRef<typeof import("./src/lib/utils")["getYouTubeVideoId"]>;
         readonly h: UnwrapRef<typeof import("vue")["h"]>;
         readonly inject: UnwrapRef<typeof import("vue")["inject"]>;
+        readonly isGoogleDriveUrl: UnwrapRef<typeof import("./src/lib/utils")["isGoogleDriveUrl"]>;
         readonly isProxy: UnwrapRef<typeof import("vue")["isProxy"]>;
         readonly isReactive: UnwrapRef<typeof import("vue")["isReactive"]>;
         readonly isReadonly: UnwrapRef<typeof import("vue")["isReadonly"]>;
@@ -221,12 +230,13 @@ declare module "vue" {
         readonly readonly: UnwrapRef<typeof import("vue")["readonly"]>;
         readonly ref: UnwrapRef<typeof import("vue")["ref"]>;
         readonly resolveComponent: UnwrapRef<typeof import("vue")["resolveComponent"]>;
-        readonly scrollToCourse: UnwrapRef<typeof import("./src/lib/scroll")["scrollToCourse"]>;
+        readonly scrollToCourse: UnwrapRef<typeof import("./src/lib/utils")["scrollToCourse"]>;
         readonly setActivePinia: UnwrapRef<typeof import("pinia")["setActivePinia"]>;
         readonly setMapStoreSuffix: UnwrapRef<typeof import("pinia")["setMapStoreSuffix"]>;
         readonly shallowReactive: UnwrapRef<typeof import("vue")["shallowReactive"]>;
         readonly shallowReadonly: UnwrapRef<typeof import("vue")["shallowReadonly"]>;
         readonly shallowRef: UnwrapRef<typeof import("vue")["shallowRef"]>;
+        readonly slugifyId: UnwrapRef<typeof import("./src/lib/utils")["slugifyId"]>;
         readonly storeToRefs: UnwrapRef<typeof import("pinia")["storeToRefs"]>;
         readonly toRaw: UnwrapRef<typeof import("vue")["toRaw"]>;
         readonly toRef: UnwrapRef<typeof import("vue")["toRef"]>;

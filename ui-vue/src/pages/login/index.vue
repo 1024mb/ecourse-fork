@@ -16,7 +16,7 @@ useHead({
 
 const customizedData = useCustomizeJson();
 const logo = customizedData.logo;
-const name = computed(() => {
+const appName = computed(() => {
     return customizedData.name ?? t("appName");
 });
 
@@ -87,7 +87,7 @@ async function login() {
 <template>
     <div class="flex h-dvh flex-col items-center justify-between px-5 py-10">
         <img
-            :alt="name"
+            :alt="appName"
             :src="logo"
             aria-hidden="true"
             class="
@@ -107,7 +107,7 @@ async function login() {
             >
                 <div class="w-full space-y-1">
                     <h2 class="text-xl text-balance">
-                        {{ t("msg.login.welcomeTo") }} {{ name }}
+                        {{ t("msg.login.welcomeTo") }} {{ appName }}
                     </h2>
                     <h3 class="text-base text-balance text-white/50">
                         {{ t("msg.login.pleaseLogin") }}
@@ -130,7 +130,7 @@ async function login() {
                     <input
                         v-model="username"
                         :class="usernameInputClass"
-                        :placeholder="$t('form.fields.username')"
+                        :placeholder="t('form.fields.username')"
                         type="text"
                     >
 
@@ -146,7 +146,7 @@ async function login() {
                     <input
                         v-model="password"
                         :class="passwordInputClass"
-                        :placeholder="$t('form.fields.password')"
+                        :placeholder="t('form.fields.password')"
                         type="password"
                     >
 
@@ -192,7 +192,12 @@ async function login() {
         </Transition>
 
         <p class="text-center text-balance text-white/50">
-            {{ t("copyright") }} {{ new Date().getFullYear() }} - {{ name }}
+            {{
+                t("copyright", {
+                    fullYear: new Date().getFullYear(),
+                    appName: appName,
+                })
+            }}
         </p>
     </div>
 </template>

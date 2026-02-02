@@ -3,7 +3,6 @@ import SearchModal from "@/components/SearchModal.vue";
 import SidebarPanel from "@/components/SidebarPanel.vue";
 import { updateProgressStatus } from "@/lib/utils";
 import { Icon } from "@iconify/vue";
-import slugify from "slugify";
 import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
@@ -63,14 +62,14 @@ async function goToFirstLessonOfCourse(courseId: string) {
     const currentLesson = lessonsByCourseStore.lessonsByCourse[courseId];
 
     if (currentLesson != null) {
-        return router.push(`/${ slugify(currentLesson.title, { lower: true, strict: true }) }`);
+        return router.push(`/courses/${ courseId }/lessons/${ currentLesson.id }`);
     } else {
         const firstLesson = lessonsStore.lessons.find((lesson) => lesson.course === courseId);
 
         if (firstLesson != null) {
             lessonsByCourseStore.lessonsByCourse[courseId] = firstLesson;
 
-            return router.push(`/${ slugify(firstLesson.title, { lower: true, strict: true }) }`);
+            return router.push(`/courses/${ courseId }/lessons/${ firstLesson.id }`);
         }
     }
 }
@@ -297,13 +296,10 @@ onMounted(async () => {
                                     <h3 class="flex items-center gap-2 text-white/50">
                                         <Icon class="shrink-0 text-lg" icon="ph:book-open" />
                                         {{
-                                            lessonsStore.lessons.filter((lesson) => lesson.course === course.id).length
-                                        }}
-                                        {{
-                                            lessonsStore.lessons.filter((lesson) => lesson.course === course.id)
-                                                .length === 1
-                                                ? t("lessonInThisCourse")
-                                                : t("lessonsInThisCourse")
+                                            t("lessonsInThisCourse", {
+                                                numberOfLessons: lessonsStore.lessons.filter((lesson) => lesson.course ===
+                                                    course.id).length,
+                                            })
                                         }}
                                     </h3>
                                 </div>
@@ -402,7 +398,7 @@ onMounted(async () => {
                                     flex cursor-pointer items-center gap-2 p-2 text-white/50 transition
                                     hover:text-white
                                 "
-                                @click="router.push(`/${slugify(lesson.title, { lower: true, strict: true })}`)"
+                                @click="router.push(`/courses/${course.id}/lessons/${lesson.id}`)"
                             >
                                 <Icon class="shrink-0 text-lg" icon="ph:eye" />
                                 {{ t("view") }}

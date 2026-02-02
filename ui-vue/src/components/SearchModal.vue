@@ -74,7 +74,7 @@ onUnmounted(() => {
                 icon="ph:magnifying-glass"
             />
             <input
-                :placeholder="$t('findLesson')"
+                :placeholder="t('findLesson')"
                 :value="searchTerm"
                 class="
                     flex-1 bg-transparent py-4
@@ -105,7 +105,7 @@ onUnmounted(() => {
                 v-else
                 class="p-2 text-white/50"
             >
-                Showing <span class="text-main">{{ filteredLessons.length }}</span>
+                {{ t("msg.showing") }} <span class="text-main">{{ filteredLessons.length }}</span>
                 {{ t("msg.lessonsFiltered", filteredLessons.length) }}
             </p>
 

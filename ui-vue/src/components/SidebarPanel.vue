@@ -1,6 +1,16 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 
+interface Props {
+    hideCourses?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+    hideCourses: false,
+});
+
+const isCoursesVisible = ref(props.hideCourses);
+
 const customizeData = useCustomizeJson();
 
 const uiStore = useUIStore();
@@ -11,7 +21,6 @@ const authStore = useAuthStore();
 const router = useRouter();
 const { t } = useI18n();
 
-const isCoursesVisible = ref(true);
 const windowWidth = ref(0);
 
 const updateWidth = () => {
@@ -156,7 +165,7 @@ onUnmounted(() => {
                         class="flex items-center gap-2 text-xs tracking-[2px] text-white/50"
                     >
                         <Icon class="shrink-0 text-base" icon="ph:graduation-cap" />
-                        {{ t("COURSES") }}
+                        {{ t("courses").toUpperCase() }}
                     </h3>
                     <div
                         v-for="course in coursesStore.courses"
@@ -211,7 +220,7 @@ onUnmounted(() => {
                     <div class="flex flex-col gap-2">
                         <h3 class="flex items-center gap-2 text-xs tracking-[2px] text-white/50">
                             <Icon class="shrink-0 text-base" icon="ph:link" />
-                            {{ t("RESOURCES") }}
+                            {{ t("resources").toUpperCase() }}
                         </h3>
                         <div
                             v-for="resource in resourcesStore.resources"

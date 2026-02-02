@@ -1,3 +1,4 @@
+import vueI18n from "@intlify/eslint-plugin-vue-i18n";
 import pluginVitest from "@vitest/eslint-plugin";
 import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescript";
 import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
@@ -33,6 +34,36 @@ vueTsConfigs.recommended,
 {
     ...pluginVitest.configs.recommended,
     files: ["src/**/__tests__/*"],
+},
+
+// @ts-expect-error the type is wrong
+...vueI18n.configs.recommended,
+{
+    rules: {
+        "@intlify/vue-i18n/no-dynamic-keys": "error",
+        "@intlify/vue-i18n/no-unused-keys": [
+            "error",
+            {
+                extensions: [
+                    ".js",
+                    ".vue",
+                    ".ts",
+                ],
+            },
+        ],
+    },
+    settings: {
+        "vue-i18n": {
+            localeDir: {
+                pattern: "./src/locales/*.{json,json5,yaml,yml}", // extension is glob formatting!
+                localeKey: "file", // or 'path' or 'key'
+            },
+
+            // Specify the version of `vue-i18n` you are using.
+            // If not specified, the message will be parsed twice.
+            messageSyntaxVersion: "^11.0.0",
+        },
+    },
 },
 
 {
@@ -209,7 +240,10 @@ vueTsConfigs.recommended,
         "vue/multi-word-component-names": [
             "error",
             {
-                "ignores": ["index"],
+                "ignores": [
+                    "index",
+                    "[...param]",
+                ],
             },
         ],
     },

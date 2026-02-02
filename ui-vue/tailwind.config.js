@@ -17,16 +17,6 @@ export default {
             xs: {max: "400px"},
             "2xs": {max: "350px"},
         },
-        extend: {
-            colors: {
-                main: `${ colors.main }`,
-                dark: `${ colors.dark }`,
-            },
-
-            fontFamily: {
-                circular: ["circular", "sans-serif"],
-            },
-        },
     },
     plugins: [typography],
 };

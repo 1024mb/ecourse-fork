@@ -14,4 +14,5 @@ export const useResourcesStore = defineStore("resources", {
             this.resources = [];
         },
     },
+    persist: true,
 });

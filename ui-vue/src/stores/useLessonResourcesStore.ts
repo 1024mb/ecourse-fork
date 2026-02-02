@@ -14,4 +14,5 @@ export const useLessonResourcesStore = defineStore("lessonResources", {
             this.lessonResources = [];
         },
     },
+    persist: true,
 });

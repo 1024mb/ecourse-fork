@@ -14,4 +14,5 @@ export const useCoursesStore = defineStore("courses", {
             this.courses = [];
         },
     },
+    persist: true,
 });
