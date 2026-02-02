@@ -225,7 +225,8 @@ onUnmounted(() => {
             <div class="flex items-center gap-3">
                 <button
                     class="
-                        group flex items-center justify-center rounded-full bg-transparent p-2 text-xl transition
+                        group flex cursor-pointer items-center justify-center rounded-full bg-transparent p-2 text-xl
+                        transition
                         hover:bg-white/10
                     "
                     @click="() => (uiStore.isSidebarVisible = !uiStore.isSidebarVisible)"
@@ -270,7 +271,7 @@ onUnmounted(() => {
                 <div class="flex flex-col space-y-5">
                     <button
                         class="
-                            flex items-center gap-2 text-white/50 transition
+                            flex cursor-pointer items-center gap-2 text-white/50 transition
                             hover:text-white
                         "
                         @click="router.push('/')"
@@ -288,8 +289,8 @@ onUnmounted(() => {
                         <div class="flex items-center gap-3">
                             <button
                                 class="
-                                    group flex items-center justify-center rounded-full bg-transparent p-2 text-xl
-                                    transition
+                                    group flex cursor-pointer items-center justify-center rounded-full bg-transparent
+                                    p-2 text-xl transition
                                     hover:bg-white/10
                                 "
                                 @click="() => (uiStore.isSidebarVisible = !uiStore.isSidebarVisible)"
@@ -322,8 +323,8 @@ onUnmounted(() => {
                             <button
                                 v-if="findCurrentLessonIndex(getCourseLessons(courseId)) > 0"
                                 class="
-                                    line-clamp-1 flex items-center justify-center gap-2 truncate rounded-md bg-white/10
-                                    px-4 py-2 outline-[1.5px] outline-white/20 transition
+                                    line-clamp-1 flex cursor-pointer items-center justify-center gap-2 truncate
+                                    rounded-md bg-white/10 px-4 py-2 outline-[1.5px] outline-white/20 transition
                                     hover:bg-white/20
                                     max-sm:order-last max-sm:w-full
                                 "
@@ -338,14 +339,14 @@ onUnmounted(() => {
                                 :class="loading[lesson.id] ||
                                     currentCourseStatus === 'Completed'
                                     ? `
-                                        pointer-events-none line-clamp-1 flex items-center justify-center gap-2 truncate
-                                        rounded-md bg-emerald-400/60 px-4 py-2 opacity-50 transition
+                                        pointer-events-none line-clamp-1 flex cursor-pointer items-center justify-center
+                                        gap-2 truncate rounded-md bg-emerald-400/60 px-4 py-2 opacity-50 transition
                                         hover:bg-emerald-400/50
                                         max-sm:order-first max-sm:w-full
                                     `
                                     : `
-                                        line-clamp-1 flex items-center justify-center gap-2 truncate rounded-md
-                                        bg-emerald-400/60 px-4 py-2 transition
+                                        line-clamp-1 flex cursor-pointer items-center justify-center gap-2 truncate
+                                        rounded-md bg-emerald-400/60 px-4 py-2 transition
                                         hover:bg-emerald-400/50
                                         max-sm:order-first max-sm:w-full
                                     `"
@@ -371,8 +372,8 @@ onUnmounted(() => {
                             <button
                                 v-else
                                 class="
-                                    line-clamp-1 flex items-center justify-center gap-2 truncate rounded-md bg-main px-4
-                                    py-2 transition
+                                    line-clamp-1 flex cursor-pointer items-center justify-center gap-2 truncate
+                                    rounded-md bg-main px-4 py-2 transition
                                     hover:bg-main/80
                                     max-sm:order-first max-sm:w-full
                                 "
@@ -525,8 +526,8 @@ onUnmounted(() => {
                                 <button
                                     v-if="faq.lesson.includes(lesson.id)"
                                     class="
-                                        space-y-2 self-start rounded-md bg-white/10 p-2 outline-[1.5px] outline-white/20
-                                        transition
+                                        cursor-pointer space-y-2 self-start rounded-md bg-white/10 p-2 outline-[1.5px]
+                                        outline-white/20 transition
                                         hover:bg-white/20
                                     "
                                     @click="() => (faq.isOpen = !faq.isOpen)"

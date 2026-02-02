@@ -20,7 +20,7 @@ const { t } = useI18n();
             </h3>
             <button
                 class="
-                    flex items-center justify-center gap-2 rounded-md bg-main px-4 py-2 transition
+                    flex cursor-pointer items-center justify-center gap-2 rounded-md bg-main px-4 py-2 transition
                     hover:bg-main/80
                     @max-2xs:w-full @max-2xs:px-0
                 "

@@ -86,7 +86,7 @@ onUnmounted(() => {
             <button @click="() => (uiStore.isSearchVisible = false)">
                 <Icon
                     class="
-                        shrink-0 rotate-45 text-xl text-white/50 transition
+                        shrink-0 rotate-45 cursor-pointer text-xl text-white/50 transition
                         hover:text-white
                     "
                     icon="ph:plus"
