@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<Props>(), {
     hideCourses: false,
 });
 
-const isCoursesVisible = ref(props.hideCourses);
+const isCoursesVisible = ref(!props.hideCourses);
 
 const customizeData = useCustomizeJson();
 
