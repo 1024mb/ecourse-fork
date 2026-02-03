@@ -2,3 +2,6 @@ pb_data
 pocketbase
 pocketbase.exe
 .DS_Store
+
+# Hooks are transpiled on build and shouldn't be commited
+pb_hooks/**/*.js

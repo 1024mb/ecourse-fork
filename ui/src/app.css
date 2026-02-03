@@ -1,9 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-.base-styles {
-    @apply mx-auto max-w-[2560px] bg-dark font-circular text-sm text-white antialiased;
+@plugin "@tailwindcss/typography";
+
+
+@theme static {
+    --color-dark: $dark;
+    --color-main: $main;
+
+    --font-circular: Circular, sans-serif, serif;
+}
+
+@utility base-styles {
+    @apply mx-auto max-w-640 bg-dark font-circular text-sm text-white antialiased;
+}
+
+@utility show-center {
+    @apply z-9999 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
 }
 
 @font-face {
@@ -14,9 +26,13 @@
     font-style: normal;
 }
 
+@utility no-scrollbar {
+    @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
 :root {
-    --plyr-color-main: theme("colors.main");
-    --plyr-badge-background: theme("colors.dark");
+    --plyr-color-main: $main;
+    --plyr-badge-background: $dark;
 }
 
 .plyr {
@@ -33,4 +49,86 @@
 
 .hide-scrollbar {
     scrollbar-width: none;
+}
+
+.scale-up-enter-active {
+    transition: all 0.5s ease; /* 500ms = 0.5s */
+}
+
+.scale-up-enter-from {
+    opacity: 0.001;
+    transform: scale(0.98);
+}
+
+.scale-up-enter-to {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.slide-in-enter-active {
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1); /* quintOut easing */
+}
+
+.slide-in-enter-from {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.slide-in-enter-to {
+    max-height: 500px; /* Adjust based on your content */
+    opacity: 1;
+}
+
+.fly-enter-active,
+.fly-leave-active {
+    transition: all 0.25s ease; /* 250ms = 0.25s */
+}
+
+.fly-enter-from {
+    transform: translateX(10px);
+    opacity: 0.001;
+}
+
+.fly-enter-to {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.fly-leave-from {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.fly-leave-to {
+    transform: translateX(10px);
+    opacity: 0.001;
+}
+
+.scale-fade-enter-active,
+.scale-fade-leave-active {
+    transition: transform 250ms ease,
+    opacity 250ms ease;
+}
+
+.scale-fade-enter-from,
+.scale-fade-leave-to {
+    transform: scale(0.98);
+    opacity: 0.001;
+}
+
+.scale-fade-enter-to,
+.scale-fade-leave-from {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.slide-x-enter-active,
+.slide-x-leave-active {
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.slide-x-enter-from,
+.slide-x-leave-to {
+    width: 0;
 }

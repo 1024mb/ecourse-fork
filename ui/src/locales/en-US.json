@@ -1,0 +1,72 @@
+{
+  "appName": "eCourse",
+  "button": {
+    "alreadyLoggedIn": "Logged in already?",
+    "login": "Login",
+    "view": "View"
+  },
+  "completeCourse": "Complete Course",
+  "completed": "Completed",
+  "continueCourse": "Continue Course",
+  "copyright": "Copyright © {fullYear} - {appName}",
+  "courseAssignedCheck": "Courses assigned to you will show up here, please check on this page from time to time to ensure you never miss a course.",
+  "courseCompleted": "Course Completed",
+  "courses": "Courses",
+  "coursesAssigned": "No courses assigned to you! | {count} course assigned to you | {count} courses assigned to you",
+  "downloads": "Downloads",
+  "errorMsg": {
+    "failedFindCourse": "There was an error finding the current course. Reload and try again.",
+    "failedFindNextLesson": "There was an error finding the next lesson. Reload and try again.",
+    "failedFindPreviousLesson": "There was an error finding the previous lesson. Reload and try again.",
+    "failedFindProgress": "There was an error finding the progress for the current course. Reload and try again.",
+    "failedToGetCurrentLesson": "There was an error retrieving the current lesson. Try again later.",
+    "failedToUpdateCourseStatus": "Failed to update course status. Please try again.",
+    "loadDataFailed": "Failed to load data. Please try again.",
+    "login": {
+      "loginFailed": "Login failed. Please check your credentials and try again."
+    }
+  },
+  "faq": "FAQ",
+  "findLesson": "Find Lesson...",
+  "form": {
+    "fields": {
+      "password": "Password",
+      "passwordNotValid": "Password must be 8+ characters",
+      "username": "Username / email",
+      "usernameNotValid": "Username must be 3+ characters and cannot contain spaces"
+    }
+  },
+  "inProgress": "In Progress",
+  "lessonsInThisCourse": "No lesson in this course | {numberOfLessons} lesson in this course | {numberOfLessons} lesson in this course",
+  "msg": {
+    "SetCourseAsComplete": "{courseTitle} completed successfully",
+    "lessonsFiltered": "lessons | lesson | lessons",
+    "loggingIn": "Logging in...",
+    "login": {
+      "pleaseLogin": "Please login to your account",
+      "welcomeTo": "Welcome to"
+    },
+    "noLessonsFound": "No Lesson found",
+    "showing": "Showing"
+  },
+  "myCourses": "My Courses",
+  "nextLesson": "Next Lesson",
+  "noCourseAssigned": "No courses assigned to you!",
+  "notStarted": "Not Started",
+  "notSupportedURL": "Unsupported video URL format",
+  "notSupportedURLDescription": "Only YouTube and Google Drive URLs are supported",
+  "nothingToSeeHere": "Nothing to see here...",
+  "openCourse": "Open Course",
+  "pageNotFound": "404 Not Found",
+  "pageTitle": {
+    "login": "Login"
+  },
+  "previousLesson": "Previous Lesson",
+  "resetProgress": "Reset Progress",
+  "resources": "Resources",
+  "search": "Search",
+  "startCourse": "Start Course",
+  "summary": "Summary",
+  "unknown": "Unknown",
+  "view": "View"
+}

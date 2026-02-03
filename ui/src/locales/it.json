@@ -1,0 +1,48 @@
+{
+  "button": {
+    "alreadyLoggedIn": "Già loggato?",
+    "login": "Accedi"
+  },
+  "completeCourse": "Completa corso",
+  "completed": "Completato",
+  "continueCourse": "Continua corso",
+  "courseAssignedCheck": "I corsi assegnati a te verranno visualizzati qui, controlla questa pagina di tanto in tanto per assicurarti di non perdere mai un corso.",
+  "courseCompleted": "Corso completato",
+  "courses": "Corsi",
+  "downloads": "Download",
+  "errorMsg": {
+    "login": {
+      "loginFailed": "Accesso fallito. Controlla le tue credenziali e riprova"
+    }
+  },
+  "findLesson": "Trova lezione...",
+  "form": {
+    "fields": {
+      "password": "Password",
+      "passwordNotValid": "La password deve essere di almeno 8 caratteri",
+      "username": "Nome utente / email",
+      "usernameNotValid": "Il nome utente deve essere di almeno 3 caratteri e non può contenere spazi"
+    }
+  },
+  "inProgress": "In corso",
+  "msg": {
+    "loggingIn": "Accesso in corso...",
+    "login": {
+      "pleaseLogin": "Effettua il login al tuo account",
+      "welcomeTo": "Benvenuto su"
+    },
+    "noLessonsFound": "Nessuna lezione trovata"
+  },
+  "myCourses": "I miei corsi",
+  "nextLesson": "Lezione successiva",
+  "noCourseAssigned": "Nessun corso assegnato a te!",
+  "notStarted": "Non iniziato",
+  "openCourse": "Apri corso",
+  "previousLesson": "Lezione precedente",
+  "resetProgress": "Resetta progressi",
+  "resources": "Risorse",
+  "search": "Cerca",
+  "startCourse": "Inizia corso",
+  "summary": "Sommario",
+  "view": "Visualizza"
+}

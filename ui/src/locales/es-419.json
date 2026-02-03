@@ -1,0 +1,72 @@
+{
+  "appName": "eCourse",
+  "button": {
+    "alreadyLoggedIn": "¿Ya iniciaste sesión?",
+    "login": "Iniciar sesión",
+    "view": "Ver"
+  },
+  "completeCourse": "Completar curso",
+  "completed": "Completado",
+  "continueCourse": "Continuar curso",
+  "copyright": "Derechos reservados © {fullYear} - {appName}",
+  "courseAssignedCheck": "Los cursos asignados a ti aparecerán aquí, por favor, revisa esta página de vez en cuando para asegurarte de no perder ningún curso.",
+  "courseCompleted": "Curso completado",
+  "courses": "Cursos",
+  "coursesAssigned": "¡Sin cursos asignados a ti! | {count} curso asignado a ti | {count} cursos asignados a ti",
+  "downloads": "Descargas",
+  "errorMsg": {
+    "failedFindCourse": "Hubo un error al buscar el curso actual. Recarga e inténtalo otra vez.",
+    "failedFindNextLesson": "Hubo un error al buscar la siguiente lección. Recarga e inténtalo otra vez.",
+    "failedFindPreviousLesson": "Hubo un error al buscar la siguiente lección. Recarga e inténtalo otra vez.",
+    "failedFindProgress": "Hubo un error al buscar el progreso para el curso actual. Recarga e inténtalo otra vez.",
+    "failedToGetCurrentLesson": "Hubo un error al obtener la lección actual. Inténtalo otra vez más tarde.",
+    "failedToUpdateCourseStatus": "Error al actualizar el estado del curso. Por favor, inténtalo otra vez.",
+    "loadDataFailed": "Error al cargar los datos. Por favor, inténtalo otra vez.",
+    "login": {
+      "loginFailed": "Falló iniciar sesión. Por favor, revisa tus credenciales y vuelve a intentarlo."
+    }
+  },
+  "faq": "Preguntas frecuentes",
+  "findLesson": "Buscar lección...",
+  "form": {
+    "fields": {
+      "password": "Contraseña",
+      "passwordNotValid": "La contraseña debe ser mayor o igual a 8 carácteres.",
+      "username": "Nombre de usuario / correo",
+      "usernameNotValid": "El nombre de usuario debe ser mayor o igual a 3 caracteres y no puede contener espacios"
+    }
+  },
+  "inProgress": "En progreso",
+  "lessonsInThisCourse": "Sin lecciones en este curso | {numberOfLessons} lección en este curso | {numberOfLessons} lecciones en este curso",
+  "msg": {
+    "SetCourseAsComplete": "{courseTitle} completado exitosamente",
+    "lessonsFiltered": "clases | clase | clases",
+    "loggingIn": "Iniciando sesión...",
+    "login": {
+      "pleaseLogin": "Por favor, inicia sesión con tu cuenta",
+      "welcomeTo": "Bienvenido a"
+    },
+    "noLessonsFound": "No se encontró ninguna lección",
+    "showing": "Mostrando"
+  },
+  "myCourses": "Mis cursos",
+  "nextLesson": "Siguiente lección",
+  "noCourseAssigned": "¡No hay cursos asignados a ti!",
+  "notStarted": "No iniciado",
+  "notSupportedURL": "Formato de enlace de video no soportado",
+  "notSupportedURLDescription": "Solo están soportados los enlaces a YouTube y Google Drive",
+  "nothingToSeeHere": "Nada que ver aquí...",
+  "openCourse": "Abrir curso",
+  "pageNotFound": "404 No encontrado",
+  "pageTitle": {
+    "login": "Iniciar sesión"
+  },
+  "previousLesson": "Lección anterior",
+  "resetProgress": "Reiniciar progreso",
+  "resources": "Recursos",
+  "search": "Buscar",
+  "startCourse": "Iniciar curso",
+  "summary": "Resumen",
+  "unknown": "Desconocido",
+  "view": "Ver"
+}

@@ -10,15 +10,15 @@ eCourse is a self-hosted SPA designed to simplify course creation and management
 
 ## Tech Stack
 
-**UI Framework** - [Svelte 4](https://svelte.dev/)
+**UI Framework** - [Vue 3](https://vuejs.org/)
 
-**CSS** - [TailwindCSS 3](https://tailwindcss.com/)
+**CSS** - [TailwindCSS 4](https://tailwindcss.com/)
 
 **Icons** - [Iconify](https://iconify.design/)
 
 **Backend** - [PocketBase](https://pocketbase.io/)
 
-## Getting Started
+## Dev Environment
 
 Get started by running the project locally, simply follow these steps:
 
@@ -27,19 +27,25 @@ Get started by running the project locally, simply follow these steps:
 2. Grab the PocketBase executable for your OS from: https://pocketbase.io/docs/ and drop it at the root of the `pb`
    folder.
 
-3. Start the PocketBase server
+3. Install all dependencies and build the pb hooks
+
+   ```bash
+   cd pb
+   npm install && npm run ts-watch
+   ```
+
+4. Start the PocketBase server
 
     ```bash
-    cd pb
-    ./pocketbase serve
+    ./pocketbase serve --dev
     ```
 
-4. Start the Vite server
+5. Start the Vite server
 
-    ```bash
-    cd ui
-    npm install && npm run dev
-    ```
+   ```bash
+   cd ../ui
+   npm install && npm run dev
+   ```
 
 ## Customization
 
@@ -50,20 +56,23 @@ App name, logo, and colors can be customized using the `customize.json` file.
 One neat thing about PocketBase is that it can also serve our static frontend assets. to do that simply follow these
 steps:
 
-1. Add the server URL where your PocketBase instance is hosted to `VITE_PROD_PB_URL` in the `.env` file
+1. Build a production-ready bundle
 
-2. Build a production-ready bundle
+   ```bash
+   cd pb
+   npm run build
+   
+   cd ../ui
+   npm run build
+   ```
 
-    ```bash
-    cd ui
-    npm run build
-    ```
+2. Copy the contents of the `dist` folder in `ui` over to `pb_public` in `pb`
 
-3. Copy the contents of the `dist` folder over to `pb_public`
-
-### Using Docker
-
-You can use the following Dockerfile to automate the steps above:
+3. Start pocketbase
+   ```bash
+   cd ../pb
+   ./pocketbase serve
+   ```
 
 ## Feedback & Suggestions
 
@@ -71,4 +80,5 @@ Feel free to open an issue/PR if you find any bugs or want to request new featur
 
 ## License
 
-Licensed under the MIT License
+Original project licensed under MIT.
+Fork licensed under AGPLv3.
