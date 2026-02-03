@@ -249,6 +249,8 @@ vueTsConfigs.recommended,
                 ],
             },
         ],
+
+        "space-infix-ops": "error",
     },
 },
 {
