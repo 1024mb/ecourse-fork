@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { pb } from "@/lib/pocketbase";
-import useCustomizeJson from "@/lib/useCustomizeJson";
 import { Icon } from "@iconify/vue";
-import { useRouter } from "vue-router";
+
+definePage({
+    meta: {
+        layout: "blank",
+    },
+});
 
 const { t } = useI18n();
 

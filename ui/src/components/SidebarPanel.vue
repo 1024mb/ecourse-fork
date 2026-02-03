@@ -1,15 +1,9 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
 
-interface Props {
-    hideCourses?: boolean;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-    hideCourses: false,
-});
-
-const isCoursesVisible = ref(!props.hideCourses);
+const { isCoursesVisible = true } = defineProps<{
+    isCoursesVisible?: boolean,
+}>();
 
 const customizeData = useCustomizeJson();
 
