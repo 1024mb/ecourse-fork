@@ -46,18 +46,27 @@
       "pleaseLogin": "Por favor, inicia sesión con tu cuenta",
       "welcomeTo": "Bienvenido a"
     },
+    "noLessonsFound": "No se encontró ninguna lección",
     "showing": "Mostrando"
   },
   "myCourses": "Mis cursos",
+  "nextLesson": "Siguiente lección",
+  "noCourseAssigned": "¡No hay cursos asignados a ti!",
+  "notStarted": "No iniciado",
   "notSupportedURL": "Formato de enlace de video no soportado",
   "notSupportedURLDescription": "Solo están soportados los enlaces a YouTube y Google Drive",
   "nothingToSeeHere": "Nada que ver aquí...",
+  "openCourse": "Abrir curso",
   "pageNotFound": "404 No encontrado",
   "pageTitle": {
     "login": "Iniciar sesión"
   },
+  "previousLesson": "Lección anterior",
+  "resetProgress": "Reiniciar progreso",
   "resources": "Recursos",
   "search": "Buscar",
+  "startCourse": "Iniciar curso",
+  "summary": "Resumen",
   "unknown": "Desconocido",
   "view": "Ver"
 }
