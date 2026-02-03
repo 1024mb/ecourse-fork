@@ -2,6 +2,11 @@
 onRecordCreateRequest((e) => {
     e.next();
     const record = e.record;
+
+    if (record == null) {
+        return;
+    }
+
     const progressCollection = $app.findCollectionByNameOrId("progress");
     const usersCollection = $app.findCollectionByNameOrId("users");
     const assign_to_everyone = record.getBool("assign_to_everyone");
@@ -9,7 +14,7 @@ onRecordCreateRequest((e) => {
 
     if (assign_to_everyone) {
         const allUsers = $app.findAllRecords(usersCollection.name);
-        assignees = allUsers.map((user) => user.id);
+        assignees = allUsers.filter((user) => user != null).map((user) => user.id);
         record.set("assignees", assignees);
         $app.save(record);
     }
@@ -28,6 +33,11 @@ onRecordCreateRequest((e) => {
 onRecordUpdateRequest((e) => {
     e.next();
     const updatedRecord = e.record;
+
+    if (updatedRecord == null) {
+        return;
+    }
+
     const originalRecord = updatedRecord.original();
     const originalAssignees = originalRecord.getStringSlice("assignees");
     let updatedAssignees = updatedRecord.getStringSlice("assignees");
@@ -37,16 +47,16 @@ onRecordUpdateRequest((e) => {
 
     if (assign_to_everyone) {
         const allUsers = $app.findAllRecords(usersCollection.name);
-        updatedAssignees = allUsers.map((user) => user.id);
+        updatedAssignees = allUsers.filter((user) => user != null).map((user) => user.id);
         updatedRecord.set("assignees", updatedAssignees);
         $app.save(updatedRecord);
     }
 
     const newAssignees = updatedAssignees.filter(
-        (assignee) => !originalAssignees.includes(assignee),
+    (assignee) => !originalAssignees.includes(assignee),
     );
     const removedAssignees = originalAssignees.filter(
-        (assignee) => !updatedAssignees.includes(assignee),
+    (assignee) => !updatedAssignees.includes(assignee),
     );
 
     newAssignees.forEach((assignee) => {
@@ -62,12 +72,14 @@ onRecordUpdateRequest((e) => {
     removedAssignees.forEach((assignee) => {
         const progressRecords = $app
             .findAllRecords(
-                progressCollection.name,
-                $dbx.hashExp({assignee: `${ assignee }`, course: `${ updatedRecord.id }`}),
+        progressCollection.name,
+        $dbx.hashExp({ assignee: `${ assignee }`, course: `${ updatedRecord.id }` }),
             );
 
         progressRecords.forEach((progressRecord) => {
-            $app.delete(progressRecord);
+            if (progressRecord != null) {
+                $app.delete(progressRecord);
+            }
         });
     });
 }, "courses");
@@ -76,6 +88,11 @@ onRecordUpdateRequest((e) => {
 onRecordDeleteRequest((e) => {
     e.next();
     const deletedProgressRecord = e.record;
+
+    if (deletedProgressRecord == null) {
+        return;
+    }
+
     const courseId = deletedProgressRecord.getString("course");
 
     if (courseId) {
@@ -86,7 +103,7 @@ onRecordDeleteRequest((e) => {
                 const assignees = courseRecord.getStringSlice("assignees");
                 const assigneeToRemove = deletedProgressRecord.get("assignee");
                 const updatedAssignees = assignees.filter(
-                    (assignee) => assignee !== assigneeToRemove,
+                (assignee) => assignee !== assigneeToRemove,
                 );
 
                 courseRecord.set("assignees", updatedAssignees);
@@ -100,11 +117,16 @@ onRecordDeleteRequest((e) => {
 onRecordUpdateRequest((e) => {
     e.next();
     const updatedRecord = e.record;
+
+    if (updatedRecord == null) {
+        return;
+    }
+
     const originalRecord = updatedRecord.original();
 
     if (
-        updatedRecord.getString("course") !== originalRecord.getString("course") ||
-        updatedRecord.getString("assignee") !== originalRecord.getString("assignee")
+        updatedRecord.getString("course") !== originalRecord.getString("course")
+    || updatedRecord.getString("assignee") !== originalRecord.getString("assignee")
     ) {
         updatedRecord.set("course", originalRecord.getString("course"));
         updatedRecord.set("assignee", originalRecord.getString("assignee"));
@@ -117,6 +139,11 @@ onRecordUpdateRequest((e) => {
 onRecordCreateRequest((e) => {
     e.next();
     const progressRecord = e.record;
+
+    if (progressRecord == null) {
+        return;
+    }
+
     const assignee = progressRecord.getString("assignee");
     const courseId = progressRecord.getString("course");
 
@@ -139,16 +166,24 @@ onRecordCreateRequest((e) => {
 onRecordCreateRequest((e) => {
     e.next();
     const newUser = e.record;
+
+    if (newUser == null) {
+        return;
+    }
+
     const progressCollection = $app.findCollectionByNameOrId("progress");
     const coursesCollection = $app.findCollectionByNameOrId("courses");
 
-    const assignedToEveryoneCourses = $app
-        .findAllRecords(
-            coursesCollection.name,
-            $dbx.hashExp({assign_to_everyone: true}),
-        );
+    const assignedToEveryoneCourses = $app.findAllRecords(
+    coursesCollection.name,
+    $dbx.hashExp({ assign_to_everyone: true }),
+    );
 
     assignedToEveryoneCourses.forEach((course) => {
+        if (course == null) {
+            return;
+        }
+
         const assignees = course.getStringSlice("assignees");
         if (!assignees.includes(newUser.id)) {
             assignees.push(newUser.id);
