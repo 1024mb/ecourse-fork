@@ -26,6 +26,6 @@ const currentLayout = computed(() => {
             theme="dark"
         />
 
-        <RouterView />
+        <RouterView :key="route.fullPath" />
     </component>
 </template>
