@@ -6,8 +6,8 @@ services:
     #  - 8090:8090
     volumes:
       - ./ecourse/pb_data:/app/pb_data
-      - ./ecourse/pb_migrations:/app/pb_migrations
-      - ./data/videos:/app/pb_public/videos
+      # - ./ecourse/pb_migrations:/app/pb_migrations # optional, shouldn't be used. changes to the db need to be added to the frontend
+      # - ./data:/app/pb_data/storage # if you want to store the uploaded files somewhere else
     env_file:
       - .env
     restart: unless-stopped
