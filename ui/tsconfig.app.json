@@ -7,7 +7,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/route-map.d.ts",
-    "auto-imports.d.ts"
+    "src/auto-imports.d.ts"
   ],
   "exclude": [
     "src/**/__tests__/*"
