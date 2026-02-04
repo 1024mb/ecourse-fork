@@ -19,11 +19,7 @@ export default defineConfig({
                 VueRouterAutoImports,
             ],
 
-            dirsScanOptions: {
-                filePatterns: ["*.ts"],
-                fileFilter: file => file.endsWith(".ts"),
-                types: true,
-            },
+            dts: "src/auto-imports.d.ts",
 
             dirs: [
                 "./src/hooks",
@@ -35,6 +31,8 @@ export default defineConfig({
                 "./src/stores/**",
                 "./src/types",
                 "./src/types/**",
+                "./src/layouts",
+                "./src/layouts/**",
             ],
 
             vueTemplate: true,
@@ -44,7 +42,7 @@ export default defineConfig({
             injectAtEnd: true,
 
             eslintrc: {
-                enabled: true, // <-- this
+                enabled: true,
             },
         }),
         VueRouter({
