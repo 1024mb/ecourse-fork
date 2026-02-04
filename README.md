@@ -1,3 +1,7 @@
+# This is a fork of [Ilyas-Codes's eCourse](https://github.com/Ilyas-Codes/eCourse)
+
+---
+
 <p style="align-items: center">
     <img src="https://i.ibb.co/Sx7YmY6/ecourse.jpg" alt="eCourse - My Courses" />
 </p>
@@ -80,5 +84,5 @@ Feel free to open an issue/PR if you find any bugs or want to request new featur
 
 ## License
 
-Original project licensed under MIT.
+Original project licensed under MIT.  
 Fork licensed under AGPLv3.
