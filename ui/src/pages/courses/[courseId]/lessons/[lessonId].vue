@@ -33,7 +33,7 @@ const { name } = useCustomizeJson();
 const loading = ref<Record<string, boolean>>({});
 let lessonVideo: Plyr | null = null;
 const currentCourseStatus = computed(() => {
-    const currentProgress = progressStore.progress.find((progress) => progress.course = courseId);
+    const currentProgress = progressStore.progress.find((progress) => progress.course === courseId);
     if (currentProgress == null) {
         return "";
     }
