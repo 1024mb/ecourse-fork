@@ -24,7 +24,8 @@
     "loadDataFailed": "Failed to load data. Please try again.",
     "login": {
       "loginFailed": "Login failed. Please check your credentials and try again."
-    }
+    },
+    "progressTypeNotFound": "The progress type was not found. Reload and try again."
   },
   "faq": "FAQ",
   "findLesson": "Find Lesson...",

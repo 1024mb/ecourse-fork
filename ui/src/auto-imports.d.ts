@@ -24,6 +24,7 @@ declare global {
   const fetchLessonResources: typeof import('./lib/useFetchRecords').fetchLessonResources
   const fetchLessons: typeof import('./lib/useFetchRecords').fetchLessons
   const fetchProgress: typeof import('./lib/useFetchRecords').fetchProgress
+  const fetchProgressTypes: typeof import('./lib/useFetchRecords').fetchProgressTypes
   const fetchResources: typeof import('./lib/useFetchRecords').fetchResources
   const getActivePinia: typeof import('pinia').getActivePinia
   const getCurrentInstance: typeof import('vue').getCurrentInstance
@@ -103,6 +104,7 @@ declare global {
   const useLocaleStore: typeof import('./stores/useLocaleStore').useLocaleStore
   const useModel: typeof import('vue').useModel
   const useProgressStore: typeof import('./stores/useProgressStore').useProgressStore
+  const useProgressTypeStore: typeof import('./stores/useProgressTypeStore').useProgressTypeStore
   const useResourcesStore: typeof import('./stores/useResourcesStore').useResourcesStore
   const useRoute: typeof import('vue-router').useRoute
   const useRouter: typeof import('vue-router').useRouter
@@ -121,7 +123,7 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { User, Course, LessonFaq, LessonResource, Lesson, Status, Progress, Resource, Users, Courses, LessonFaqs, LessonResources, Lessons, Resources } from './types/collections.d'
+  export type { User, Course, LessonFaq, LessonResource, Lesson, Status, ProgressType, Progress, ProgressStored, Resource, Users, Courses, LessonFaqs, LessonResources, Lessons, Resources } from './types/collections.d'
   import('./types/collections.d')
   // @ts-ignore
   export type { Locales } from './types/locales.d'
@@ -151,6 +153,7 @@ declare module 'vue' {
     readonly fetchLessonResources: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchLessonResources']>
     readonly fetchLessons: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchLessons']>
     readonly fetchProgress: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchProgress']>
+    readonly fetchProgressTypes: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchProgressTypes']>
     readonly fetchResources: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchResources']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
@@ -229,6 +232,7 @@ declare module 'vue' {
     readonly useLocaleStore: UnwrapRef<typeof import('./stores/useLocaleStore')['useLocaleStore']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useProgressStore: UnwrapRef<typeof import('./stores/useProgressStore')['useProgressStore']>
+    readonly useProgressTypeStore: UnwrapRef<typeof import('./stores/useProgressTypeStore')['useProgressTypeStore']>
     readonly useResourcesStore: UnwrapRef<typeof import('./stores/useResourcesStore')['useResourcesStore']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>

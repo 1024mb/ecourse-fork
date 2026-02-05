@@ -3,21 +3,44 @@ import DOMPurify from "dompurify";
 import slugify from "slugify";
 import { toast } from "vue-sonner";
 
-export async function updateProgressStatus(progressRecordId: string, newStatus: Status) {
+export async function updateProgressStatus(
+    progressRecordId: string,
+    newStatusName: Status,
+): Promise<boolean> {
     const i18n = getI18n();
     const progressStore = useProgressStore();
+    const progressTypeStore = useProgressTypeStore();
 
     try {
-        const result = await pb.collection("progress").update<Progress>(progressRecordId, {
-            status: newStatus,
+        const progressType = progressTypeStore.progressTypes.find((type) => type.type_name === newStatusName);
+
+        if (progressType == null) {
+            toast.error(i18n.global.t("errorMsg.progressTypeNotFound"));
+            return false;
+        }
+
+        await pb.collection("progress").update<Progress>(progressRecordId, {
+            status: progressType.id,
         });
 
-        progressStore.progress = progressStore.progress.map((record) =>
-            record.id === progressRecordId ? { ...record, status: newStatus } : record);
+        progressStore.progress = progressStore.progress.map((progressRecord) => {
+            if (progressRecord.id === progressRecordId) {
+                return {
+                    ...progressRecord,
+                    status: newStatusName,
+                };
+            } else {
+                return {
+                    ...progressRecord,
+                };
+            }
+        });
 
-        return result;
-    } catch {
+        return true;
+    } catch (error) {
         toast.error(i18n.global.t("errorMsg.failedToUpdateCourseStatus"));
+        console.error(error);
+        return false;
     }
 }
 

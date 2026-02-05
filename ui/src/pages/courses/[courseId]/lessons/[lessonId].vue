@@ -32,10 +32,10 @@ const { name } = useCustomizeJson();
 
 const loading = ref<Record<string, boolean>>({});
 let lessonVideo: Plyr | null = null;
-const currentCourseStatus = computed(() => {
+const currentCourseStatus = computed<Status>(() => {
     const currentProgress = progressStore.progress.find((progress) => progress.course === courseId);
     if (currentProgress == null) {
-        return "";
+        return "not_started";
     }
 
     return currentProgress.status;
@@ -144,30 +144,30 @@ async function completeCourse(lessonId: string) {
     );
 
     if (progressRecord == null) {
-        // TODO: is this an error or expected if no progress? I haven't seen where we set "Not Started".
         toast.error(t("errorMsg.failedFindProgress"));
         return;
     }
 
-    if (progressRecord.status === "In Progress") {
+    if (progressRecord.status === "in_progress") {
         loading.value[lessonId] = true;
 
-        const updatedProgressRecord = await updateProgressStatus(
+        const result = await updateProgressStatus(
             progressRecord.id,
-            "Completed",
+            "completed",
         );
 
-        if (updatedProgressRecord == null) {
+        if (!result) {
             loading.value[lessonId] = false;
-        } else {
-            toast.success(t("msg.SetCourseAsComplete", {
-                courseTitle: currentCourse.title.length > 30
-                    ? currentCourse.title.slice(0, 30) + "..."
-                    : currentCourse.title,
-            }));
-
-            return router.push("/");
+            return;
         }
+
+        toast.success(t("msg.SetCourseAsComplete", {
+            courseTitle: currentCourse.title.length > 30
+                ? currentCourse.title.slice(0, 30) + "..."
+                : currentCourse.title,
+        }));
+
+        return router.push("/");
     }
 }
 
@@ -296,7 +296,7 @@ onUnmounted(() => {
                     </div>
 
                     <div
-                        v-if="currentCourseStatus === 'In Progress' || currentCourseStatus === 'Completed'"
+                        v-if="currentCourseStatus === 'in_progress' || currentCourseStatus === 'completed'"
                         class="
                             flex items-center gap-3
                             max-sm:w-full max-sm:flex-col
@@ -319,7 +319,7 @@ onUnmounted(() => {
                         <button
                             v-if="findCurrentLessonIndex(getCourseLessons(courseId)) >= getCourseLessons(courseId).length - 1"
                             :class="loading[lesson.id] ||
-                                currentCourseStatus === 'Completed'
+                                currentCourseStatus === 'completed'
                                 ? `
                                     pointer-events-none line-clamp-1 flex cursor-pointer items-center justify-center
                                     gap-2 truncate rounded-md bg-emerald-400/60 px-4 py-2 opacity-50 transition
@@ -335,7 +335,7 @@ onUnmounted(() => {
                             @click="() => completeCourse(lesson.id)"
                         >
                             {{
-                                currentCourseStatus === "Completed"
+                                currentCourseStatus === "completed"
                                     ? $t("courseCompleted")
                                     : $t("completeCourse")
                             }}

@@ -44,12 +44,20 @@ export interface Lesson extends BaseDetails {
     videoRemoteUrl: string;
 }
 
-export type Status = "Not Started" | "In Progress" | "Completed"
+export type Status = "not_started" | "in_progress" | "completed"
+
+export interface ProgressType extends BaseDetails {
+    type_name: Status;
+}
 
 export interface Progress extends BaseDetails {
     assignee: string;
-    status: Status;
+    status: string;
     course: string;
+}
+
+export interface ProgressStored extends Progress {
+    status: Status;
 }
 
 export interface Resource extends BaseDetails {

@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { updateProgressStatus } from "@/lib/utils";
 import { Icon } from "@iconify/vue";
-import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
 const progressStore = useProgressStore();
@@ -37,23 +35,16 @@ async function goToFirstLessonOfCourse(courseId: string) {
         return;
     }
 
-    if (progressRecord.status === "Not Started") {
-        const updatedProgressRecord = await updateProgressStatus(progressRecord.id, "In Progress");
+    if (progressRecord.status === "not_started") {
+        // set the status to in_progress for the course
+        const result = await updateProgressStatus(progressRecord.id, "in_progress");
 
-        if (updatedProgressRecord != null) {
-            await nextTick();
-
-            progressStore.progress = progressStore.progress.map((progressRecord) => {
-                if (progressRecord.course === courseId) {
-                    return {
-                        ...progressRecord,
-                        status: "In Progress",
-                    };
-                }
-                return progressRecord;
-            });
+        if (!result) {
+            return;
         }
     }
+
+    // TODO: Set here to go to the first in-progress or not-started lesson
 
     const currentLesson = lessonsByCourseStore.lessonsByCourse[courseId];
 
@@ -77,41 +68,31 @@ async function resetProgress(courseId: string) {
         return;
     }
 
-    if (progressRecord.status === "Completed" || progressRecord.status === "In Progress") {
+    if (progressRecord.status === "completed" || progressRecord.status === "in_progress") {
         loading.value[courseId] = true;
 
-        const updatedProgressRecord = await updateProgressStatus(progressRecord.id, "Not Started");
+        const result = await updateProgressStatus(progressRecord.id, "not_started");
 
-        if (updatedProgressRecord == null) {
+        if (!result) {
             loading.value[courseId] = false;
-        } else {
-            await nextTick();
-
-            progressStore.progress = progressStore.progress.map((progressRecord) => {
-                if (progressRecord.course === courseId) {
-                    return {
-                        ...progressRecord,
-                        status: "Not Started",
-                    };
-                } else {
-                    return progressRecord;
-                }
-            });
-
-            openCourseId.value = "";
-            enableReactivity.value = false;
-            loading.value[courseId] = false;
-            isOpen.value[courseId] = false;
-
-            delete lessonsByCourseStore.lessonsByCourse[courseId];
+            return;
         }
+        await nextTick();
+
+        openCourseId.value = "";
+        enableReactivity.value = false;
+        loading.value[courseId] = false;
+        isOpen.value[courseId] = false;
+
+        // TODO: Change here to delete all progress per lesson
+        delete lessonsByCourseStore.lessonsByCourse[courseId];
     }
 }
 
 watch(enableReactivity, (newValue) => {
     if (newValue) {
         progressStore.progress.forEach((progressRecord) => {
-            if (progressRecord.status === "In Progress") {
+            if (progressRecord.status === "in_progress") {
                 isOpen.value[progressRecord.course] = true;
             }
         });
@@ -242,10 +223,10 @@ onMounted(async () => {
                     `"
             >
                 <div
+                    :aria-hidden="!isOpen[course.id]"
                     :class="isOpen[course.id]
                         ? 'w-full cursor-pointer space-y-5 rounded-t-md rounded-b-none bg-white/5 p-5'
                         : `w-full cursor-pointer space-y-5 rounded-md bg-white/5 p-5`"
-                    aria-hidden="true"
                     @click="() => toggleCourse(course.id)"
                 >
                     <div
@@ -267,16 +248,16 @@ onMounted(async () => {
                                 "
                             >
                                 <h3
-                                    :class="progressRecord.status === 'Completed'
+                                    :class="progressRecord.status === 'completed'
                                         ? `rounded-full bg-emerald-400/10 px-3 py-1 text-emerald-400/70`
-                                        : progressRecord.status === 'In Progress'
+                                        : progressRecord.status === 'in_progress'
                                             ? `rounded-full bg-amber-400/10 px-3 py-1 text-amber-400/70`
                                             : 'rounded-full bg-white/10 px-3 py-1 text-white/70'"
                                 >
                                     {{
-                                        progressRecord.status === "Completed"
+                                        progressRecord.status === "completed"
                                             ? t("completed")
-                                            : progressRecord.status === "In Progress"
+                                            : progressRecord.status === "in_progress"
                                                 ? t("inProgress")
                                                 : t("notStarted")
                                     }}
@@ -298,7 +279,7 @@ onMounted(async () => {
                                 "
                             >
                                 <button
-                                    v-if="progressRecord.status === 'Completed' || progressRecord.status === 'In Progress'"
+                                    v-if="progressRecord.status === 'completed' || progressRecord.status === 'in_progress'"
                                     :class="loading[course.id]
                                         ? `
                                             pointer-events-none line-clamp-1 flex cursor-pointer items-center
@@ -331,9 +312,9 @@ onMounted(async () => {
                                     @click.stop="() => goToFirstLessonOfCourse(course.id)"
                                 >
                                     {{
-                                        progressRecord.status === "Completed"
+                                        progressRecord.status === "completed"
                                             ? t("openCourse")
-                                            : progressRecord.status === "In Progress"
+                                            : progressRecord.status === "in_progress"
                                                 ? t("continueCourse")
                                                 : t("startCourse")
                                     }}

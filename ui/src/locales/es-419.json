@@ -24,7 +24,8 @@
     "loadDataFailed": "Error al cargar los datos. Por favor, inténtalo otra vez.",
     "login": {
       "loginFailed": "Falló iniciar sesión. Por favor, revisa tus credenciales y vuelve a intentarlo."
-    }
+    },
+    "progressTypeNotFound": "El tipo de progreso no fue encontrado. Recarga e intenta otra vez."
   },
   "faq": "Preguntas frecuentes",
   "findLesson": "Buscar lección...",
