@@ -3,5 +3,9 @@
   "compilerOptions": {
     "noEmit": false,
     "allowImportingTsExtensions": false
-  }
+  },
+  "include": [
+    "pb_hooks/**/*.ts",
+    "pb_data/**/*.d.ts"
+  ]
 }
