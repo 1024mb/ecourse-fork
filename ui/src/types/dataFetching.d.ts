@@ -21,11 +21,19 @@ export interface FetchCourseLessons extends BaseFetch {
     filter?: LessonFilter;
 }
 
+export interface FetchLessons extends BaseFetch {
+    filter?: LessonFilter;
+}
+
 export type CourseFilter = Partial<MakeAllArray<NonNullable<CourseNested>>>
 
 export interface FetchCourses extends BaseFetch {
     filter?: CourseFilter;
     page?: number;
+}
+
+export interface FetchCoursesFromList extends BaseFetch {
+    courseIds: string[];
 }
 
 export type CourseProgressFilter = Partial<MakeAllArray<NonNullable<CourseProgressNested>>>

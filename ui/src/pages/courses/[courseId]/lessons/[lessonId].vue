@@ -23,6 +23,8 @@ const progressList = ref<CourseProgressStored[]>([]);
 const lessonFaqList = ref<LessonFaq[]>([]);
 const lessonResourceList = ref<LessonResource[]>([]);
 
+const lessonNotFound = ref(false);
+
 uiStore.isLoading = true;
 
 const { t } = useI18n();
@@ -44,9 +46,14 @@ const currentCourseStatus = computed<Status>(() => {
 });
 
 const currentLessonTitle = computed(() => {
+    if (uiStore.isLoading) {
+        return t("loading");
+    }
+
     const currentLesson = getCurrentLesson();
 
     if (currentLesson == null) {
+        lessonNotFound.value = true;
         return t("unknown");
     }
 
@@ -267,11 +274,11 @@ onUnmounted(() => {
             />
         </div>
     </div>
-    <div
-        v-else-if="lessonsList.length === 0"
+    <template
+        v-else-if="lessonsList.length === 0 || lessonNotFound"
     >
         <NotFound />
-    </div>
+    </template>
     <template
         v-for="lesson in lessonsList"
         v-else

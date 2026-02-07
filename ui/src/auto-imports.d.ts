@@ -24,6 +24,7 @@ declare global {
   const fetchCourseLessons: typeof import('./lib/fetchCourseLessons').fetchCourseLessons
   const fetchCourseProgress: typeof import('./lib/fetchCourseProgress').fetchCourseProgress
   const fetchCourses: typeof import('./lib/fetchCourses').fetchCourses
+  const fetchCoursesFromList: typeof import('./lib/fetchCoursesFromList').fetchCoursesFromList
   const fetchFirstNonCompletedLesson: typeof import('./lib/fetchFirstNonCompletedLesson').fetchFirstNonCompletedLesson
   const fetchLessonFaqs: typeof import('./lib/fetchLessonFaqs').fetchLessonFaqs
   const fetchLessonProgress: typeof import('./lib/fetchLessonProgress').fetchLessonProgress
@@ -146,7 +147,7 @@ declare global {
   export type { BaseDetails, User, Course, CourseNested, LessonFaq, LessonFaqNested, LessonResource, LessonResourceNested, Lesson, LessonNested, Status, ProgressType, CourseProgress, CourseProgressNested, CourseProgressStored, Resource, LessonProgress, LessonProgressNested } from './types/collections.d'
   import('./types/collections.d')
   // @ts-ignore
-  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, CourseFilter, FetchCourses, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResource } from './types/dataFetching.d'
+  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, FetchLessons, CourseFilter, FetchCourses, FetchCoursesFromList, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResource } from './types/dataFetching.d'
   import('./types/dataFetching.d')
   // @ts-ignore
   export type { Locales } from './types/locales.d'
@@ -176,6 +177,7 @@ declare module 'vue' {
     readonly fetchCourseLessons: UnwrapRef<typeof import('./lib/fetchCourseLessons')['fetchCourseLessons']>
     readonly fetchCourseProgress: UnwrapRef<typeof import('./lib/fetchCourseProgress')['fetchCourseProgress']>
     readonly fetchCourses: UnwrapRef<typeof import('./lib/fetchCourses')['fetchCourses']>
+    readonly fetchCoursesFromList: UnwrapRef<typeof import('./lib/fetchCoursesFromList')['fetchCoursesFromList']>
     readonly fetchFirstNonCompletedLesson: UnwrapRef<typeof import('./lib/fetchFirstNonCompletedLesson')['fetchFirstNonCompletedLesson']>
     readonly fetchLessonFaqs: UnwrapRef<typeof import('./lib/fetchLessonFaqs')['fetchLessonFaqs']>
     readonly fetchLessonProgress: UnwrapRef<typeof import('./lib/fetchLessonProgress')['fetchLessonProgress']>

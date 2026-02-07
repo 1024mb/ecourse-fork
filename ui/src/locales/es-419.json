@@ -39,9 +39,10 @@
   },
   "inProgress": "En progreso",
   "lessonsInThisCourse": "Sin lecciones en este curso | {count} lección en este curso | {count} lecciones en este curso",
+  "loading": "Cargando...",
   "msg": {
     "SetCourseAsComplete": "{courseTitle} completado exitosamente",
-    "lessonsFiltered": "clases | clase | clases",
+    "lessonsFiltered": "lecciones | lección | lecciones",
     "loadingFallback": "Cargando...",
     "loggingIn": "Iniciando sesión...",
     "login": {

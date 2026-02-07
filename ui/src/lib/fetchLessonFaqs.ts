@@ -3,7 +3,7 @@ export async function fetchLessonFaqs({
     filter = {},
     sort = "created",
 }: FetchLessonFaqs): Promise<LessonFaq[]> {
-    const faqFilter = retrieveFilter<LessonFaqNested>({
+    const recordFilter = retrieveFilter<LessonFaqNested>({
         filter: {
             ...filter,
             lesson: [
@@ -18,7 +18,7 @@ export async function fetchLessonFaqs({
 
     const lessonFaqs = await pb.collection("lesson_faqs").getFullList<LessonFaq>({
         sort,
-        filter: faqFilter,
+        filter: recordFilter,
     });
 
     return lessonFaqs.map((lessonFaq) => ({

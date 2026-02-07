@@ -39,6 +39,7 @@
   },
   "inProgress": "In Progress",
   "lessonsInThisCourse": "No lesson in this course | {count} lesson in this course | {count} lessons in this course",
+  "loading": "Loading...",
   "msg": {
     "SetCourseAsComplete": "{courseTitle} completed successfully",
     "lessonsFiltered": "lessons | lesson | lessons",

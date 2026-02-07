@@ -1,32 +1,15 @@
 <script lang="ts" setup>
 import { Icon } from "@iconify/vue";
+import debounce from "lodash/debounce";
 
 const uiStore = useUIStore();
-const { lessons } = useLessonsStore();
-const { courses } = useCoursesStore();
 
 const { t } = useI18n();
 
 const searchTerm = ref("");
 
-const filteredLessons = computed<Lesson[]>(() => {
-    return lessons.filter((lesson) => {
-        const lessonTitleMatch = lesson.title
-            .toLowerCase()
-            .includes(searchTerm.value.toLowerCase());
-
-        const course = courses.find((course) => course.id === lesson.course);
-
-        const courseTitleMatch
-            = course && course.title.toLowerCase().includes(searchTerm.value.toLowerCase());
-
-        const courseDescriptionMatch
-            = course
-              && course.description.toLowerCase().includes(searchTerm.value.toLowerCase());
-
-        return lessonTitleMatch || courseTitleMatch || courseDescriptionMatch;
-    });
-});
+const filteredLessons = ref<Lesson[]>([]);
+const coursesList = ref<Course[]>([]);
 
 const handleKeydown = (event: KeyboardEvent): void => {
     if (event.key === "Escape") {
@@ -42,6 +25,33 @@ watch(
         }
     },
 );
+
+watch(searchTerm, debounce(async (newValue) => {
+    console.log("Search term updated");
+
+    if (newValue === "") {
+        filteredLessons.value = [];
+        return;
+    }
+
+    filteredLessons.value = await fetchLessons({
+        filter: {
+            title: [newValue],
+            course: [
+                {
+                    description: [newValue],
+                },
+                {
+                    title: [newValue],
+                },
+            ],
+        },
+    });
+
+    coursesList.value = await fetchCoursesFromList({
+        courseIds: filteredLessons.value.map((lesson) => lesson.course),
+    });
+}, 500));
 
 onMounted(() => {
     window.addEventListener("keydown", handleKeydown);
@@ -74,8 +84,8 @@ onUnmounted(() => {
                 icon="ph:magnifying-glass"
             />
             <input
+                v-model="searchTerm"
                 :placeholder="t('findLesson')"
-                :value="searchTerm"
                 class="
                     flex-1 bg-transparent py-4
                     placeholder:text-white/50
@@ -110,7 +120,7 @@ onUnmounted(() => {
             </p>
 
             <div
-                v-for="course in courses"
+                v-for="course in coursesList"
                 :key="course.id"
             >
                 <div
