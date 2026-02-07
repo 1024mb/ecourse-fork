@@ -19,17 +19,29 @@ declare global {
   const defineStore: typeof import('pinia').defineStore
   const detectLocale: typeof import('./lib/locale').detectLocale
   const effectScope: typeof import('vue').effectScope
-  const fetchCourses: typeof import('./lib/useFetchRecords').fetchCourses
-  const fetchLessonFaqs: typeof import('./lib/useFetchRecords').fetchLessonFaqs
-  const fetchLessonResources: typeof import('./lib/useFetchRecords').fetchLessonResources
-  const fetchLessons: typeof import('./lib/useFetchRecords').fetchLessons
-  const fetchProgress: typeof import('./lib/useFetchRecords').fetchProgress
-  const fetchResources: typeof import('./lib/useFetchRecords').fetchResources
+  const ensureProgressTypes: typeof import('./lib/utils').ensureProgressTypes
+  const fetchAllCourses: typeof import('./lib/fetchAllCourses').fetchAllCourses
+  const fetchAllResources: typeof import('./lib/fetchAllResources').fetchAllResources
+  const fetchCourse: typeof import('./lib/fetchCourse').fetchCourse
+  const fetchCourseLessons: typeof import('./lib/fetchCourseLessons').fetchCourseLessons
+  const fetchCourseProgress: typeof import('./lib/fetchCourseProgress').fetchCourseProgress
+  const fetchCourses: typeof import('./lib/fetchCourses').fetchCourses
+  const fetchCoursesFromList: typeof import('./lib/fetchCoursesFromList').fetchCoursesFromList
+  const fetchFirstNonCompletedLesson: typeof import('./lib/fetchFirstNonCompletedLesson').fetchFirstNonCompletedLesson
+  const fetchLessonFaqs: typeof import('./lib/fetchLessonFaqs').fetchLessonFaqs
+  const fetchLessonProgress: typeof import('./lib/fetchLessonProgress').fetchLessonProgress
+  const fetchLessonResources: typeof import('./lib/fetchLessonResources').fetchLessonResources
+  const fetchLessons: typeof import('./lib/fetchLessons').fetchLessons
+  const fetchProgress: typeof import('./lib/fetchProgress').fetchProgress
+  const fetchProgressTypes: typeof import('./lib/fetchProgressTypes').fetchProgressTypes
+  const fetchResources: typeof import('./lib/fetchResources').fetchResources
+  const findCoursesContainer: typeof import('./lib/utils').findCoursesContainer
   const getActivePinia: typeof import('pinia').getActivePinia
   const getCurrentInstance: typeof import('vue').getCurrentInstance
   const getCurrentScope: typeof import('vue').getCurrentScope
   const getCurrentWatcher: typeof import('vue').getCurrentWatcher
   const getGoogleDriveFileId: typeof import('./lib/utils').getGoogleDriveFileId
+  const getProgressTypeId: typeof import('./lib/utils').getProgressTypeId
   const getYouTubeVideoId: typeof import('./lib/utils').getYouTubeVideoId
   const h: typeof import('vue').h
   const inject: typeof import('vue').inject
@@ -39,6 +51,7 @@ declare global {
   const isReadonly: typeof import('vue').isReadonly
   const isRef: typeof import('vue').isRef
   const isShallow: typeof import('vue').isShallow
+  const isStrictPlainObject: typeof import('./lib/utils').isStrictPlainObject
   const mapActions: typeof import('pinia').mapActions
   const mapGetters: typeof import('pinia').mapGetters
   const mapState: typeof import('pinia').mapState
@@ -67,10 +80,17 @@ declare global {
   const reactive: typeof import('vue').reactive
   const readonly: typeof import('vue').readonly
   const ref: typeof import('vue').ref
+  const resetLessonProgressForCourse: typeof import('./lib/resetLessonProgressForCourse').resetLessonProgressForCourse
   const resolveComponent: typeof import('vue').resolveComponent
+  const retrieveFilter: typeof import('./lib/retrieveFilter').retrieveFilter
   const sanitizeHTML: typeof import('./lib/utils').sanitizeHTML
   const scrollToCourse: typeof import('./lib/utils').scrollToCourse
   const setActivePinia: typeof import('pinia').setActivePinia
+  const setAllCourseLessonAsCompleted: typeof import('./lib/setLessonProgressAs').setAllCourseLessonAsCompleted
+  const setAllCourseLessonAsNotStarted: typeof import('./lib/setLessonProgressAs').setAllCourseLessonAsNotStarted
+  const setLessonAsCompleted: typeof import('./lib/setLessonProgressAs').setLessonAsCompleted
+  const setLessonAsInProgress: typeof import('./lib/setLessonProgressAs').setLessonAsInProgress
+  const setLessonAsNotStarted: typeof import('./lib/setLessonProgressAs').setLessonAsNotStarted
   const setMapStoreSuffix: typeof import('pinia').setMapStoreSuffix
   const shallowReactive: typeof import('vue').shallowReactive
   const shallowReadonly: typeof import('vue').shallowReadonly
@@ -83,7 +103,7 @@ declare global {
   const toValue: typeof import('vue').toValue
   const triggerRef: typeof import('vue').triggerRef
   const unref: typeof import('vue').unref
-  const updateProgressStatus: typeof import('./lib/utils').updateProgressStatus
+  const updateCourseProgressStatus: typeof import('./lib/utils').updateCourseProgressStatus
   const useAlertStore: typeof import("./src/stores/useAlertStore").useAlertStore
   const useAttrs: typeof import('vue').useAttrs
   const useAuthStore: typeof import('./stores/useAuthStore').useAuthStore
@@ -97,12 +117,14 @@ declare global {
   const useI18n: typeof import('vue-i18n').useI18n
   const useId: typeof import('vue').useId
   const useLessonFaqsStore: typeof import('./stores/useLessonFaqsStore').useLessonFaqsStore
+  const useLessonProgressStore: typeof import('./stores/useLessonProgressStore').useLessonProgressStore
   const useLessonResourcesStore: typeof import('./stores/useLessonResourcesStore').useLessonResourcesStore
   const useLessonsByCourseStore: typeof import('./stores/useLessonsByCourseStore').useLessonsByCourseStore
   const useLessonsStore: typeof import('./stores/useLessonsStore').useLessonsStore
   const useLocaleStore: typeof import('./stores/useLocaleStore').useLocaleStore
   const useModel: typeof import('vue').useModel
   const useProgressStore: typeof import('./stores/useProgressStore').useProgressStore
+  const useProgressTypeStore: typeof import('./stores/useProgressTypeStore').useProgressTypeStore
   const useResourcesStore: typeof import('./stores/useResourcesStore').useResourcesStore
   const useRoute: typeof import('vue-router').useRoute
   const useRouter: typeof import('vue-router').useRouter
@@ -121,8 +143,14 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { User, Course, LessonFaq, LessonResource, Lesson, Status, Progress, Resource, Users, Courses, LessonFaqs, LessonResources, Lessons, Resources } from './types/collections.d'
+  export type { RetrieveFilterParams } from './lib/retrieveFilter'
+  import('./lib/retrieveFilter')
+  // @ts-ignore
+  export type { BaseDetails, User, Course, CourseNested, LessonFaq, LessonFaqNested, LessonResource, LessonResourceNested, Lesson, LessonNested, Status, ProgressType, CourseProgress, CourseProgressNested, CourseProgressStored, Resource, LessonProgress, LessonProgressNested } from './types/collections.d'
   import('./types/collections.d')
+  // @ts-ignore
+  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, FetchLessons, CourseFilter, FetchCourses, FetchCoursesFromList, FetchAllCourses, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResource, ResourceFilter, FetchAllResources } from './types/dataFetching.d'
+  import('./types/dataFetching.d')
   // @ts-ignore
   export type { Locales } from './types/locales.d'
   import('./types/locales.d')
@@ -146,17 +174,27 @@ declare module 'vue' {
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly detectLocale: UnwrapRef<typeof import('./lib/locale')['detectLocale']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
-    readonly fetchCourses: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchCourses']>
-    readonly fetchLessonFaqs: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchLessonFaqs']>
-    readonly fetchLessonResources: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchLessonResources']>
-    readonly fetchLessons: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchLessons']>
-    readonly fetchProgress: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchProgress']>
-    readonly fetchResources: UnwrapRef<typeof import('./lib/useFetchRecords')['fetchResources']>
+    readonly ensureProgressTypes: UnwrapRef<typeof import('./lib/utils')['ensureProgressTypes']>
+    readonly fetchAllCourses: UnwrapRef<typeof import('./lib/fetchAllCourses')['fetchAllCourses']>
+    readonly fetchAllResources: UnwrapRef<typeof import('./lib/fetchAllResources')['fetchAllResources']>
+    readonly fetchCourse: UnwrapRef<typeof import('./lib/fetchCourse')['fetchCourse']>
+    readonly fetchCourseLessons: UnwrapRef<typeof import('./lib/fetchCourseLessons')['fetchCourseLessons']>
+    readonly fetchCourseProgress: UnwrapRef<typeof import('./lib/fetchCourseProgress')['fetchCourseProgress']>
+    readonly fetchCourses: UnwrapRef<typeof import('./lib/fetchCourses')['fetchCourses']>
+    readonly fetchCoursesFromList: UnwrapRef<typeof import('./lib/fetchCoursesFromList')['fetchCoursesFromList']>
+    readonly fetchFirstNonCompletedLesson: UnwrapRef<typeof import('./lib/fetchFirstNonCompletedLesson')['fetchFirstNonCompletedLesson']>
+    readonly fetchLessonFaqs: UnwrapRef<typeof import('./lib/fetchLessonFaqs')['fetchLessonFaqs']>
+    readonly fetchLessonProgress: UnwrapRef<typeof import('./lib/fetchLessonProgress')['fetchLessonProgress']>
+    readonly fetchLessonResources: UnwrapRef<typeof import('./lib/fetchLessonResources')['fetchLessonResources']>
+    readonly fetchLessons: UnwrapRef<typeof import('./lib/fetchLessons')['fetchLessons']>
+    readonly fetchProgressTypes: UnwrapRef<typeof import('./lib/fetchProgressTypes')['fetchProgressTypes']>
+    readonly findCoursesContainer: UnwrapRef<typeof import('./lib/utils')['findCoursesContainer']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getCurrentWatcher: UnwrapRef<typeof import('vue')['getCurrentWatcher']>
     readonly getGoogleDriveFileId: UnwrapRef<typeof import('./lib/utils')['getGoogleDriveFileId']>
+    readonly getProgressTypeId: UnwrapRef<typeof import('./lib/utils')['getProgressTypeId']>
     readonly getYouTubeVideoId: UnwrapRef<typeof import('./lib/utils')['getYouTubeVideoId']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -166,6 +204,7 @@ declare module 'vue' {
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly isShallow: UnwrapRef<typeof import('vue')['isShallow']>
+    readonly isStrictPlainObject: UnwrapRef<typeof import('./lib/utils')['isStrictPlainObject']>
     readonly mapActions: UnwrapRef<typeof import('pinia')['mapActions']>
     readonly mapGetters: UnwrapRef<typeof import('pinia')['mapGetters']>
     readonly mapState: UnwrapRef<typeof import('pinia')['mapState']>
@@ -194,10 +233,17 @@ declare module 'vue' {
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>
     readonly readonly: UnwrapRef<typeof import('vue')['readonly']>
     readonly ref: UnwrapRef<typeof import('vue')['ref']>
+    readonly resetLessonProgressForCourse: UnwrapRef<typeof import('./lib/resetLessonProgressForCourse')['resetLessonProgressForCourse']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
+    readonly retrieveFilter: UnwrapRef<typeof import('./lib/retrieveFilter')['retrieveFilter']>
     readonly sanitizeHTML: UnwrapRef<typeof import('./lib/utils')['sanitizeHTML']>
     readonly scrollToCourse: UnwrapRef<typeof import('./lib/utils')['scrollToCourse']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
+    readonly setAllCourseLessonAsCompleted: UnwrapRef<typeof import('./lib/setLessonProgressAs')['setAllCourseLessonAsCompleted']>
+    readonly setAllCourseLessonAsNotStarted: UnwrapRef<typeof import('./lib/setLessonProgressAs')['setAllCourseLessonAsNotStarted']>
+    readonly setLessonAsCompleted: UnwrapRef<typeof import('./lib/setLessonProgressAs')['setLessonAsCompleted']>
+    readonly setLessonAsInProgress: UnwrapRef<typeof import('./lib/setLessonProgressAs')['setLessonAsInProgress']>
+    readonly setLessonAsNotStarted: UnwrapRef<typeof import('./lib/setLessonProgressAs')['setLessonAsNotStarted']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
@@ -210,7 +256,7 @@ declare module 'vue' {
     readonly toValue: UnwrapRef<typeof import('vue')['toValue']>
     readonly triggerRef: UnwrapRef<typeof import('vue')['triggerRef']>
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
-    readonly updateProgressStatus: UnwrapRef<typeof import('./lib/utils')['updateProgressStatus']>
+    readonly updateCourseProgressStatus: UnwrapRef<typeof import('./lib/utils')['updateCourseProgressStatus']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
     readonly useAuthStore: UnwrapRef<typeof import('./stores/useAuthStore')['useAuthStore']>
     readonly useCoursesStore: UnwrapRef<typeof import('./stores/useCoursesStore')['useCoursesStore']>
@@ -218,7 +264,6 @@ declare module 'vue' {
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useCustomSettingsStore: UnwrapRef<typeof import('./stores/useCustomSettingsStore')['useCustomSettingsStore']>
     readonly useCustomizeJson: UnwrapRef<typeof import('./lib/useCustomizeJson')['default']>
-    readonly useFetchRecords: UnwrapRef<typeof import('./lib/useFetchRecords')['useFetchRecords']>
     readonly useHead: UnwrapRef<typeof import('@vueuse/head')['useHead']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
@@ -229,6 +274,7 @@ declare module 'vue' {
     readonly useLocaleStore: UnwrapRef<typeof import('./stores/useLocaleStore')['useLocaleStore']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useProgressStore: UnwrapRef<typeof import('./stores/useProgressStore')['useProgressStore']>
+    readonly useProgressTypeStore: UnwrapRef<typeof import('./stores/useProgressTypeStore')['useProgressTypeStore']>
     readonly useResourcesStore: UnwrapRef<typeof import('./stores/useResourcesStore')['useResourcesStore']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>

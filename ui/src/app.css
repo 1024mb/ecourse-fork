@@ -35,6 +35,10 @@
     --plyr-badge-background: $dark;
 }
 
+.p-paginator {
+    @apply bg-white/5 outline-white/20;
+}
+
 .plyr {
     border-radius: 8px;
 }

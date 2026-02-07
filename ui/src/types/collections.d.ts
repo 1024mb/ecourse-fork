@@ -1,6 +1,8 @@
 import type { RecordModel } from "pocketbase";
 
-interface BaseDetails extends RecordModel {
+type eCourseRecordModel = Omit<KnownKeys<RecordModel>, "expand">
+
+export interface BaseDetails extends eCourseRecordModel {
     created: string;
     updated: string;
 }
@@ -19,16 +21,29 @@ export interface Course extends BaseDetails {
     assign_to_everyone: boolean;
 }
 
+export interface CourseNested extends BaseDetails {
+    assignees: Partial<MakeAllArray<NonNullable<User>>>[];
+}
+
 export interface LessonFaq extends BaseDetails {
     lesson: string[];
     question: string;
     answer: string;
+    isOpen: boolean;
+}
+
+export interface LessonFaqNested extends LessonFaq {
+    lesson: Partial<MakeAllArray<NonNullable<Lesson>>>[];
 }
 
 export interface LessonResource extends BaseDetails {
     lesson: string[];
     name: string;
     link: string;
+}
+
+export interface LessonResourceNested extends LessonResource {
+    lesson: Partial<MakeAllArray<NonNullable<Lesson>>>[];
 }
 
 export interface Lesson extends BaseDetails {
@@ -44,12 +59,41 @@ export interface Lesson extends BaseDetails {
     videoRemoteUrl: string;
 }
 
-export type Status = "Not Started" | "In Progress" | "Completed"
+export interface LessonNested extends Lesson {
+    course: Partial<MakeAllArray<NonNullable<Course>>>;
+}
 
-export interface Progress extends BaseDetails {
+export type Status = "not_started" | "in_progress" | "completed"
+
+export interface ProgressType extends BaseDetails {
+    type_name: Status;
+}
+
+/*
+Holds status IDs
+ */
+export interface CourseProgress extends BaseDetails {
     assignee: string;
-    status: Status;
+
+    /*
+    ID of the linked status record
+     */
+    status: string;
+
     course: string;
+}
+
+export interface CourseProgressNested extends CourseProgress {
+    assignee: Partial<MakeAllArray<NonNullable<User>>>;
+    status: Partial<MakeAllArray<NonNullable<ProgressType>>>;
+    course: Partial<MakeAllArray<NonNullable<Course>>>;
+}
+
+/*
+Holds status type names
+ */
+export interface CourseProgressStored extends CourseProgress {
+    status: Status;
 }
 
 export interface Resource extends BaseDetails {
@@ -57,9 +101,18 @@ export interface Resource extends BaseDetails {
     link: string;
 }
 
-export type Users = Record<string, User>
-export type Courses = Record<string, Course>
-export type LessonFaqs = Record<string, LessonFaq>
-export type LessonResources = Record<string, LessonResource>
-export type Lessons = Record<string, Lesson>
-export type Resources = Record<string, Resource>
+export interface LessonProgress extends BaseDetails {
+    lesson: string;
+    user: string;
+
+    /*
+    ID of the linked status record
+     */
+    status: string;
+}
+
+export interface LessonProgressNested extends LessonProgress {
+    lesson: Partial<MakeAllArray<NonNullable<Lesson>>>;
+    user: Partial<MakeAllArray<NonNullable<User>>>;
+    status: Partial<MakeAllArray<NonNullable<ProgressType>>>;
+}

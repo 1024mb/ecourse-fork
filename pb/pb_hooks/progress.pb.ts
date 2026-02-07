@@ -1,7 +1,11 @@
 // create progress records for every assignee added when a course record is created
 onRecordCreateRequest((e) => {
+    console.debug("onRecordUpdateRequest for courses fired.");
+
     e.next();
     const record = e.record;
+
+    const utils = require(`${ __hooks }/utils.js`);
 
     if (record == null) {
         return;
@@ -19,20 +23,27 @@ onRecordCreateRequest((e) => {
         $app.save(record);
     }
 
+    const notStartedId = utils.getProgressTypeId({ progressTypeName: "not_started" });
+
     assignees.forEach((assignee) => {
         const progressRecord = new Record(progressCollection, {
             course: record.id,
             assignee: assignee,
-            status: "Not Started",
+            status: notStartedId,
         });
+
         $app.save(progressRecord);
     });
 }, "courses");
 
 // create/delete progress records for every assignee added/removed when a course record is updated
 onRecordUpdateRequest((e) => {
+    console.log("onRecordUpdateRequest for courses fired.");
+
     e.next();
     const updatedRecord = e.record;
+
+    const utils = require(`${ __hooks }/utils.js`);
 
     if (updatedRecord == null) {
         return;
@@ -59,11 +70,13 @@ onRecordUpdateRequest((e) => {
     (assignee) => !updatedAssignees.includes(assignee),
     );
 
+    const notStartedId = utils.getProgressTypeId({ progressTypeName: "not_started" });
+
     newAssignees.forEach((assignee) => {
         const progressRecord = new Record(progressCollection, {
             course: updatedRecord.id,
             assignee: assignee,
-            status: "Not Started",
+            status: notStartedId,
         });
 
         $app.save(progressRecord);
@@ -86,6 +99,8 @@ onRecordUpdateRequest((e) => {
 
 // remove assignees from course records when their corresponding progress records are deleted
 onRecordDeleteRequest((e) => {
+    console.log("onRecordDeleteRequest for progress fired.");
+
     e.next();
     const deletedProgressRecord = e.record;
 
@@ -115,6 +130,8 @@ onRecordDeleteRequest((e) => {
 
 // reset the course and assignee fields to their original values when they get updated
 onRecordUpdateRequest((e) => {
+    console.log("onRecordUpdateRequest for progress fired.");
+
     e.next();
     const updatedRecord = e.record;
 
@@ -137,6 +154,8 @@ onRecordUpdateRequest((e) => {
 
 // add assignee to the corresponding course record when a progress record is created
 onRecordCreateRequest((e) => {
+    console.log("onRecordCreateRequest for progress fired.");
+
     e.next();
     const progressRecord = e.record;
 
@@ -164,8 +183,12 @@ onRecordCreateRequest((e) => {
 
 // add new users to courses that are assigned to everyone and create progress records for them
 onRecordCreateRequest((e) => {
+    console.log("onRecordCreateRequest for users fired.");
+
     e.next();
     const newUser = e.record;
+
+    const utils = require(`${ __hooks }/utils.js`);
 
     if (newUser == null) {
         return;
@@ -178,6 +201,8 @@ onRecordCreateRequest((e) => {
     coursesCollection.name,
     $dbx.hashExp({ assign_to_everyone: true }),
     );
+
+    const notStartedId = utils.getProgressTypeId({ progressTypeName: "not_started" });
 
     assignedToEveryoneCourses.forEach((course) => {
         if (course == null) {
@@ -193,7 +218,7 @@ onRecordCreateRequest((e) => {
             const progressRecord = new Record(progressCollection, {
                 course: course.id,
                 assignee: newUser.id,
-                status: "Not Started",
+                status: notStartedId,
             });
 
             $app.save(progressRecord);

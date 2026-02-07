@@ -111,6 +111,8 @@ export default defineConfig([
                                             "error",
                                             {ignoreChainWithDepth: 2},
                                         ],
+
+                                        "@typescript-eslint/no-require-imports": "off",
                                     },
                                 },
                             ]);

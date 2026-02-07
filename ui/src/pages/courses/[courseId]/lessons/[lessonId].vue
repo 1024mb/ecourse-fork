@@ -16,12 +16,16 @@ const router = useRouter();
 
 const authStore = useAuthStore();
 const uiStore = useUIStore();
-const coursesStore = useCoursesStore();
-const lessonsStore = useLessonsStore();
-const progressStore = useProgressStore();
-const lessonsByCourseStore = useLessonsByCourseStore();
-const lessonFaqsStore = useLessonFaqsStore();
-const lessonsResourcesStore = useLessonResourcesStore();
+const progressTypeStore = useProgressTypeStore();
+
+const lessonsList = ref<Lesson[]>([]);
+const progressList = ref<CourseProgressStored[]>([]);
+const lessonFaqList = ref<LessonFaq[]>([]);
+const lessonResourceList = ref<LessonResource[]>([]);
+
+const lessonNotFound = ref(false);
+
+uiStore.isLoading = true;
 
 const { t } = useI18n();
 
@@ -32,19 +36,24 @@ const { name } = useCustomizeJson();
 
 const loading = ref<Record<string, boolean>>({});
 let lessonVideo: Plyr | null = null;
-const currentCourseStatus = computed(() => {
-    const currentProgress = progressStore.progress.find((progress) => progress.course === courseId);
+const currentCourseStatus = computed<Status>(() => {
+    const currentProgress = progressList.value.find((progress) => progress.course === courseId);
     if (currentProgress == null) {
-        return "";
+        return "not_started";
     }
 
     return currentProgress.status;
 });
 
 const currentLessonTitle = computed(() => {
+    if (uiStore.isLoading) {
+        return t("loading");
+    }
+
     const currentLesson = getCurrentLesson();
 
     if (currentLesson == null) {
+        lessonNotFound.value = true;
         return t("unknown");
     }
 
@@ -59,16 +68,16 @@ useHead({
     title: documentTitle,
 });
 
-function getCourseLessons(courseId: string): Lesson[] {
-    return lessonsStore.lessons.filter((lesson) => lesson.course === courseId);
-}
-
-function findCurrentLessonIndex(courseLessons: Lesson[]): number {
-    return courseLessons.findIndex(lesson => lesson.id === lessonId);
+function findCurrentLessonIndex(): number {
+    return lessonsList.value.findIndex(lesson => lesson.id === lessonId);
 }
 
 function getCurrentLesson(): Lesson | undefined {
-    const currentLesson = lessonsStore.lessons.find((lesson) => lesson.id === lessonId);
+    if (uiStore.isLoading) {
+        return undefined;
+    }
+
+    const currentLesson = lessonsList.value.find((lesson) => lesson.id === lessonId);
 
     if (currentLesson == null) {
         toast.error(t("errorMsg.failedToGetCurrentLesson"));
@@ -77,97 +86,136 @@ function getCurrentLesson(): Lesson | undefined {
     return currentLesson;
 }
 
-function goToNextLesson() {
+async function goToNextLesson() {
     const currentLesson = getCurrentLesson();
 
     if (currentLesson == null) {
         return;
     }
 
-    const courseLessons = getCourseLessons(currentLesson.course);
-    const currentLessonIndex = findCurrentLessonIndex(courseLessons);
+    const currentLessonIndex = findCurrentLessonIndex();
     if (
         currentLessonIndex >= 0
-        && currentLessonIndex < courseLessons.length - 1
+        && currentLessonIndex < lessonsList.value.length - 1
     ) {
-        const nextLesson = courseLessons[currentLessonIndex + 1];
+        const nextLesson = lessonsList.value[currentLessonIndex + 1];
 
         if (nextLesson == null) {
             toast.error(t("errorMsg.failedFindNextLesson"));
             return;
         }
 
-        router.push(
-            `/courses/${ courseId }/lessons/${ nextLesson.id }`,
-        );
+        await setLessonAsCompleted({ lessonId });
+        await setLessonAsInProgress({ lessonId: nextLesson.id });
 
-        lessonsByCourseStore.lessonsByCourse[nextLesson.course] = nextLesson;
+        return router.push(`/courses/${ courseId }/lessons/${ nextLesson.id }`);
     }
 }
 
-function goToPreviousLesson() {
+async function goToPreviousLesson() {
     const currentLesson = getCurrentLesson();
 
     if (currentLesson == null) {
         return;
     }
 
-    const courseLessons = getCourseLessons(currentLesson.course);
-    const currentLessonIndex = findCurrentLessonIndex(courseLessons);
+    const currentLessonIndex = findCurrentLessonIndex();
 
     if (currentLessonIndex > 0) {
-        const previousLesson = courseLessons[currentLessonIndex - 1];
+        const previousLesson = lessonsList.value[currentLessonIndex - 1];
 
         if (previousLesson == null) {
             toast.error(t("errorMsg.failedFindPreviousLesson"));
             return;
         }
 
-        router.push(
+        await setLessonAsNotStarted({ lessonId });
+        await setLessonAsInProgress({ lessonId: previousLesson.id });
+
+        return router.push(
             `/courses/${ courseId }/lessons/${ previousLesson.id }`,
         );
-
-        lessonsByCourseStore.lessonsByCourse[previousLesson.course] = previousLesson;
     }
 }
 
 async function completeCourse(lessonId: string) {
-    const currentCourse = coursesStore.courses.find((course) => course.id === courseId);
+    const currentCourse = await fetchCourse({ courseId });
 
     if (currentCourse == null) {
         toast.error(t("errorMsg.failedFindCourse"));
         return;
     }
 
-    const progressRecord = progressStore.progress.find(
+    const progressRecord = progressList.value.find(
         (progressRecord) => progressRecord.course === courseId,
     );
 
     if (progressRecord == null) {
-        // TODO: is this an error or expected if no progress? I haven't seen where we set "Not Started".
         toast.error(t("errorMsg.failedFindProgress"));
         return;
     }
 
-    if (progressRecord.status === "In Progress") {
+    if (progressRecord.status === "in_progress") {
         loading.value[lessonId] = true;
 
-        const updatedProgressRecord = await updateProgressStatus(
-            progressRecord.id,
-            "Completed",
-        );
+        const result = await updateCourseProgressStatus({
+            courseProgressId: progressRecord.id,
+            newStatusName: "completed",
+        });
 
-        if (updatedProgressRecord == null) {
+        if (!result) {
             loading.value[lessonId] = false;
-        } else {
-            toast.success(t("msg.SetCourseAsComplete", {
-                courseTitle: currentCourse.title.length > 30
-                    ? currentCourse.title.slice(0, 30) + "..."
-                    : currentCourse.title,
-            }));
-
-            return router.push("/");
+            return;
         }
+
+        await setAllCourseLessonAsCompleted({ courseId });
+
+        toast.success(t("msg.SetCourseAsComplete", {
+            courseTitle: currentCourse.title.length > 30
+                ? currentCourse.title.slice(0, 30) + "..."
+                : currentCourse.title,
+        }));
+
+        return router.push("/");
+    }
+}
+
+async function loadData() {
+    if (authStore.currentUser != null) {
+        try {
+            uiStore.isLoading = true;
+
+            lessonsList.value = await fetchCourseLessons({
+                filter: {
+                    course: [
+                        {
+                            id: [courseId],
+                        },
+                    ],
+                },
+            });
+
+            await ensureProgressTypes();
+
+            progressList.value = await fetchCourseProgress({
+                progressTypeRecords: progressTypeStore.progressTypes,
+                filter: {
+                    course: [
+                        {
+                            id: [courseId],
+                        },
+                    ],
+                },
+            });
+
+            lessonFaqList.value = await fetchLessonFaqs({ lessons: lessonsList.value });
+
+            lessonResourceList.value = await fetchLessonResources({ lessons: lessonsList.value });
+        } finally {
+            uiStore.isLoading = false;
+        }
+    } else {
+        return router.push("/login");
     }
 }
 
@@ -183,13 +231,7 @@ onUpdated(() => {
 });
 
 onMounted(async () => {
-    if (authStore.currentUser != null) {
-        uiStore.isLoading = true;
-        await useFetchRecords();
-        uiStore.isLoading = false;
-    } else {
-        return router.push("/login");
-    }
+    await loadData();
 });
 
 onUnmounted(() => {
@@ -232,20 +274,20 @@ onUnmounted(() => {
             />
         </div>
     </div>
-    <div
-        v-else-if="lessonsStore.lessons.length === 0 || lessonsStore.lessons.every((lesson) => lesson.id !== lessonId)"
+    <template
+        v-else-if="lessonsList.length === 0 || lessonNotFound"
     >
         <NotFound />
-    </div>
+    </template>
     <template
-        v-for="lesson in lessonsStore.lessons"
+        v-for="lesson in lessonsList"
         v-else
         :key="lesson.id"
     >
         <section
             v-if="lesson.id === lessonId"
-            :class="lessonFaqsStore.lessonFaqs.filter((faq) => faq.lesson.includes(lesson.id)).length > 0
-                || lessonsResourcesStore.lessonResources.filter((resource) => resource.lesson.includes(lesson.id)).length > 0
+            :class="lessonFaqList.length > 0
+                || lessonResourceList.length > 0
                 || lesson.downloads.length > 0 ? `
                     flex flex-1 flex-col justify-between gap-5 overflow-y-auto bg-dark p-5
                 ` : `flex flex-1 flex-col justify-between overflow-y-auto bg-dark p-5`"
@@ -296,14 +338,14 @@ onUnmounted(() => {
                     </div>
 
                     <div
-                        v-if="currentCourseStatus === 'In Progress' || currentCourseStatus === 'Completed'"
+                        v-if="currentCourseStatus === 'in_progress' || currentCourseStatus === 'completed'"
                         class="
                             flex items-center gap-3
                             max-sm:w-full max-sm:flex-col
                         "
                     >
                         <button
-                            v-if="findCurrentLessonIndex(getCourseLessons(courseId)) > 0"
+                            v-if="findCurrentLessonIndex() > 0"
                             class="
                                 line-clamp-1 flex cursor-pointer items-center justify-center gap-2 truncate rounded-md
                                 bg-white/10 px-4 py-2 outline-[1.5px] outline-white/20 transition
@@ -317,9 +359,9 @@ onUnmounted(() => {
                         </button>
 
                         <button
-                            v-if="findCurrentLessonIndex(getCourseLessons(courseId)) >= getCourseLessons(courseId).length - 1"
+                            v-if="findCurrentLessonIndex() >= lessonsList.length - 1"
                             :class="loading[lesson.id] ||
-                                currentCourseStatus === 'Completed'
+                                currentCourseStatus === 'completed'
                                 ? `
                                     pointer-events-none line-clamp-1 flex cursor-pointer items-center justify-center
                                     gap-2 truncate rounded-md bg-emerald-400/60 px-4 py-2 opacity-50 transition
@@ -335,7 +377,7 @@ onUnmounted(() => {
                             @click="() => completeCourse(lesson.id)"
                         >
                             {{
-                                currentCourseStatus === "Completed"
+                                currentCourseStatus === "completed"
                                     ? $t("courseCompleted")
                                     : $t("completeCourse")
                             }}
@@ -493,7 +535,7 @@ onUnmounted(() => {
                 "
             >
                 <div
-                    v-if="lessonFaqsStore.lessonFaqs.filter((faq) => faq.lesson.includes(lesson.id)).length > 0"
+                    v-if="lessonFaqList.length > 0"
                     class="w-full flex-1 space-y-4"
                 >
                     <h2 class="flex items-center gap-2 text-2xl">
@@ -502,7 +544,7 @@ onUnmounted(() => {
                     </h2>
                     <div class="grid grid-cols-[repeat(auto-fill,minmax(20vw,1fr))] gap-4">
                         <template
-                            v-for="faq in lessonFaqsStore.lessonFaqs"
+                            v-for="faq in lessonFaqList"
                             :key="faq.id"
                         >
                             <button
@@ -515,7 +557,11 @@ onUnmounted(() => {
                                 @click="() => (faq.isOpen = !faq.isOpen)"
                             >
                                 <span class="flex items-center justify-between gap-2 text-start">
-                                    <span class="line-clamp-1 text-base">
+                                    <span
+                                        :class="faq.isOpen ?
+                                            'text-base text-wrap wrap-anywhere' :
+                                            'line-clamp-1 text-base'"
+                                    >
                                         {{ faq.question }}
                                     </span>
                                     <Icon
@@ -537,7 +583,7 @@ onUnmounted(() => {
                 </div>
 
                 <div
-                    v-if="lessonsResourcesStore.lessonResources.filter((resource) => resource.lesson.includes(lesson.id)).length > 0"
+                    v-if="lessonResourceList.length > 0"
                     class="w-full flex-1 space-y-4"
                 >
                     <h2 class="flex items-center gap-2 text-2xl">
@@ -546,11 +592,10 @@ onUnmounted(() => {
                     </h2>
                     <div class="grid grid-cols-[repeat(auto-fill,minmax(20vw,1fr))] gap-4">
                         <template
-                            v-for="resource in lessonsResourcesStore.lessonResources"
+                            v-for="resource in lessonResourceList"
                             :key="resource.id"
                         >
                             <a
-                                v-if="resource.lesson.includes(lesson.id)"
                                 :href="resource.link"
                                 class="
                                     block rounded-md bg-white/10 p-2 outline-[1.5px] outline-white/20 transition

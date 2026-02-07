@@ -24,7 +24,8 @@
     "loadDataFailed": "Error al cargar los datos. Por favor, inténtalo otra vez.",
     "login": {
       "loginFailed": "Falló iniciar sesión. Por favor, revisa tus credenciales y vuelve a intentarlo."
-    }
+    },
+    "progressTypeNotFound": "El tipo de progreso no fue encontrado. Recarga e intenta otra vez."
   },
   "faq": "Preguntas frecuentes",
   "findLesson": "Buscar lección...",
@@ -37,16 +38,19 @@
     }
   },
   "inProgress": "En progreso",
-  "lessonsInThisCourse": "Sin lecciones en este curso | {numberOfLessons} lección en este curso | {numberOfLessons} lecciones en este curso",
+  "lessonsInThisCourse": "Sin lecciones en este curso | {count} lección en este curso | {count} lecciones en este curso",
+  "loading": "Cargando...",
   "msg": {
     "SetCourseAsComplete": "{courseTitle} completado exitosamente",
-    "lessonsFiltered": "clases | clase | clases",
+    "lessonsFiltered": "lecciones | lección | lecciones",
+    "loadingFallback": "Cargando...",
     "loggingIn": "Iniciando sesión...",
     "login": {
       "pleaseLogin": "Por favor, inicia sesión con tu cuenta",
       "welcomeTo": "Bienvenido a"
     },
     "noLessonsFound": "No se encontró ninguna lección",
+    "pagination": "Mostrando del {'{first}'} al {'{last}'} de {'{totalRecords}'}",
     "showing": "Mostrando"
   },
   "myCourses": "Mis cursos",

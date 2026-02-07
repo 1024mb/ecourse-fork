@@ -24,7 +24,8 @@
     "loadDataFailed": "Failed to load data. Please try again.",
     "login": {
       "loginFailed": "Login failed. Please check your credentials and try again."
-    }
+    },
+    "progressTypeNotFound": "The progress type was not found. Reload and try again."
   },
   "faq": "FAQ",
   "findLesson": "Find Lesson...",
@@ -37,16 +38,19 @@
     }
   },
   "inProgress": "In Progress",
-  "lessonsInThisCourse": "No lesson in this course | {numberOfLessons} lesson in this course | {numberOfLessons} lesson in this course",
+  "lessonsInThisCourse": "No lesson in this course | {count} lesson in this course | {count} lessons in this course",
+  "loading": "Loading...",
   "msg": {
     "SetCourseAsComplete": "{courseTitle} completed successfully",
     "lessonsFiltered": "lessons | lesson | lessons",
+    "loadingFallback": "Loading...",
     "loggingIn": "Logging in...",
     "login": {
       "pleaseLogin": "Please login to your account",
       "welcomeTo": "Welcome to"
     },
     "noLessonsFound": "No Lesson found",
+    "pagination": "Showing {'{first}'} to {'{last}'} of {'{totalRecords}'}",
     "showing": "Showing"
   },
   "myCourses": "My Courses",
