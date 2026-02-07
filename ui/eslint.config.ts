@@ -5,6 +5,7 @@ import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 import pluginPlaywright from "eslint-plugin-playwright";
 import pluginVue from "eslint-plugin-vue";
 import { globalIgnores } from "eslint/config";
+import autoImportConfig from "./.eslintrc-auto-import.json" assert { type: "json" };
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
 // import { configureVueProject } from '@vue/eslint-config-typescript'
@@ -37,6 +38,12 @@ vueTsConfigs.recommended,
 {
     ...pluginVitest.configs.recommended,
     files: ["src/**/__tests__/*"],
+},
+
+{
+    languageOptions: {
+        ...autoImportConfig,
+    },
 },
 
 // @ts-expect-error the type is wrong
