@@ -557,7 +557,11 @@ onUnmounted(() => {
                                 @click="() => (faq.isOpen = !faq.isOpen)"
                             >
                                 <span class="flex items-center justify-between gap-2 text-start">
-                                    <span class="line-clamp-1 text-base">
+                                    <span
+                                        :class="faq.isOpen ?
+                                            'text-base text-wrap wrap-anywhere' :
+                                            'line-clamp-1 text-base'"
+                                    >
                                         {{ faq.question }}
                                     </span>
                                     <Icon
