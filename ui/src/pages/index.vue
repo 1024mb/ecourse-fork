@@ -13,6 +13,7 @@ import { type PageState, Paginator } from "primevue";
 const authStore = useAuthStore();
 const progressTypeStore = useProgressTypeStore();
 const uiStore = useUIStore();
+const coursesStore = useCoursesStore();
 
 uiStore.isLoading = true;
 
@@ -186,6 +187,15 @@ watch(openCourseId, () => {
             }
         }
     }
+});
+
+watch(coursesList, (newValue) => {
+    if (newValue == null) {
+        coursesStore.clear();
+        return;
+    }
+
+    coursesStore.set(newValue.items);
 });
 
 onMounted(async () => {

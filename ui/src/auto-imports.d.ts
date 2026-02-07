@@ -20,6 +20,8 @@ declare global {
   const detectLocale: typeof import('./lib/locale').detectLocale
   const effectScope: typeof import('vue').effectScope
   const ensureProgressTypes: typeof import('./lib/utils').ensureProgressTypes
+  const fetchAllCourses: typeof import('./lib/fetchAllCourses').fetchAllCourses
+  const fetchAllResources: typeof import('./lib/fetchAllResources').fetchAllResources
   const fetchCourse: typeof import('./lib/fetchCourse').fetchCourse
   const fetchCourseLessons: typeof import('./lib/fetchCourseLessons').fetchCourseLessons
   const fetchCourseProgress: typeof import('./lib/fetchCourseProgress').fetchCourseProgress
@@ -147,7 +149,7 @@ declare global {
   export type { BaseDetails, User, Course, CourseNested, LessonFaq, LessonFaqNested, LessonResource, LessonResourceNested, Lesson, LessonNested, Status, ProgressType, CourseProgress, CourseProgressNested, CourseProgressStored, Resource, LessonProgress, LessonProgressNested } from './types/collections.d'
   import('./types/collections.d')
   // @ts-ignore
-  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, FetchLessons, CourseFilter, FetchCourses, FetchCoursesFromList, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResource } from './types/dataFetching.d'
+  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, FetchLessons, CourseFilter, FetchCourses, FetchCoursesFromList, FetchAllCourses, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResource, ResourceFilter, FetchAllResources } from './types/dataFetching.d'
   import('./types/dataFetching.d')
   // @ts-ignore
   export type { Locales } from './types/locales.d'
@@ -173,6 +175,8 @@ declare module 'vue' {
     readonly detectLocale: UnwrapRef<typeof import('./lib/locale')['detectLocale']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly ensureProgressTypes: UnwrapRef<typeof import('./lib/utils')['ensureProgressTypes']>
+    readonly fetchAllCourses: UnwrapRef<typeof import('./lib/fetchAllCourses')['fetchAllCourses']>
+    readonly fetchAllResources: UnwrapRef<typeof import('./lib/fetchAllResources')['fetchAllResources']>
     readonly fetchCourse: UnwrapRef<typeof import('./lib/fetchCourse')['fetchCourse']>
     readonly fetchCourseLessons: UnwrapRef<typeof import('./lib/fetchCourseLessons')['fetchCourseLessons']>
     readonly fetchCourseProgress: UnwrapRef<typeof import('./lib/fetchCourseProgress')['fetchCourseProgress']>

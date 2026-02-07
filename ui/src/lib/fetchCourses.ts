@@ -1,5 +1,3 @@
-import { retrieveFilter } from "@/lib/retrieveFilter";
-import type { FetchCourses } from "@/types/dataFetching";
 import type { ListResult } from "pocketbase";
 
 /*

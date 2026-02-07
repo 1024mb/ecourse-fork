@@ -8,14 +8,16 @@ const { isCoursesVisible = true } = defineProps<{
 const customizeData = useCustomizeJson();
 
 const uiStore = useUIStore();
-const coursesStore = useCoursesStore();
-const resourcesStore = useResourcesStore();
 const authStore = useAuthStore();
+const coursesStore = useCoursesStore();
 
 const router = useRouter();
 const { t } = useI18n();
 
 const windowWidth = ref(0);
+const resourcesList = ref<Resource[]>([]);
+
+resourcesList.value = await fetchAllResources();
 
 const updateWidth = () => {
     windowWidth.value = window.innerWidth;
@@ -209,7 +211,7 @@ onUnmounted(() => {
                     />
                 </div>
                 <div
-                    v-else-if="resourcesStore.resources.length > 0"
+                    v-else-if="resourcesList.length > 0"
                 >
                     <div class="flex flex-col gap-2">
                         <h3 class="flex items-center gap-2 text-xs tracking-[2px] text-white/50">
@@ -217,7 +219,7 @@ onUnmounted(() => {
                             {{ t("resources").toUpperCase() }}
                         </h3>
                         <div
-                            v-for="resource in resourcesStore.resources"
+                            v-for="resource in resourcesList"
                             :key="resource.id"
                         >
                             <a

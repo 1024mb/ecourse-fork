@@ -126,7 +126,7 @@ export function findCoursesContainer(element: HTMLElement) {
     let parent = element.parentElement;
 
     while (parent) {
-        if (parent.classList.contains("overflow-y-scroll")) {
+        if (parent.classList.contains("overflow-y-auto")) {
             return parent;
         }
         parent = parent.parentElement;

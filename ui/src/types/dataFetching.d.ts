@@ -36,6 +36,10 @@ export interface FetchCoursesFromList extends BaseFetch {
     courseIds: string[];
 }
 
+export interface FetchAllCourses extends BaseFetch {
+    filter?: CourseFilter;
+}
+
 export type CourseProgressFilter = Partial<MakeAllArray<NonNullable<CourseProgressNested>>>
 
 export interface FetchCourseProgress extends BaseFetch {
@@ -55,4 +59,10 @@ export type LessonResourceFilter = Partial<MakeAllArray<NonNullable<LessonResour
 export interface FetchLessonResource extends BaseFetch {
     filter?: LessonFaqsFilter;
     lessons: Lesson[];
+}
+
+export type ResourceFilter = Partial<MakeAllArray<NonNullable<Resource>>>
+
+export interface FetchAllResources extends BaseFetch {
+    filter?: ResourceFilter;
 }
