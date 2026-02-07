@@ -1,14 +1,16 @@
 import { getI18n } from "@/i18n";
+import { fetchProgressTypes } from "@/lib/fetchProgressTypes";
 import DOMPurify from "dompurify";
 import slugify from "slugify";
 import { toast } from "vue-sonner";
 
-export async function updateProgressStatus(
-    progressRecordId: string,
-    newStatusName: Status,
-): Promise<boolean> {
+export async function updateCourseProgressStatus({ courseProgressId, newStatusName }: {
+    courseProgressId: string,
+    newStatusName: Status
+}): Promise<boolean> {
     const i18n = getI18n();
-    const progressStore = useProgressStore();
+    await ensureProgressTypes();
+
     const progressTypeStore = useProgressTypeStore();
 
     try {
@@ -19,21 +21,8 @@ export async function updateProgressStatus(
             return false;
         }
 
-        await pb.collection("progress").update<Progress>(progressRecordId, {
+        await pb.collection("progress").update<CourseProgress>(courseProgressId, {
             status: progressType.id,
-        });
-
-        progressStore.progress = progressStore.progress.map((progressRecord) => {
-            if (progressRecord.id === progressRecordId) {
-                return {
-                    ...progressRecord,
-                    status: newStatusName,
-                };
-            } else {
-                return {
-                    ...progressRecord,
-                };
-            }
         });
 
         return true;
@@ -133,7 +122,7 @@ export function scrollToCourse(target: string) {
 }
 
 // function to find the scrollable parent container around the courses
-function findCoursesContainer(element: HTMLElement) {
+export function findCoursesContainer(element: HTMLElement) {
     let parent = element.parentElement;
 
     while (parent) {
@@ -150,4 +139,38 @@ export function sanitizeHTML(html: string) {
     return DOMPurify.sanitize(html, {
         USE_PROFILES: { html: true },
     });
+}
+
+export async function ensureProgressTypes() {
+    const progressTypeStore = useProgressTypeStore();
+
+    if (progressTypeStore.progressTypes.length === 0) {
+        progressTypeStore.set(await fetchProgressTypes());
+    }
+}
+
+export async function getProgressTypeId({ progressTypeName }: {
+    progressTypeName: string
+}): Promise<string> {
+    const progressTypeRecords = await fetchProgressTypes();
+
+    for (const record of progressTypeRecords) {
+        if (record == null) {
+            continue;
+        }
+
+        if (record.type_name === progressTypeName) {
+            return record.id;
+        }
+    }
+
+    throw new Error("Unknown progress type name " + progressTypeName);
+}
+
+function isPlainObject(value: unknown) {
+    return (value !== null && typeof value === "object" && !Array.isArray(value));
+}
+
+export function isStrictPlainObject(value: unknown) {
+    return (isPlainObject(value) && Object.getPrototypeOf(value) === Object.prototype);
 }

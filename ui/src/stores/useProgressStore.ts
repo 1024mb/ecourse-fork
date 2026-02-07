@@ -1,5 +1,5 @@
 type ProgressStore = {
-    progress: ProgressStored[];
+    progress: CourseProgressStored[];
 }
 
 export const useProgressStore = defineStore("progress", {
@@ -7,7 +7,7 @@ export const useProgressStore = defineStore("progress", {
         progress: [],
     }),
     actions: {
-        set(data: ProgressStored[]) {
+        set(data: CourseProgressStored[]) {
             this.progress = data;
         },
         clear() {

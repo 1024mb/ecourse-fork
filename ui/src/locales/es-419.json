@@ -38,16 +38,18 @@
     }
   },
   "inProgress": "En progreso",
-  "lessonsInThisCourse": "Sin lecciones en este curso | {numberOfLessons} lección en este curso | {numberOfLessons} lecciones en este curso",
+  "lessonsInThisCourse": "Sin lecciones en este curso | {count} lección en este curso | {count} lecciones en este curso",
   "msg": {
     "SetCourseAsComplete": "{courseTitle} completado exitosamente",
     "lessonsFiltered": "clases | clase | clases",
+    "loadingFallback": "Cargando...",
     "loggingIn": "Iniciando sesión...",
     "login": {
       "pleaseLogin": "Por favor, inicia sesión con tu cuenta",
       "welcomeTo": "Bienvenido a"
     },
     "noLessonsFound": "No se encontró ninguna lección",
+    "pagination": "Mostrando del {'{first}'} al {'{last}'} de {'{totalRecords}'}",
     "showing": "Mostrando"
   },
   "myCourses": "Mis cursos",

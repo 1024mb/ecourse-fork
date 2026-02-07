@@ -20,11 +20,13 @@
     ]
   },
   "dependencies": {
+    "@primeuix/themes": "^2.0.3",
     "@vueuse/head": "^2.0.0",
     "dompurify": "^3.3.1",
     "pinia": "^3.0.4",
     "plyr": "^3.8.4",
     "pocketbase": "^0.26.8",
+    "primevue": "^4.5.4",
     "vue": "^3.5.27",
     "vue-i18n": "^11.2.8",
     "vue-router": "^5.0.1",
