@@ -1,4 +1,3 @@
-import { useAuthStore } from "@/stores/useAuthStore.ts";
 import PocketBase from "pocketbase";
 
 export const pb = new PocketBase(

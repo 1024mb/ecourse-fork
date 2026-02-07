@@ -188,7 +188,6 @@ declare module 'vue' {
     readonly fetchLessonResources: UnwrapRef<typeof import('./lib/fetchLessonResources')['fetchLessonResources']>
     readonly fetchLessons: UnwrapRef<typeof import('./lib/fetchLessons')['fetchLessons']>
     readonly fetchProgressTypes: UnwrapRef<typeof import('./lib/fetchProgressTypes')['fetchProgressTypes']>
-    readonly fetchResources: UnwrapRef<typeof import('./lib/fetchResources')['fetchResources']>
     readonly findCoursesContainer: UnwrapRef<typeof import('./lib/utils')['findCoursesContainer']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
@@ -265,7 +264,6 @@ declare module 'vue' {
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useCustomSettingsStore: UnwrapRef<typeof import('./stores/useCustomSettingsStore')['useCustomSettingsStore']>
     readonly useCustomizeJson: UnwrapRef<typeof import('./lib/useCustomizeJson')['default']>
-    readonly useFetchRecords: UnwrapRef<typeof import('./lib/useFetchRecords')['useFetchRecords']>
     readonly useHead: UnwrapRef<typeof import('@vueuse/head')['useHead']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useId: UnwrapRef<typeof import('vue')['useId']>
