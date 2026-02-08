@@ -14,7 +14,7 @@
     "watch": "run-p watch:hooks watch:migrations"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.ts": [
       "eslint --fix"
     ]
   },
