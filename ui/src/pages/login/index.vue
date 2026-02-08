@@ -42,22 +42,6 @@ const isPasswordValid = computed(() => {
 const isFormSubmitted = ref(false);
 const loginError = ref(false);
 
-function getClassForInputField(booleanToCheck: boolean): string {
-    if (!booleanToCheck && isFormSubmitted.value) {
-        return "rounded-md bg-red-400/5 p-2 text-red-400 outline outline-[1.5px] outline-red-400/10 transition-all placeholder:text-red-400/50 focus:outline-red-400/20";
-    } else {
-        return "rounded-md bg-white/5 p-2 outline outline-[1.5px] outline-white/10 transition-all placeholder:text-white/50 focus:outline-white/20";
-    }
-}
-
-const usernameInputClass = computed(() => {
-    return getClassForInputField(isUsernameValid.value);
-});
-
-const passwordInputClass = computed(() => {
-    return getClassForInputField(isPasswordValid.value);
-});
-
 onMounted(() => {
     isMounted.value = true;
 });
@@ -65,7 +49,7 @@ onMounted(() => {
 async function login() {
     isFormSubmitted.value = true;
 
-    if (isUsernameValid && isPasswordValid) {
+    if (isUsernameValid.value && isPasswordValid.value) {
         isLoading.value = true;
         try {
             await pb.collection("users").authWithPassword(username.value, password.value);
@@ -125,8 +109,17 @@ async function login() {
                 >
                     <input
                         v-model="username"
-                        :class="usernameInputClass"
+                        :class="(!isUsernameValid && isFormSubmitted) ? `
+                            rounded-md bg-red-400/5 p-2 text-red-400 outline-[1.5px] outline-red-400/10 transition-all
+                            placeholder:text-red-400/50
+                            focus:outline-red-400/20
+                        ` : `
+                            rounded-md bg-white/5 p-2 outline-[1.5px] outline-white/10 transition-all
+                            placeholder:text-white/50
+                            focus:outline-white/20
+                        `"
                         :placeholder="t('form.fields.username')"
+                        autocomplete="username"
                         type="text"
                     >
 
@@ -141,8 +134,17 @@ async function login() {
 
                     <input
                         v-model="password"
-                        :class="passwordInputClass"
+                        :class="(!isPasswordValid && isFormSubmitted) ? `
+                            rounded-md bg-red-400/5 p-2 text-red-400 outline-[1.5px] outline-red-400/10 transition-all
+                            placeholder:text-red-400/50
+                            focus:outline-red-400/20
+                        ` : `
+                            rounded-md bg-white/5 p-2 outline-[1.5px] outline-white/10 transition-all
+                            placeholder:text-white/50
+                            focus:outline-white/20
+                        `"
                         :placeholder="t('form.fields.password')"
+                        autocomplete="current-password"
                         type="password"
                     >
 
