@@ -4,6 +4,7 @@ import { Icon } from "@iconify/vue";
 definePage({
     meta: {
         layout: "blank",
+        requiresNoAuth: true,
     },
 });
 

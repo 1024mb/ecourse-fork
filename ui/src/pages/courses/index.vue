@@ -1,4 +1,11 @@
 <script lang="ts" setup>
+definePage({
+    meta: {
+        layout: "blank",
+        requiresNoAuth: true,
+    },
+});
+
 const router = useRouter();
 
 router.push("/");
