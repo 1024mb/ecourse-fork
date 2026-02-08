@@ -10,6 +10,12 @@ import { Icon } from "@iconify/vue";
 import type { ListResult } from "pocketbase";
 import { type PageState, Paginator } from "primevue";
 
+definePage({
+    meta: {
+        requiresAuth: true,
+    },
+});
+
 const authStore = useAuthStore();
 const progressTypeStore = useProgressTypeStore();
 const uiStore = useUIStore();

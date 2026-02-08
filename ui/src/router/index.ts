@@ -14,6 +14,18 @@ async (
     next: NavigationGuardNext,
 ): Promise<void> => {
     await loadAndSetLocale();
+
+    const authStore = useAuthStore();
+
+    if (_to.meta.requiresAuth && authStore.currentUser == null) {
+        return next("/login");
+    }
+
+    if (_to.meta.requiresNoAuth && authStore.currentUser != null) {
+        console.log("Redirect to home");
+        return next("/");
+    }
+
     next();
 },
 );

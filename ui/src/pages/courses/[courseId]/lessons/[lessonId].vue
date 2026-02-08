@@ -8,6 +8,7 @@ definePage({
     meta: {
         layout: "sidebar",
         isCoursesVisible: false,
+        requiresAuth: true,
     },
 });
 
