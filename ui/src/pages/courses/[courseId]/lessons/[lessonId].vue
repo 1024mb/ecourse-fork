@@ -227,6 +227,7 @@ onUpdated(() => {
             active: true,
             update: true,
         },
+        iconUrl: "/plyr.svg",
     });
 });
 
