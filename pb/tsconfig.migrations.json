@@ -2,13 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "noEmit": false,
-    "allowImportingTsExtensions": false
+    "allowImportingTsExtensions": false,
+    "outDir": "./pb_migrations"
   },
   "include": [
-    "pb_hooks/**/*.ts",
+    "pb_migrations/dev/*.ts",
     "pb_data/**/*.d.ts"
   ],
-  "exclude": [
-    "pb_hooks/**/*.pb.ts"
-  ]
+  "exclude": []
 }
