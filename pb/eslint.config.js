@@ -7,7 +7,7 @@ export default defineConfig([
                                 tseslint.configs.recommended,
 
                                 {
-                                    files: ["pb_hooks/**/*.ts"],
+                                    files: ["pb_hooks/dev/*.ts", "pb_migrations/dev/*.ts"],
                                     languageOptions: {
                                         parserOptions: {
                                             project: "./tsconfig.json",
@@ -114,5 +114,9 @@ export default defineConfig([
 
                                         "@typescript-eslint/no-require-imports": "off",
                                     },
+                                    ignores: [
+                                        "pb_hooks/*.js",
+                                        "pb_migrations/*.js",
+                                    ],
                                 },
                             ]);

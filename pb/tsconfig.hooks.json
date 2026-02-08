@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "outDir": "./pb_hooks"
+  },
+  "include": [
+    "pb_hooks/dev/*.ts",
+    "pb_data/**/*.d.ts"
+  ],
+  "exclude": []
+}

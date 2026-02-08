@@ -6,8 +6,12 @@
     "lint": "eslint . --fix --cache",
     "prepare": "husky",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "build": "tsc -p tsconfig.pb.json",
-    "ts-watch": "tsc -p tsconfig.pb.json --watch"
+    "build:hooks": "tsc -p tsconfig.hooks.json",
+    "build:migrations": "tsc -p tsconfig.migrations.json",
+    "build": "run-s build:hooks build:migrations",
+    "watch:hooks": "tsc -p tsconfig.hooks.json --watch",
+    "watch:migrations": "tsc -p tsconfig.migrations.json --watch",
+    "watch": "run-p watch:hooks watch:migrations"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -19,6 +23,7 @@
     "@types/node": "^25.2.1",
     "eslint": "^9.39.2",
     "husky": "^9.1.7",
+    "npm-run-all2": "^8.0.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.54.0"
   },
