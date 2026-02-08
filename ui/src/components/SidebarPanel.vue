@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { initials } from "@dicebear/collection";
+import { createAvatar } from "@dicebear/core";
 import { Icon } from "@iconify/vue";
 
 const { isCoursesVisible = true } = defineProps<{
@@ -18,6 +20,10 @@ const windowWidth = ref(0);
 const resourcesList = ref<Resource[]>([]);
 
 resourcesList.value = await fetchAllResources();
+
+const avatar = createAvatar(initials, {
+    seed: authStore.currentUser?.username ?? "unknown",
+});
 
 const updateWidth = () => {
     windowWidth.value = window.innerWidth;
@@ -261,11 +267,11 @@ onUnmounted(() => {
             >
                 <div class="flex items-center gap-2">
                     <img
-                        :src="`https://api.dicebear.com/7.x/initials/svg?seed=${authStore.currentUser.username}&backgroundColor=${customizeData.colorMain}`"
+                        :src="avatar.toDataUri()"
                         alt="Profile avatar"
                         class="size-8 rounded-full"
                     >
-                    <div>
+                    <div class="flex flex-col">
                         <h3 class="line-clamp-1 truncate text-wrap break-all">
                             {{ authStore.currentUser.username }}
                         </h3>
