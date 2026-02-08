@@ -35,7 +35,7 @@ Get started by running the project locally, simply follow these steps:
 
    ```bash
    cd pb
-   npm install && npm run ts-watch
+   npm install && npm run watch
    ```
 
 4. Start the PocketBase server
