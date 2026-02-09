@@ -1,0 +1,23 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="pocketbase" type="ShConfigurationType">
+        <option name="defaultInterpreter" value="os"/>
+        <option name="envFiles">
+            <list>
+                <option value="$PROJECT_DIR$/pb/.env"/>
+            </list>
+        </option>
+        <option name="SCRIPT_TEXT" value="pocketbase serve --dev"/>
+        <option name="INDEPENDENT_SCRIPT_PATH" value="false"/>
+        <option name="SCRIPT_PATH" value="$PROJECT_DIR$/pb/pocketbase.exe"/>
+        <option name="SCRIPT_OPTIONS" value="serve --dev"/>
+        <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="false"/>
+        <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/pb"/>
+        <option name="INDEPENDENT_INTERPRETER_PATH" value="true"/>
+        <option name="INTERPRETER_PATH" value=""/>
+        <option name="INTERPRETER_OPTIONS" value=""/>
+        <option name="EXECUTE_SCRIPT_FILE" value="true"/>
+        <envs/>
+        <RunnerSettings bashdbVersion="Automatic" bashPathMapper="Automatic" RunnerId="pro.bashsupport.shDebugRunner"/>
+        <method v="2"/>
+    </configuration>
+</component>
