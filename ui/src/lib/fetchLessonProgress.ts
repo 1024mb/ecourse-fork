@@ -28,7 +28,7 @@ export async function fetchLessonProgress({
         },
     });
 
-    const lessonProgress = await pb.collection("progress_lesson").getFullList<LessonProgress>({
+    const lessonProgress = await pb.collection(PROGRESS_LESSON_COLLECTION).getFullList<LessonProgress>({
         sort: "created",
         filter,
     });

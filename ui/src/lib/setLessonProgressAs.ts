@@ -15,7 +15,7 @@ async function setProgressAs({ progressTypeName, courseId }: {
     courseId: string
 }): Promise<void>
 async function setProgressAs({ progressTypeName, lessonId, courseId }: SetLessonProgressAs): Promise<void> {
-    const lessonProgressCollection = pb.collection("progress_lesson");
+    const lessonProgressCollection = pb.collection(PROGRESS_LESSON_COLLECTION);
 
     const lessonsToModify: string[] = [];
 

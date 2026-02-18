@@ -9,7 +9,7 @@ export async function fetchCourses({
     filter,
     sort = "created",
 }: FetchCourses = {}): Promise<ListResult<Course>> {
-    return await pb.collection("courses").getList<Course>(
+    return await pb.collection(COURSES_COLLECTION).getList<Course>(
     page,
     3,
     {

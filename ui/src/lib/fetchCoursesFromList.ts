@@ -1,5 +1,3 @@
-import type { FetchCoursesFromList } from "@/types/dataFetching";
-
 export async function fetchCoursesFromList({
     courseIds,
     sort = "created",
@@ -10,7 +8,7 @@ export async function fetchCoursesFromList({
         },
     });
 
-    return await pb.collection("courses").getFullList<Course>(
+    return await pb.collection(COURSES_COLLECTION).getFullList<Course>(
     {
         sort,
         filter: filterRecord,
