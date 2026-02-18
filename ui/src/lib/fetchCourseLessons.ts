@@ -1,7 +1,7 @@
 export async function fetchCourseLessons({
     courseId,
     filter = {},
-    sort = "created",
+    sort = "order_index",
 }: FetchCourseLessons): Promise<Lesson[]> {
     if (courseId != null) {
         filter.course = [
