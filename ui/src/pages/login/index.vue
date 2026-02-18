@@ -52,7 +52,7 @@ async function login() {
     if (isUsernameValid.value && isPasswordValid.value) {
         isLoading.value = true;
         try {
-            await pb.collection("users").authWithPassword(username.value, password.value);
+            await pb.collection(USERS_COLLECTION).authWithPassword(username.value, password.value);
             return router.push("/");
         } catch (err) {
             console.log(err);

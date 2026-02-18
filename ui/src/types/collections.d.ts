@@ -26,24 +26,60 @@ export interface CourseNested extends BaseDetails {
 }
 
 export interface LessonFaq extends BaseDetails {
-    lesson: string[];
     question: string;
     answer: string;
-    isOpen: boolean;
 }
 
-export interface LessonFaqNested extends LessonFaq {
+export interface LessonFaqLesson extends BaseDetails {
+    lesson_faq: string;
+    lesson: string;
+    order_index: number;
+}
+
+export interface LessonFaqLessonNested extends LessonFaqLesson {
+    lesson_faq: Partial<MakeAllArray<NonNullable<LessonFaq>>>[];
     lesson: Partial<MakeAllArray<NonNullable<Lesson>>>[];
 }
 
+export interface LessonFaqLessonExpanded extends LessonFaqLesson {
+    expand: {
+        lesson_faq: LessonFaq;
+        lesson: Lesson;
+    };
+}
+
+export interface LessonFaqLessonNestedReturn extends LessonFaqLesson {
+    lesson_faq: LessonFaq;
+    lesson: Lesson;
+    isOpen: boolean;
+}
+
 export interface LessonResource extends BaseDetails {
-    lesson: string[];
     name: string;
     link: string;
 }
 
-export interface LessonResourceNested extends LessonResource {
+export interface LessonResourceLesson extends BaseDetails {
+    lesson_resource: string;
+    lesson: string;
+    order_index: number;
+}
+
+export interface LessonResourceLessonNested extends LessonResource {
+    lesson_resource: Partial<MakeAllArray<NonNullable<LessonResource>>>[];
     lesson: Partial<MakeAllArray<NonNullable<Lesson>>>[];
+}
+
+export interface LessonResourceLessonExpanded extends LessonResourceLesson {
+    expand: {
+        lesson_resource: LessonResource;
+        lesson: Lesson;
+    };
+}
+
+export interface LessonResourceLessonNestedReturn extends LessonResourceLesson {
+    lesson_resource: LessonResource;
+    lesson: Lesson;
 }
 
 export interface Lesson extends BaseDetails {
@@ -57,6 +93,7 @@ export interface Lesson extends BaseDetails {
     video: string;
     videoLocal: string;
     videoRemoteUrl: string;
+    order_index: number;
 }
 
 export interface LessonNested extends Lesson {

@@ -1,5 +1,11 @@
+import type { LessonFaqLessonNested } from "@/types/collections";
+
 interface BaseFetch {
     sort?: keyof BaseDetails;
+}
+
+interface BaseFetchWithOrderIndex {
+    sort?: keyof BaseDetails | "order_index";
 }
 
 export type LessonProgressFilter = Partial<MakeAllArray<NonNullable<LessonProgressNested>>>
@@ -16,12 +22,12 @@ export interface FetchFirstNonCompletedLesson {
 
 export type LessonFilter = Partial<MakeAllArray<NonNullable<LessonNested>>>
 
-export interface FetchCourseLessons extends BaseFetch {
+export interface FetchCourseLessons extends BaseFetchWithOrderIndex {
     courseId?: string;
     filter?: LessonFilter;
 }
 
-export interface FetchLessons extends BaseFetch {
+export interface FetchLessons extends BaseFetchWithOrderIndex {
     filter?: LessonFilter;
 }
 
@@ -47,17 +53,17 @@ export interface FetchCourseProgress extends BaseFetch {
     progressTypeRecords: ProgressType[];
 }
 
-export type LessonFaqsFilter = Partial<MakeAllArray<NonNullable<LessonFaqNested>>>
+export type LessonFaqsFilter = Partial<MakeAllArray<NonNullable<LessonFaqLessonNested>>>
 
-export interface FetchLessonFaqs extends BaseFetch {
+export interface FetchLessonFaqs extends BaseFetchWithOrderIndex {
     filter?: LessonFaqsFilter;
     lessons: Lesson[];
 }
 
-export type LessonResourceFilter = Partial<MakeAllArray<NonNullable<LessonResourceNested>>>
+export type LessonResourceFilter = Partial<MakeAllArray<NonNullable<LessonResourceLessonNested>>>
 
-export interface FetchLessonResource extends BaseFetch {
-    filter?: LessonFaqsFilter;
+export interface FetchLessonResources extends BaseFetchWithOrderIndex {
+    filter?: LessonResourceFilter;
     lessons: Lesson[];
 }
 

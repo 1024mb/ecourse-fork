@@ -1,5 +1,3 @@
-import { ensureProgressTypes } from "@/lib/utils";
-
 /*
 Returns the ID of the first non-completed lesson from the specified course or null if none available
  */

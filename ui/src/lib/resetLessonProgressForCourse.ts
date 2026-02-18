@@ -14,7 +14,7 @@ export async function resetLessonProgressForCourse({ courseId }: {
             continue;
         }
 
-        await pb.collection("progress_lesson").create<LessonProgress>({
+        await pb.collection(PROGRESS_LESSON_COLLECTION).create<LessonProgress>({
             lesson: lesson.id,
             status: notStartedId,
             user: pb.authStore.record?.id,
@@ -22,7 +22,7 @@ export async function resetLessonProgressForCourse({ courseId }: {
     }
 
     for (const lesson of lessonProgress) {
-        await pb.collection("progress_lesson").update<LessonProgress>(lesson.id, {
+        await pb.collection(PROGRESS_LESSON_COLLECTION).update<LessonProgress>(lesson.id, {
             status: notStartedId,
         });
     }

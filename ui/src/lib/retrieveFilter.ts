@@ -22,17 +22,11 @@ export function retrieveFilter<T>({ filter, filterIsInclude = false }: RetrieveF
         return undefined;
     }
 
-    let operator = "=";
-    let operatorArray = "?=";
-
-    if (filterIsInclude) {
-        operator = "~";
-        operatorArray = "?~";
-    }
+    const operator = filterIsInclude ? "~" : "=";
+    const operatorArray = filterIsInclude ? "?~" : "?=";
 
     let courseFilter = "";
     let firstFilterApplied = false;
-
 
     for (const columnName in filter) {
         if (!Object.prototype.hasOwnProperty.call(filter, columnName)) {

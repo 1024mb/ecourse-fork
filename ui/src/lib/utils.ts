@@ -1,5 +1,4 @@
 import { getI18n } from "@/i18n";
-import { fetchProgressTypes } from "@/lib/fetchProgressTypes";
 import DOMPurify from "dompurify";
 import slugify from "slugify";
 import { toast } from "vue-sonner";
@@ -21,7 +20,7 @@ export async function updateCourseProgressStatus({ courseProgressId, newStatusNa
             return false;
         }
 
-        await pb.collection("progress").update<CourseProgress>(courseProgressId, {
+        await pb.collection(PROGRESS_COLLECTION).update<CourseProgress>(courseProgressId, {
             status: progressType.id,
         });
 

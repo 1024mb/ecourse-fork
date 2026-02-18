@@ -1,6 +1,3 @@
-import type { CourseProgressStored } from "@/types/collections";
-import type { FetchCourseProgress } from "@/types/dataFetching";
-
 export async function fetchCourseProgress({
     progressTypeRecords,
     filter,
@@ -12,7 +9,7 @@ export async function fetchCourseProgress({
         progressFilter = retrieveFilter<CourseProgressNested>({ filter });
     }
 
-    const progressRecords = await pb.collection("progress").getFullList<CourseProgress>({
+    const progressRecords = await pb.collection(PROGRESS_COLLECTION).getFullList<CourseProgress>({
         sort,
         filter: progressFilter,
     });

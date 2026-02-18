@@ -1,7 +1,7 @@
 export async function fetchCourseLessons({
     courseId,
     filter = {},
-    sort = "created",
+    sort = "order_index",
 }: FetchCourseLessons): Promise<Lesson[]> {
     if (courseId != null) {
         filter.course = [
@@ -15,7 +15,7 @@ export async function fetchCourseLessons({
         filter,
     });
 
-    return await pb.collection("lessons").getFullList<Lesson>({
+    return await pb.collection(LESSONS_COLLECTION).getFullList<Lesson>({
         filter: courseFilter,
         sort,
     });

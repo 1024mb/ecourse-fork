@@ -258,6 +258,20 @@ vueTsConfigs.recommended,
         ],
 
         "space-infix-ops": "error",
+
+        "no-multiple-empty-lines": [
+            "error",
+            { max: 1, maxEOF: 1 },
+        ],
+
+        "@typescript-eslint/no-unused-vars": [
+            "error",
+            {
+                argsIgnorePattern: "^_",
+                varsIgnorePattern: "^_",
+                caughtErrorsIgnorePattern: "^_",
+            },
+        ],
     },
 },
 {
