@@ -6,7 +6,22 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const COURSES_COLLECTION: typeof import('./lib/constants').COURSES_COLLECTION
   const EffectScope: typeof import('vue').EffectScope
+  const LESSONS_COLLECTION: typeof import('./lib/constants').LESSONS_COLLECTION
+  const LESSON_FAQS_COLLECTION: typeof import('./lib/constants').LESSON_FAQS_COLLECTION
+  const LESSON_FAQS_LESSONS: typeof import('./lib/constants').LESSON_FAQS_LESSONS
+  const LESSON_FAQS_LESSONS_COLLECTION: typeof import('./lib/constants').LESSON_FAQS_LESSONS_COLLECTION
+  const LESSON_FAQS_LESSONS_COLLETION: typeof import('./lib/constants').LESSON_FAQS_LESSONS_COLLETION
+  const LESSON_FAQS_VIEW_COLLECTION: typeof import('./lib/constants').LESSON_FAQS_VIEW_COLLECTION
+  const LESSON_RESOURCES_COLLECTION: typeof import('./lib/constants').LESSON_RESOURCES_COLLECTION
+  const LESSON_RESOURCES_LESSONS_COLLECTION: typeof import('./lib/constants').LESSON_RESOURCES_LESSONS_COLLECTION
+  const LESSON_RESOURCES_VIEW_COLLECTION: typeof import('./lib/constants').LESSON_RESOURCES_VIEW_COLLECTION
+  const PROGRESS_COLLECTION: typeof import('./lib/constants').PROGRESS_COLLECTION
+  const PROGRESS_LESSON_COLLECTION: typeof import('./lib/constants').PROGRESS_LESSON_COLLECTION
+  const PROGRESS_TYPE_COLLECTION: typeof import('./lib/constants').PROGRESS_TYPE_COLLECTION
+  const RESOURCES_COLLECTION: typeof import('./lib/constants').RESOURCES_COLLECTION
+  const USERS_COLLECTION: typeof import('./lib/constants').USERS_COLLECTION
   const acceptHMRUpdate: typeof import('pinia').acceptHMRUpdate
   const cleanFileName: typeof import('./lib/utils').cleanFileName
   const computed: typeof import('vue').computed
@@ -146,10 +161,10 @@ declare global {
   export type { RetrieveFilterParams } from './lib/retrieveFilter'
   import('./lib/retrieveFilter')
   // @ts-ignore
-  export type { BaseDetails, User, Course, CourseNested, LessonFaq, LessonFaqNested, LessonResource, LessonResourceNested, Lesson, LessonNested, Status, ProgressType, CourseProgress, CourseProgressNested, CourseProgressStored, Resource, LessonProgress, LessonProgressNested } from './types/collections.d'
+  export type { BaseDetails, User, Course, CourseNested, LessonFaq, LessonFaqLesson, LessonFaqLessonNested, LessonFaqLessonExpanded, LessonFaqLessonNestedReturn, LessonResource, LessonResourceLesson, LessonResourceLessonNested, LessonResourceLessonExpanded, LessonResourceLessonNestedReturn, Lesson, LessonNested, Status, ProgressType, CourseProgress, CourseProgressNested, CourseProgressStored, Resource, LessonProgress, LessonProgressNested } from './types/collections.d'
   import('./types/collections.d')
   // @ts-ignore
-  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, FetchLessons, CourseFilter, FetchCourses, FetchCoursesFromList, FetchAllCourses, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResource, ResourceFilter, FetchAllResources } from './types/dataFetching.d'
+  export type { LessonProgressFilter, FetchLessonProgress, FetchFirstNonCompletedLesson, LessonFilter, FetchCourseLessons, FetchLessons, CourseFilter, FetchCourses, FetchCoursesFromList, FetchAllCourses, CourseProgressFilter, FetchCourseProgress, LessonFaqsFilter, FetchLessonFaqs, LessonResourceFilter, FetchLessonResources, ResourceFilter, FetchAllResources } from './types/dataFetching.d'
   import('./types/dataFetching.d')
   // @ts-ignore
   export type { Locales } from './types/locales.d'
@@ -161,7 +176,18 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly COURSES_COLLECTION: UnwrapRef<typeof import('./lib/constants')['COURSES_COLLECTION']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly LESSONS_COLLECTION: UnwrapRef<typeof import('./lib/constants')['LESSONS_COLLECTION']>
+    readonly LESSON_FAQS_COLLECTION: UnwrapRef<typeof import('./lib/constants')['LESSON_FAQS_COLLECTION']>
+    readonly LESSON_FAQS_LESSONS_COLLECTION: UnwrapRef<typeof import('./lib/constants')['LESSON_FAQS_LESSONS_COLLECTION']>
+    readonly LESSON_RESOURCES_COLLECTION: UnwrapRef<typeof import('./lib/constants')['LESSON_RESOURCES_COLLECTION']>
+    readonly LESSON_RESOURCES_LESSONS_COLLECTION: UnwrapRef<typeof import('./lib/constants')['LESSON_RESOURCES_LESSONS_COLLECTION']>
+    readonly PROGRESS_COLLECTION: UnwrapRef<typeof import('./lib/constants')['PROGRESS_COLLECTION']>
+    readonly PROGRESS_LESSON_COLLECTION: UnwrapRef<typeof import('./lib/constants')['PROGRESS_LESSON_COLLECTION']>
+    readonly PROGRESS_TYPE_COLLECTION: UnwrapRef<typeof import('./lib/constants')['PROGRESS_TYPE_COLLECTION']>
+    readonly RESOURCES_COLLECTION: UnwrapRef<typeof import('./lib/constants')['RESOURCES_COLLECTION']>
+    readonly USERS_COLLECTION: UnwrapRef<typeof import('./lib/constants')['USERS_COLLECTION']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly cleanFileName: UnwrapRef<typeof import('./lib/utils')['cleanFileName']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>

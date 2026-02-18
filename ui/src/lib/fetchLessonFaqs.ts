@@ -1,9 +1,9 @@
 export async function fetchLessonFaqs({
     lessons,
     filter = {},
-    sort = "created",
-}: FetchLessonFaqs): Promise<LessonFaq[]> {
-    const recordFilter = retrieveFilter<LessonFaqNested>({
+    sort = "order_index",
+}: FetchLessonFaqs): Promise<LessonFaqLessonNestedReturn[]> {
+    const recordFilter = retrieveFilter<LessonFaqLessonNested>({
         filter: {
             ...filter,
             lesson: [
@@ -16,13 +16,29 @@ export async function fetchLessonFaqs({
         },
     });
 
-    const lessonFaqs = await pb.collection("lesson_faqs").getFullList<LessonFaq>({
-        sort,
-        filter: recordFilter,
-    });
+    const lessonFaqsLessons = await pb.collection(LESSON_FAQS_LESSONS_COLLECTION)
+        .getList<LessonFaqLessonExpanded>(1, 30, {
+            sort,
+            filter: recordFilter,
+            expand: "lesson_faq,lesson",
+        });
 
-    return lessonFaqs.map((lessonFaq) => ({
-        ...lessonFaq,
-        isOpen: false,
-    }));
+    const result: LessonFaqLessonNestedReturn[] = [];
+
+    for (const lessonFaqLesson of lessonFaqsLessons.items) {
+        const nestedData = {
+            lesson: lessonFaqLesson.expand.lesson,
+            lesson_faq: lessonFaqLesson.expand.lesson_faq,
+        };
+
+        const { expand: _, ...rest } = lessonFaqLesson;
+
+        result.push({
+            ...rest,
+            ...nestedData,
+            isOpen: false,
+        });
+    }
+
+    return result;
 }

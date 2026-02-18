@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import NotFound from "@/components/NotFound.vue";
+import type { LessonResourceLessonNestedReturn } from "@/types/collections";
 import { Icon } from "@iconify/vue";
 import Plyr from "plyr";
 import { toast } from "vue-sonner";
@@ -21,15 +22,14 @@ const progressTypeStore = useProgressTypeStore();
 
 const lessonsList = ref<Lesson[]>([]);
 const progressList = ref<CourseProgressStored[]>([]);
-const lessonFaqList = ref<LessonFaq[]>([]);
-const lessonResourceList = ref<LessonResource[]>([]);
+const lessonFaqList = ref<LessonFaqLessonNestedReturn[]>([]);
+const lessonResourceList = ref<LessonResourceLessonNestedReturn[]>([]);
 
 const lessonNotFound = ref(false);
 
 uiStore.isLoading = true;
 
 const { t } = useI18n();
-
 
 const { courseId, lessonId } = route.params;
 
@@ -188,11 +188,7 @@ async function loadData() {
 
             lessonsList.value = await fetchCourseLessons({
                 filter: {
-                    course: [
-                        {
-                            id: [courseId],
-                        },
-                    ],
+                    id: [lessonId],
                 },
             });
 
@@ -209,7 +205,9 @@ async function loadData() {
                 },
             });
 
-            lessonFaqList.value = await fetchLessonFaqs({ lessons: lessonsList.value });
+            lessonFaqList.value = await fetchLessonFaqs({
+                lessons: lessonsList.value,
+            });
 
             lessonResourceList.value = await fetchLessonResources({ lessons: lessonsList.value });
         } finally {
@@ -550,7 +548,6 @@ onUnmounted(() => {
                             :key="faq.id"
                         >
                             <button
-                                v-if="faq.lesson.includes(lesson.id)"
                                 class="
                                     cursor-pointer space-y-2 self-start rounded-md bg-white/10 p-2 outline-[1.5px]
                                     outline-white/20 transition
@@ -564,7 +561,7 @@ onUnmounted(() => {
                                             'text-base text-wrap wrap-anywhere' :
                                             'line-clamp-1 text-base'"
                                     >
-                                        {{ faq.question }}
+                                        {{ faq.lesson_faq.question }}
                                     </span>
                                     <Icon
                                         :class="faq.isOpen ? 'shrink-0 rotate-45 transition' : `shrink-0 transition`"
@@ -576,7 +573,7 @@ onUnmounted(() => {
                                         v-if="faq.isOpen"
                                         class="text-start text-white/60"
                                     >
-                                        {{ faq.answer }}
+                                        {{ faq.lesson_faq.answer }}
                                     </p>
                                 </Transition>
                             </button>
@@ -598,7 +595,7 @@ onUnmounted(() => {
                             :key="resource.id"
                         >
                             <a
-                                :href="resource.link"
+                                :href="resource.lesson_resource.link"
                                 class="
                                     block rounded-md bg-white/10 p-2 outline-[1.5px] outline-white/20 transition
                                     hover:bg-white/20
@@ -607,7 +604,7 @@ onUnmounted(() => {
                             >
                                 <div class="flex items-center justify-between gap-2">
                                     <h3 class="line-clamp-1">
-                                        {{ resource.name }}
+                                        {{ resource.lesson_resource.name }}
                                     </h3>
                                     <Icon
                                         class="shrink-0"
