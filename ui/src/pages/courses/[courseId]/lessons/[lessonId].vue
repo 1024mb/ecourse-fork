@@ -288,9 +288,9 @@ onUnmounted(() => {
             v-if="lesson.id === lessonId"
             :class="lessonFaqList.length > 0
                 || lessonResourceList.length > 0
-                || lesson.downloads.length > 0 ? `
-                    flex flex-1 flex-col justify-between gap-5 overflow-y-auto bg-dark p-5
-                ` : `flex flex-1 flex-col justify-between overflow-y-auto bg-dark p-5`"
+                || lesson.downloads.length > 0 ?
+                    `flex flex-1 flex-col gap-5 overflow-y-auto bg-dark p-5` :
+                    `flex flex-1 flex-col overflow-y-auto bg-dark p-5`"
         >
             <div class="flex flex-col space-y-5">
                 <button
@@ -409,7 +409,10 @@ onUnmounted(() => {
                     </div>
                 </div>
 
-                <div class="flex h-[50vh] justify-center">
+                <div
+                    v-if="lesson.video != '' || lesson.videoLocal != '' || lesson.videoRemoteUrl != ''"
+                    class="flex h-[50vh] justify-center"
+                >
                     <video
                         v-if="lesson.video != ''"
                         id="lessonVideo"
