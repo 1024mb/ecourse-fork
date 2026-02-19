@@ -19,9 +19,9 @@ migrate((app) => {
     }
 }, (app) => {
     app.db()
-       .newQuery(`
-           DELETE
-           FROM lesson_faqs_lessons
-       `)
-       .execute();
+        .newQuery(`
+        DELETE
+        FROM lesson_faqs_lessons
+    `)
+        .execute();
 });

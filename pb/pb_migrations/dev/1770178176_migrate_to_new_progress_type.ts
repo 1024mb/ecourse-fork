@@ -4,9 +4,9 @@ migrate((app) => {
 
     const progressTypeCollection = app.findCollectionByNameOrId("progress_type");
     const recordInProgress = app.findFirstRecordByData(progressTypeCollection, "type_name", "in_progress")
-    .getString("id");
+        .getString("id");
     const recordNotStarted = app.findFirstRecordByData(progressTypeCollection, "type_name", "not_started")
-    .getString("id");
+        .getString("id");
     const recordCompleted = app.findFirstRecordByData(progressTypeCollection, "type_name", "completed").getString("id");
 
     for (const progressItem of progressRecords) {

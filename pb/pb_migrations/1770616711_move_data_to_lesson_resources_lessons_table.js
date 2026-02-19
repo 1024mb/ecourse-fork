@@ -9,12 +9,12 @@ migrate((app) => {
     };
     const result = arrayOf(new DynamicModel(resource));
     app.db()
-       .newQuery(`
-           SELECT id, created, updated, lesson
-           FROM lesson_resources
-           ORDER BY created, updated
-       `)
-       .all(result);
+        .newQuery(`
+        SELECT id, created, updated, lesson
+        FROM lesson_resources
+        ORDER BY created, updated
+    `)
+        .all(result);
     const indexOrderRelation = {};
     for (const resource of result) {
         const lessons = resource.lesson;
@@ -31,9 +31,9 @@ migrate((app) => {
     }
 }, (app) => {
     app.db()
-       .newQuery(`
-           DELETE
-           FROM lesson_resources_lessons
-       `)
-       .execute();
+        .newQuery(`
+        DELETE
+        FROM lesson_resources_lessons
+    `)
+        .execute();
 });
